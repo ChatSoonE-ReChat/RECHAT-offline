@@ -28,6 +28,7 @@ import kotlin.collections.ArrayList
 class ChatRVAdapter(private val mContext: ChatActivity, private val size: Point, private val mItemClickListener: MyItemClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var chatList = ArrayList<ChatList>()
     var selectedItemList: SparseBooleanArray = SparseBooleanArray(0)
+
     private val tag = "RV/CHAT"
 
     // 클릭 인터페이스
@@ -134,23 +135,26 @@ class ChatRVAdapter(private val mContext: ChatActivity, private val size: Point,
 
         notifyDataSetChanged()
     }
+
     // selectedItemList 삭제
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("NotifyDataSetChanged")
     fun removeSelectedItemList():ChatList? {
-        var database=AppDatabase.getInstance(mContext)!!
+        val database = AppDatabase.getInstance(mContext)!!
         val selectedList = chatList.filter{ chatlist-> chatlist.isChecked as Boolean }
-        chatList =chatList.filter{chatlist->!chatlist.isChecked} as ArrayList<ChatList>
+
+        chatList = chatList.filter{chatlist->!chatlist.isChecked} as ArrayList<ChatList>
+
         // DB 업데이트
         for(i in selectedList){
             database.chatDao().deleteByChatIdx(i.chatIdx)
             Log.d("chatDataCheckLiveData", "deletedItem: ${i.chatIdx}")
         }
-        if(chatList.isNotEmpty())
-            return chatList[0]
-        else
-            return null
+
         notifyDataSetChanged()
+
+        return if(chatList.isNotEmpty()) chatList[0]
+        else null
     }
 
     // will toggle the selection of items
@@ -228,7 +232,7 @@ class ChatRVAdapter(private val mContext: ChatActivity, private val size: Point,
 
     // 디폴트 뷰홀더
     inner class DefaultViewHolder(private val binding: ItemChatBinding): RecyclerView.ViewHolder(binding.root) {
-        init {
+//        init {
 //            binding.itemChatDefaultMessageTv.setOnLongClickListener {
 //                Log.d(tag, "absoluteAdapterPosition: $absoluteAdapterPosition")
 //                Log.d(tag, "bindingAdapterPosition: $bindingAdapterPosition")
@@ -238,7 +242,7 @@ class ChatRVAdapter(private val mContext: ChatActivity, private val size: Point,
 //                mItemClickListener.onDefaultChatLongClick(binding, chatList[absoluteAdapterPosition].chatIdx)
 //                return@setOnLongClickListener false
 //            }
-        }
+//        }
 
         @SuppressLint("SimpleDateFormat")
         @RequiresApi(Build.VERSION_CODES.O)
@@ -254,7 +258,10 @@ class ChatRVAdapter(private val mContext: ChatActivity, private val size: Point,
             binding.itemChatDefaultDateTimeTv.text = convertDateAtDefault(binding, chat.postTime)
             binding.itemChatDefaultProfileIv.setImageBitmap(loadBitmap(chat.profileImg!!, mContext))
 
-            if(bindingAdapterPosition != (chatList.size - 1) && isNextDay(chat.postTime, bindingAdapterPosition)) {
+            if(bindingAdapterPosition == chatList.size - 1) {
+                binding.itemChatDefaultNewDateTimeLayout.visibility = View.VISIBLE
+                binding.itemChatDefaultNewDateTimeTv.text = setNewDate(chat.postTime)
+            } else if(bindingAdapterPosition != (chatList.size - 1) && isNextDay(chat.postTime, bindingAdapterPosition)) {
                 // 다음 날로 날짜가 바뀐 경우
                 // 혹은 날짜가 1일 이상 차이날 때
                 binding.itemChatDefaultNewDateTimeLayout.visibility = View.VISIBLE
@@ -270,7 +277,7 @@ class ChatRVAdapter(private val mContext: ChatActivity, private val size: Point,
     inner class ChooseViewHolder(private val binding: ItemChatChooseBinding, private val mItemClickListener: MyItemClickListener)
         : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.itemChatChooseMessageTv.setOnClickListener {
+            binding.itemChatChooseLayout.setOnClickListener {
                 Log.d(tag, "bindingAdapterPosition: $bindingAdapterPosition")
                 toggleItemSelected(itemView, position = bindingAdapterPosition)
                 Log.d(tag, "selectedItemList: $selectedItemList")
@@ -298,7 +305,10 @@ class ChatRVAdapter(private val mContext: ChatActivity, private val size: Point,
             binding.itemChatChooseDateTimeTv.text = convertDateAtChoose(binding, chat.postTime)
             binding.itemChatChooseProfileIv.setImageBitmap(loadBitmap(chat.profileImg!!, mContext))
 
-            if(bindingAdapterPosition != (chatList.size - 1) && isNextDay(chat.postTime, bindingAdapterPosition)) {
+            if(bindingAdapterPosition == chatList.size - 1) {
+                binding.itemChatChooseNewDateTimeLayout.visibility = View.VISIBLE
+                binding.itemChatChooseNewDateTimeTv.text = setNewDate(chat.postTime)
+            } else if(bindingAdapterPosition != (chatList.size - 1) && isNextDay(chat.postTime, bindingAdapterPosition)) {
                 // 다음 날로 날짜가 바뀐 경우
                 // 혹은 날짜가 1일 이상 차이날 때
                 binding.itemChatChooseNewDateTimeLayout.visibility = View.VISIBLE
@@ -364,7 +374,7 @@ class ChatRVAdapter(private val mContext: ChatActivity, private val size: Point,
             // DateTimeFormatter을 사용합시다. 아! Date를 LocalDate로도 바꿔야합니다!
             // val time_formatter=DateTimeFormatter.ofPattern("MM월 dd일")
             // date.format(time_formatter)
-            val time = SimpleDateFormat("M월 d일")
+            val time = SimpleDateFormat("a h:mm")
             str = time.format(dateAsDate).toString()
         }
         return str

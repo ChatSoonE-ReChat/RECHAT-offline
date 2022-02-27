@@ -43,6 +43,5 @@ interface FolderContentDao {
             "          FROM ChatTable C INNER JOIN OtherUserTable OU on C.otherUserIdx = OU.otherUserIdx INNER JOIN FolderContentTable FC on C.chatIdx = FC.chatIdx INNER JOIN FolderTable FI on FC.folderIdx = FI.idx\n" +
             "          WHERE OU.kakaoUserIdx = :userIdx AND FC.folderIdx = :folderIdx \n" +
             "          ORDER BY C.postTime DESC;")
-    fun getFolderChat(userIdx:Long, folderIdx:Int):LiveData<List<com.chat_soon_e.re_chat.data.remote.chat.FolderContent>>
-
+    fun getFolderChat(userIdx:Long, folderIdx:Int):LiveData<List<com.chat_soon_e.re_chat.data.remote.FolderContent>>
 }

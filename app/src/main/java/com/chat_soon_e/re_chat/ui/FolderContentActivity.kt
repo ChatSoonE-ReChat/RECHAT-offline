@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.PopupMenu
-import com.chat_soon_e.re_chat.data.entities.Chat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.chat_soon_e.re_chat.data.entities.Folder
 import com.chat_soon_e.re_chat.data.local.AppDatabase
 import com.chat_soon_e.re_chat.databinding.ActivityFolderContentBinding
@@ -16,12 +16,13 @@ import com.google.gson.Gson
 class FolderContentActivity: BaseActivity<ActivityFolderContentBinding>(ActivityFolderContentBinding::inflate) {
     private lateinit var database: AppDatabase
     private lateinit var folderContentRVAdapter: FolderContentRVAdapter
+
     lateinit var folderInfo: Folder
     private val userID = getID()
     private val tag = "ACT/FOLDER-CONTENT"
 
     override fun initAfterBinding() {
-        Log.d("AlluserIDCheck", "onChatAct $userID")
+        Log.d(tag, "initAfterBinding()/userID: $userID")
 
         initData()
         initRecyclerView()
@@ -40,14 +41,16 @@ class FolderContentActivity: BaseActivity<ActivityFolderContentBinding>(Activity
             Log.d(tag, "data: $folderInfo")
         }
     }
-    //해당 폴더를 눌렀을떄 요기로 오게 된다
-//
+
     // RecyclerView 초기화
     private fun initRecyclerView() {
         // 휴대폰 윈도우 사이즈를 가져온다.
         val size = windowManager.currentWindowMetricsPointCompat()
-
         database = AppDatabase.getInstance(this)!!
+
+        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+        linearLayoutManager.stackFromEnd = true
+        binding.folderContentRecyclerView.layoutManager = linearLayoutManager
 
         // FolderContent 데이터를 RecyclerView 어댑터와 연결
         // userID: kakaoUserIdx, folderInfo.idx: folder index

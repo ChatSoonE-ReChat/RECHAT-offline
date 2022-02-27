@@ -2,19 +2,13 @@ package com.chat_soon_e.re_chat.ui
 
 import android.annotation.SuppressLint
 import android.os.Build
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.chat_soon_e.re_chat.ApplicationClass
 import com.chat_soon_e.re_chat.ApplicationClass.Companion.loadBitmap
-import com.chat_soon_e.re_chat.R
-import com.chat_soon_e.re_chat.data.entities.ChatList
-import com.chat_soon_e.re_chat.data.remote.chat.BlockedChatList
+import com.chat_soon_e.re_chat.data.entities.BlockedChatList
 import com.chat_soon_e.re_chat.databinding.ItemBlockBinding
-import com.chat_soon_e.re_chat.databinding.ItemChatBinding
 
 class BlockListRVAdapter(
     private val mContext: BlockListActivity,
@@ -22,6 +16,8 @@ class BlockListRVAdapter(
     private val param: BlockListRVAdapter.MyClickListener
 ): RecyclerView.Adapter<BlockListRVAdapter.ViewHolder>() {
     var chatList = ArrayList<BlockedChatList>()
+    private val tag = "RV/BLOCK-LIST"
+
     interface MyClickListener {
         fun onRemoveChat(blockList:BlockedChatList)
     }
@@ -37,12 +33,12 @@ class BlockListRVAdapter(
     }
 
     override fun getItemCount(): Int = blockList.size
-    //AddData
+
+    // Add Data
     @SuppressLint("NotifyDataSetChanged")
     fun addItem(block: List<BlockedChatList>){//차단 목록 업데이트
         blockList.clear()
         blockList.addAll(block as ArrayList)
-
         notifyDataSetChanged()
     }
 
@@ -60,14 +56,11 @@ class BlockListRVAdapter(
                 param.onRemoveChat(blockList[position])
                 removeBlock(position)
             }
-            if(block.groupName!=null&&block.groupName!="null")
-                binding.itemBlockNameTv.text=block.groupName
-            else
-                binding.itemBlockNameTv.text=block.blockedName
 
-            if(block.blockedProfileImg!=null&&block.blockedProfileImg!="null")
-                binding.itemBlockProfileIv.setImageBitmap(loadBitmap(block.blockedProfileImg, mContext))
+            if(block.groupName != null && block.groupName != "null") binding.itemBlockNameTv.text=block.groupName
+            else binding.itemBlockNameTv.text=block.blockedName
 
+            if(block.blockedProfileImg != null && block.blockedProfileImg != "null") binding.itemBlockProfileIv.setImageBitmap(loadBitmap(block.blockedProfileImg, mContext))
         }
     }
 }

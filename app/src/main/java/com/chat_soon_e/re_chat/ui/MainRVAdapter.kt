@@ -26,6 +26,7 @@ class MainRVAdapter(private val context: Context, private val mItemClickListener
     var chatList = ArrayList<ChatList>()
     var selectedItemList: SparseBooleanArray = SparseBooleanArray(0)
     var database = AppDatabase.getInstance(context)!!
+
     private val userID = getID()
     private val tag = "RV/MAIN"
 
@@ -78,9 +79,10 @@ class MainRVAdapter(private val context: Context, private val mItemClickListener
     @SuppressLint("NotifyDataSetChanged")
     fun removeSelectedItemList() {
         // checked 안 된 것들로 교체해서 Activity에는 선택 안 된 것들만 남게 한다.
-        //val newChatList = chatList.filter { chatList -> !(chatList.isChecked as Boolean) }
+        // val newChatList = chatList.filter { chatList -> !(chatList.isChecked as Boolean) }
         val selectedList = chatList.filter{ chatlist-> chatlist.isChecked as Boolean }
-        //chatList = newChatList as ArrayList<ChatList>
+
+        // chatList = newChatList as ArrayList<ChatList>
         // DB 업데이트
         for(i in selectedList) {
             if(i.groupName=="null"){   // 개인톡일 경우
@@ -97,12 +99,12 @@ class MainRVAdapter(private val context: Context, private val mItemClickListener
     @SuppressLint("NotifyDataSetChanged")
     fun blockSelectedItemList() {
         // checked 안 된 것들로 교체해서 Activity에는 선택 안 된 것들만 남게 한다.
-        //val newChatList = chatList.filter { chatList -> !(chatList.isChecked as Boolean) }
+        // val newChatList = chatList.filter { chatList -> !(chatList.isChecked as Boolean) }
         val selectedList = chatList.filter{ chatlist-> chatlist.isChecked as Boolean }
-        //chatList = newChatList as ArrayList<ChatList>
+        // chatList = newChatList as ArrayList<ChatList>
         // DB 업데이트
         for(i in selectedList) {
-            if(i.groupName=="null"||i.groupName==null){   // 개인톡일 경우
+            if(i.groupName == "null" || i.groupName == null) {   // 개인톡일 경우
                 i.nickName?.let { database.chatDao().blockOneChat(userID, it) }
             }
             else{   // 단체 톡일 경우 chatName인 것들 다 삭제
@@ -176,10 +178,9 @@ class MainRVAdapter(private val context: Context, private val mItemClickListener
         notifyDataSetChanged()
     }
 
-    //선택된 chatIdx를 가져온다.
-    fun getSelectedItem():ArrayList<ChatList>{
-        //chatlist에서 checked 된 list들의 chatIdx를 저장하고 가져온다
-        val TG="removeList"
+    // 선택된 chatIdx를 가져온다.
+    fun getSelectedItem():ArrayList<ChatList> {
+        // chatlist에서 checked 된 list들의 chatIdx를 저장하고 가져온다
         val selectedList = chatList.filter { chatlist-> chatlist.isChecked}
         return selectedList as ArrayList<ChatList>
     }
@@ -196,11 +197,12 @@ class MainRVAdapter(private val context: Context, private val mItemClickListener
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(chat: ChatList) {
             if(chat.profileImg != null && chat.profileImg!!.isNotEmpty() && chat.groupName != null ) binding.itemChatListProfileIv.setImageBitmap(loadBitmap(chat.profileImg!!, context))
-            else if(chat.groupName !=null || chat.groupName!="null") binding.itemChatListProfileIv.setImageResource(R.drawable.ic_profile_black_no_circle)
+            else if(chat.groupName != null || chat.groupName != "null") binding.itemChatListProfileIv.setImageResource(R.drawable.ic_profile_black_no_circle)
 
             binding.itemChatListNameTv.text = chat.nickName
             binding.itemChatListContentTv.text = chat.message
             binding.itemChatListDateTimeTv.text = convertDate(chat.postTime)
+//            binding.itemChatListDateTimeTv.text = chat.latestTime?.let { convertDate(it) }
 
             Log.d(tag, "bind()/isNew: ${chat.isNew}")
 
@@ -225,10 +227,11 @@ class MainRVAdapter(private val context: Context, private val mItemClickListener
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(chat: ChatList) {
             if(chat.profileImg != null && chat.profileImg!!.isNotEmpty() && chat.groupName != null ) binding.itemChatListProfileIv.setImageBitmap(loadBitmap(chat.profileImg!!, context))
-            else if(chat.groupName !=null || chat.groupName!="null") binding.itemChatListProfileIv.setImageResource(R.drawable.ic_profile_black_no_circle)
+            else if(chat.groupName != null || chat.groupName != "null") binding.itemChatListProfileIv.setImageResource(R.drawable.ic_profile_black_no_circle)
             binding.itemChatListNameTv.text = chat.nickName
             binding.itemChatListContentTv.text = chat.message
             binding.itemChatListDateTimeTv.text = convertDate(chat.postTime)
+//            binding.itemChatListDateTimeTv.text = chat.latestTime?.let { convertDate(it) }
         }
     }
 

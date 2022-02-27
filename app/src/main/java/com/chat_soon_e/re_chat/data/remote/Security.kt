@@ -1,4 +1,4 @@
-package com.chat_soon_e.re_chat.data.remote.auth
+package com.chat_soon_e.re_chat.data.remote
 
 import androidx.security.crypto.MasterKeys
 

@@ -12,8 +12,8 @@ import com.chat_soon_e.re_chat.data.entities.Folder
 import com.chat_soon_e.re_chat.databinding.ItemHiddenFolderBinding
 
 class HiddenFolderRVAdapter(private val mContext: HiddenFolderActivity): RecyclerView.Adapter<HiddenFolderRVAdapter.ViewHolder>() {
-    private var currentPosition: Int = 0
     private val hiddenFolderList = ArrayList<Folder>()
+    private val tag = "RV/HIDDEN-FOLDER"
 
     private lateinit var popupMenu: PopupMenu
     private lateinit var itemHiddenFolderBinding: ItemHiddenFolderBinding
@@ -120,11 +120,8 @@ class HiddenFolderRVAdapter(private val mContext: HiddenFolderActivity): Recycle
     // 뷰홀더
     inner class ViewHolder(val itemHiddenFolderBinding: ItemHiddenFolderBinding): RecyclerView.ViewHolder(itemHiddenFolderBinding.root) {
         fun bind(folder: Folder) {
-            currentPosition = bindingAdapterPosition
             itemHiddenFolderBinding.itemHiddenFolderTv.text = folder.folderName
             itemHiddenFolderBinding.itemHiddenFolderIv.setImageResource(folder.folderImg!!)
-//            if(folder.folderImg != null) itemHiddenFolderBinding.itemHiddenFolderIv.setImageBitmap(loadBitmap(folder.folderImg!!, mContext))
-//            else itemHiddenFolderBinding.itemHiddenFolderIv.setImageResource(R.drawable.ic_baseline_folder_24)
         }
     }
 }

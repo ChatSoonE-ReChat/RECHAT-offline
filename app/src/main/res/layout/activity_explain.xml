@@ -12,8 +12,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="20dp"
-        android:src="@drawable/ic_cancel"
-        />
+        android:src="@drawable/ic_cancel" />
+
     <FrameLayout
         android:id="@+id/explain_fl"
         android:layout_width="match_parent"
@@ -32,6 +32,5 @@
             android:text="다시보지 않기"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="13dp"
-            />
+            android:layout_marginEnd="13dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

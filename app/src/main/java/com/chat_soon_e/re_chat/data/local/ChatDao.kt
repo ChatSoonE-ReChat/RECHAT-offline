@@ -2,9 +2,9 @@ package com.chat_soon_e.re_chat.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.chat_soon_e.re_chat.data.entities.BlockedChatList
 import com.chat_soon_e.re_chat.data.entities.Chat
 import com.chat_soon_e.re_chat.data.entities.ChatList
-import com.chat_soon_e.re_chat.data.remote.chat.BlockedChatList
 
 @Dao
 interface ChatDao {

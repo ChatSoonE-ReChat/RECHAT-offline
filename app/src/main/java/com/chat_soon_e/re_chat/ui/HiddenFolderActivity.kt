@@ -15,33 +15,26 @@ import com.chat_soon_e.re_chat.R
 import com.chat_soon_e.re_chat.data.entities.Folder
 import com.chat_soon_e.re_chat.data.entities.Icon
 import com.chat_soon_e.re_chat.data.local.AppDatabase
-import com.chat_soon_e.re_chat.data.remote.folder.FolderService
-import com.chat_soon_e.re_chat.data.remote.folder.HiddenFolderList
 import com.chat_soon_e.re_chat.databinding.ActivityHiddenFolderBinding
 import com.chat_soon_e.re_chat.databinding.ItemHiddenFolderBinding
 import com.chat_soon_e.re_chat.databinding.ItemIconBinding
-import com.chat_soon_e.re_chat.ui.view.HiddenFolderListView
-import com.chat_soon_e.re_chat.ui.view.UnhideFolderView
 import com.chat_soon_e.re_chat.utils.getID
 import com.google.gson.Gson
 
 class HiddenFolderActivity: BaseActivity<ActivityHiddenFolderBinding>(ActivityHiddenFolderBinding::inflate) {
-    private var iconList = ArrayList<Icon>()
-
     private lateinit var database: AppDatabase
     private lateinit var hiddenFolderRVAdapter: HiddenFolderRVAdapter
     private lateinit var iconRVAdapter: ChangeIconRVAdapter
     private lateinit var mPopupWindow: PopupWindow
 
+    private var iconList = ArrayList<Icon>()
     private var hiddenFolderList = ArrayList<Folder>()
     private val tag = "ACT/HIDDEN-FOLDER"
     private val userID=getID()
 
     override fun initAfterBinding() {
-        Log.d("AlluserIDCheck", "onChatAct $userID")
-
+        Log.d(tag, "initAfterBinding()/userID: $userID")
         initFolder()
-        initClickListener()
     }
 
     // 폴더 리스트 초기화
@@ -92,15 +85,6 @@ class HiddenFolderActivity: BaseActivity<ActivityHiddenFolderBinding>(ActivityHi
         })
     }
 
-    // 클릭 리스너 초기화
-    private fun initClickListener() {
-        // 내폴더 아이콘 눌렀을 때
-//        binding.hiddenFolderMyFolderIv.setOnClickListener {
-////            startNextActivity(MyFolderActivity::class.java)
-//            finish()
-//        }
-    }
-
     // 이름 바꾸기 팝업 윈도우
     @SuppressLint("InflateParams")
     fun changeFolderName(itemHiddenFolderBinding: ItemHiddenFolderBinding, folderIdx:Int) {
@@ -128,8 +112,8 @@ class HiddenFolderActivity: BaseActivity<ActivityHiddenFolderBinding>(ActivityHi
             // 바뀐 폴더 이름을 뷰와 RoomDB에 각각 적용해준다.
             text = mPopupWindow.contentView.findViewById<EditText>(R.id.popup_window_change_name_et).text.toString()
             itemHiddenFolderBinding.itemHiddenFolderTv.text = text
-            database.folderDao().updateFolderName(folderIdx,text)
-            mPopupWindow.dismiss()  // 팝업 윈도우 종료
+            database.folderDao().updateFolderName(folderIdx, text)
+            mPopupWindow.dismiss()
         }
     }
 
@@ -155,16 +139,15 @@ class HiddenFolderActivity: BaseActivity<ActivityHiddenFolderBinding>(ActivityHi
         iconList = database.iconDao().getIconList() as ArrayList
         iconRVAdapter = ChangeIconRVAdapter(iconList)
         popupView.findViewById<RecyclerView>(R.id.popup_window_change_icon_recycler_view).adapter = iconRVAdapter
+
         iconRVAdapter.setMyItemClickListener(object: ChangeIconRVAdapter.MyItemClickListener {
             // 아이콘을 선택했을 경우
             override fun onIconClick(itemIconBinding: ItemIconBinding, iconPosition: Int) {//icon 포지션
                 // 선택한 아이콘으로 폴더 이미지 변경
                 val selectedIcon = iconList[iconPosition]
                 itemHiddenFolderBinding.itemHiddenFolderIv.setImageResource(selectedIcon.iconImage)
-
                 database.folderDao().updateFolderIcon(folderListFromAdapter[position].idx, selectedIcon.iconImage)
-
-                mPopupWindow.dismiss()  // 팝업 윈도우 종료
+                mPopupWindow.dismiss()
             }
         })
     }

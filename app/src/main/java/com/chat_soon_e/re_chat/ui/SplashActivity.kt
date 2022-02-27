@@ -2,24 +2,18 @@ package com.chat_soon_e.re_chat.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.chat_soon_e.re_chat.ApplicationClass.Companion.ACTIVE
-import com.chat_soon_e.re_chat.ApplicationClass.Companion.DELETED
 import com.chat_soon_e.re_chat.ApplicationClass.Companion.mSharedPreferences
 import com.chat_soon_e.re_chat.data.entities.User
 import com.chat_soon_e.re_chat.data.local.AppDatabase
-import com.chat_soon_e.re_chat.data.remote.auth.USER_ID
-import com.chat_soon_e.re_chat.data.remote.user.UserService
+import com.chat_soon_e.re_chat.data.remote.USER_ID
 import com.chat_soon_e.re_chat.databinding.ActivitySplashBinding
-import com.chat_soon_e.re_chat.ui.ExplainActivity.ExplainActivity
-import com.chat_soon_e.re_chat.ui.view.UserView
+import com.chat_soon_e.re_chat.ui.explain.ExplainActivity
 import com.chat_soon_e.re_chat.utils.permissionGrantred
 import com.chat_soon_e.re_chat.utils.saveID
 import com.kakao.sdk.auth.AuthApiClient
@@ -28,11 +22,9 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
-// BaseActivity를 상속받기 때문에 BaseActivity 안에서 onCreate() 실행되면서 자동적으로 뷰 바인딩을 해준다.
-// 따라서 SplashActivity에서는 그 코드를 쓸 필요가 없다.
-// <> Generic: 아직 정의되지 않은 타입을 정의할 때 사용하는데, 여기서는 이 안에 어떤 뷰 바인딩을 할 것인지를 넣어준다.
+
 @SuppressLint("CustomSplashScreen")
-class SplashActivity: AppCompatActivity(), UserView {
+class SplashActivity: AppCompatActivity() {
     private val tag = "ACT/SPLASH"
     private lateinit var binding: ActivitySplashBinding
 
@@ -41,6 +33,10 @@ class SplashActivity: AppCompatActivity(), UserView {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        // kakao API를 통해 hash key를 얻을 수 있다.
+//        val hashKey = Utility.getKeyHash(this)
+//        Log.d(tag, "hash key: $hashKey")
+
         // defaultValue = 0, 설명창 보임 = 1, 더 이상 보이지 않음 = 2
         mSharedPreferences = getSharedPreferences("explain", MODE_PRIVATE)
         val isExplain = mSharedPreferences.getInt("explain", 0)
@@ -48,7 +44,7 @@ class SplashActivity: AppCompatActivity(), UserView {
         if(isExplain ==0 || isExplain == 1) {
             val intent = Intent(this@SplashActivity, ExplainActivity::class.java)
             startActivity(intent)
-        } else if(isExplain==2) {
+        } else if(isExplain == 2) {
             if(!permissionGrantred(this)) {
                 val intent = Intent(this@SplashActivity, PermissionActivity::class.java)
                 startActivity(intent)
@@ -69,8 +65,8 @@ class SplashActivity: AppCompatActivity(), UserView {
             finish()
         }
 
-        //로그인이 되었다면 로그인은 안뜨게====O
-        //데이터 다운이 완료되면 시작하기 버튼 활성화====X
+        // 로그인이 되었다면 로그인은 안뜨게 == O
+        // 데이터 다운이 완료되면 시작하기 버튼 활성화 == X
     }
 
     // Token 존재 확인, 즉 로그인 확인
@@ -170,7 +166,7 @@ class SplashActivity: AppCompatActivity(), UserView {
     }
 
     // User 정보 업데이트 및 생성
-    private fun saveUserInfo(state:String){
+    private fun saveUserInfo(state: String){
         UserApiClient.instance.me { user, error ->
             if (error != null){
                 Log.d(tag, "사용자 정보 가져오기 실패")
@@ -179,100 +175,41 @@ class SplashActivity: AppCompatActivity(), UserView {
                     val database = AppDatabase.getInstance(this)!!
                     val dao = database.userDao()
                     if(state == "login"){
-                        // id 암호화(encrypted사용) 후 spf 저장, 일단은 그냥 local 사용해 저장=========================
+
+                        // id 암호화(encrypted 사용) 후 spf 저장, 일단은 그냥 local 사용해 저장
+                        // ----------------------------------
                         USER_ID = user.id
                         saveID(user.id)
 
                         Log.d(tag, "user id: ${user.id}")
-                        // ==================================
+                        // ----------------------------------
+
                         val users = dao.getUser(user.id)
-                        if(users == null){
-                            //유저 인포 저장
+                        if(users == null) {
+                            // 유저 인포 저장
                             dao.insert(User(user.id, user.kakaoAccount?.profile?.nickname.toString(), user.kakaoAccount?.email.toString(), ACTIVE))
-//                            val userID = user.id
 
-                            // Server API: 카카오 회원 추가하기
-//                            val kakaoUserIdx = com.chat_soon_e.re_chat.data.remote.user.User(user.id)
-//                            val userService = UserService()
-//                            userService.addKakaoUser(this, kakaoUserIdx)
-//                            Log.d(tag, "Server API: ${user.id}")
-
-                        }else{
+                        } else {
                             if(users.status=="delete")
                             // 유저 인포 업데이트
-                                dao.update(User(user.id, user.kakaoAccount?.profile?.nickname.toString(), user.kakaoAccount?.email.toString(), ACTIVE))
+                            dao.update(User(user.id, user.kakaoAccount?.profile?.nickname.toString(), user.kakaoAccount?.email.toString(), ACTIVE))
                         }
                     }
                     // 로그아웃 시
                     else if(state == "logout") {
                         saveID(-1)
-                        //dao.updateStatus(user.id, "inactivate")
+                        // dao.updateStatus(user.id, "inactivate")
                     }
                     // 탈퇴 시
                     else if(state == "withdraw")
                         saveID(-1)
-                    //dao.updateStatus(user.id, "delete")
+                    // dao.updateStatus(user.id, "delete")
                 }
             }
         }
     }
 
-    //인터넷 연결 확인====추후 서버와의 연동시
-    fun getConnectivityStatus():Boolean {
-        // 네트워크 연결 상태 확인하기 위한 ConnectivityManager 객체 생성
-        val cm = this.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (cm != null) {
-            // 기기가 마시멜로우 버전인 Andorid 6 이상인 경우
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // 활성화된 네트워크의 상태를 표현하는 객체
-                val nc = cm.getNetworkCapabilities(cm.activeNetwork)
-                if (nc != null) {
-                    if (nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                        Log.d(tag, "와이파이 연결됨")
-                    } else if (nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                        Log.d(tag, "셀룰러 통신 사용")
-                    }
-                    return true
-                } else {
-                    Log.d(tag, "인터넷 연결 안됨")
-                    return false
-                }
-            } else {
-                // 기기 버전이 마시멜로우 버전보다 아래인 경우
-                // getActiveNetworkInfo -> API level 29에 디플리케이트 됨
-                val activeNetwork = cm.activeNetworkInfo
-                if (activeNetwork != null) {
-                    // 연결된 네트워크 확인
-                    if (activeNetwork.type == ConnectivityManager.TYPE_WIFI) {
-                        Log.d(tag, "와이파이 연결됨")
-                    } else if (activeNetwork.type == ConnectivityManager.TYPE_MOBILE) {
-                        Log.d(tag, "셀룰러 통신 사용")
-                    }
-                    return true
-                } else {
-                    Log.d(tag, "인터넷 연결 안됨")
-                    return false
-                }
-            }
-        }
-        else
-            return false
-    }
     override fun onBackPressed() {
         finish()
-    }
-
-    override fun onAddKakaoUserSuccess() {
-        // 카카오 회원 추가하기 성공
-        Log.d(tag, "onAddKakaoUserSuccess()")
-    }
-
-    override fun onAddKakaoUserFailure(code: Int, message: String) {
-        when(code) {
-            3100 -> Log.d(tag, message)
-            4000 -> Log.d(tag, message)
-            4001 -> Log.d(tag, message)
-            else -> Log.d(tag, "onAddKakaoUserFailure(): other error")
-        }
     }
 }

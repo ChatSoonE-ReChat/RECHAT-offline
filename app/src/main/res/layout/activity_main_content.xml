@@ -17,6 +17,7 @@
         android:src="@drawable/menu_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <!--Title-->
     <TextView
         android:id="@+id/main_title_tv"
@@ -40,7 +41,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="9dp"
         android:src="@drawable/ic_baseline_cancel_24"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/main_title_tv"
         app:layout_constraintStart_toEndOf="@id/main_title_tv"
         app:layout_constraintTop_toTopOf="@id/main_title_tv" />
@@ -100,6 +101,7 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginBottom="5dp"
+        android:visibility="visible"
         android:scaleType="fitCenter"
         android:src="@drawable/selector_block_list"
         app:layout_constraintBottom_toTopOf="@id/main_block_list_tv"
@@ -136,19 +138,19 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- 차단하기 -->
+    <!--왼쪽으로 이동하기-->
     <ImageView
         android:id="@+id/main_block_iv"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="1dp"
         android:scaleType="fitCenter"
         android:src="@drawable/selector_block"
         android:visibility="gone"
         android:translationZ="1dp"
-        app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar_view"
-        app:layout_constraintEnd_toEndOf="@id/main_my_folder_tv"
-        app:layout_constraintStart_toStartOf="@id/main_my_folder_tv"
-        app:layout_constraintTop_toTopOf="@id/main_bottom_bar_view" />
+        app:layout_constraintStart_toStartOf="@id/main_block_list_select_iv"
+        app:layout_constraintEnd_toEndOf="@id/main_block_list_select_iv"
+        app:layout_constraintBottom_toTopOf="@id/main_block_list_tv" />
 
     <ImageView
         android:id="@+id/main_folder_background_view"
@@ -194,17 +196,18 @@
         app:layout_constraintVertical_bias="0.47" />
 
     <!-- 삭제하기 -->
+    <!--오른쪽으로 이동-->
     <ImageView
         android:id="@+id/main_delete_iv"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="0dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="6dp"
         android:scaleType="fitCenter"
         android:src="@drawable/selector_delete"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/main_block_list_tv"
-        app:layout_constraintEnd_toEndOf="@id/main_block_list_tv"
-        app:layout_constraintStart_toStartOf="@id/main_block_list_tv" />
+        app:layout_constraintStart_toStartOf="@id/main_my_folder_select_bar_iv"
+        app:layout_constraintEnd_toEndOf="@id/main_my_folder_select_bar_iv"
+        app:layout_constraintBottom_toTopOf="@id/main_my_folder_tv"/>
 
     <!-- 내 폴더로 -->
     <ImageView

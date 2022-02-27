@@ -13,8 +13,6 @@ import com.chat_soon_e.re_chat.ApplicationClass.Companion.ACTIVE
 import com.chat_soon_e.re_chat.data.entities.Chat
 import com.chat_soon_e.re_chat.data.entities.OtherUser
 import com.chat_soon_e.re_chat.data.local.AppDatabase
-import com.chat_soon_e.re_chat.data.remote.chat.ChatService
-import com.chat_soon_e.re_chat.ui.view.ChatView
 import com.chat_soon_e.re_chat.utils.getID
 import com.chat_soon_e.re_chat.utils.saveID
 import java.io.File
@@ -27,31 +25,33 @@ import java.util.*
 @RequiresApi(Build.VERSION_CODES.M)
 class MyNotificationListener: NotificationListenerService() {
     private lateinit var database: AppDatabase
+
     private var userID = getID()
     private val tag = "MYNOTIFICATION"
 
     override fun onListenerConnected() {
         super.onListenerConnected()
-        Log.d("Notif", "onListenerConnected")
-        Log.d("userID", userID.toString())
+        Log.d(tag, "onListenerConnected()")
+        Log.d(tag, "userID: $userID")
     }
 
     // 새로운 알림 올 때마다 발생한다.
     override fun onNotificationPosted(sbn: StatusBarNotification) {
-        if(userID.toInt()==-1){
-            if(AppDatabase.getInstance(this)!!.userDao().getUsers()==null)
+        if(userID.toInt( )== -1) {
+            if(AppDatabase.getInstance(this)!!.userDao().getUsers() == null)
                 Log.d(tag, "login error, 잘못된 접근")
-            else{
+            else {
                 val data=AppDatabase.getInstance(this)!!.userDao().getUsers()
-                if(data==null){
+                userID = if(data == null) {
                     saveID(-1L)//오류 났을시 임시로 해주는 것
-                    userID= getID()
+                    getID()
                 }else{
                     saveID(data[0].kakaoUserIdx)
-                    userID=getID()
+                    getID()
                 }
             }
         }
+
         super.onNotificationPosted(sbn)
         val notification: Notification = sbn.notification
         val packageName: String = sbn.packageName
@@ -85,7 +85,7 @@ class MyNotificationListener: NotificationListenerService() {
             if(name!=null && sbn.id!=2016){
                 val otherUser = database.otherUserDao().getOtherUserByNameId(name.toString(), userID)
 
-                // //이미 있던 유저인지 확인
+                // 이미 있던 유저인지 확인
                 if(otherUser != null) {
                     val chat = Chat(otherUser.otherUserIdx, subText.toString(),text.toString(), dateAsString, -1, ACTIVE)
 
@@ -95,20 +95,11 @@ class MyNotificationListener: NotificationListenerService() {
                         // 갠톡이라면
                         if(database.otherUserDao().checkOneBlock(userID, otherUser.otherUserIdx) == null) {
                             database.chatDao().insert(chat)
-
-                            // Server API: 채팅 추가하기
-//                            val remoteChat = com.chat_soon_e.re_chat.data.remote.chat.Chat(otherUser.nickname, null, null, text.toString(), dateAsString)
-//                            val chatService = ChatService()
-//                            chatService.addChat(this, userID, remoteChat)
                         }
                     } else{
                         // 단톡이라면
                         if(database.otherUserDao().checkOrgBlock(userID, subText.toString()) == null) {
                             database.chatDao().insert(chat)
-                            // Server API: 채팅 추가하기
-//                            val remoteChat = com.chat_soon_e.re_chat.data.remote.chat.Chat(otherUser.nickname, subText.toString(), null, text.toString(), dateAsString)
-//                            val chatService = ChatService()
-//                            chatService.addChat(this, userID, remoteChat)
                         }
                     }
                 }
@@ -122,95 +113,45 @@ class MyNotificationListener: NotificationListenerService() {
                         database.otherUserDao().insert(OtherUser(name.toString(), fileName, ACTIVE, userID))
                         other = database.otherUserDao().getOtherUserByNameId(name.toString(), userID)!!
                         database.chatDao().insert(Chat(other.otherUserIdx, subText.toString(),text.toString(), dateAsString, -1, ACTIVE))
-
-
-//                        if(subText == null) {
-//                            // 단톡이 아닌 경우 groupName == null
-//                            // Server API: 채팅 추가하기
-//                            val remoteChat = com.chat_soon_e.re_chat.data.remote.chat.Chat(other.nickname, null, fileName, text.toString(), dateAsString)
-//                            val chatService = ChatService()
-//                            chatService.addChat(this, userID, remoteChat)
-//                        } else {
-//                            // 단톡인 경우
-//                            // Server API: 채팅 추가하기
-//                            val remoteChat = com.chat_soon_e.re_chat.data.remote.chat.Chat(other.nickname, subText.toString(), fileName, text.toString(), dateAsString)
-//                            val chatService = ChatService()
-//                            chatService.addChat(this, userID, remoteChat)
-//                        }
                     } else {
                         database.otherUserDao().insert(OtherUser(name.toString(), null, ACTIVE, userID))
                         other = database.otherUserDao().getOtherUserByNameId(name.toString(), userID)!!
                         database.chatDao().insert(Chat(other.otherUserIdx, subText.toString(),text.toString(), dateAsString, -1, ACTIVE))
-
-
-//                        if(subText == null) {
-//                            // 단톡이 아닌 경우 groupName == null
-//                            // Server API: 채팅 추가하기
-//                            val remoteChat = com.chat_soon_e.re_chat.data.remote.chat.Chat(other.nickname, null, fileName, text.toString(), dateAsString)
-//                            val chatService = ChatService()
-//                            chatService.addChat(this, userID, remoteChat)
-//                        } else {
-//                            // 단톡인 경우
-//                            // Server API: 채팅 추가하기
-//                            val remoteChat = com.chat_soon_e.re_chat.data.remote.chat.Chat(other.nickname, subText.toString(), fileName, text.toString(), dateAsString)
-//                            val chatService = ChatService()
-//                            chatService.addChat(this, userID, remoteChat)
-//                        }
                     }
                 }
             }
 
-            Log.d(
-                "Notif", "onNotificationPosted ~ " +
+            Log.d(tag, "onNotificationPosted ~ " +
                         " id: " + sbn.id +
                         " name: " + name +
-                        " text : " + text
-                        + "subtext: "+ subText+
-                        "postTime: "+date.toString()
-            )
+                        " text : " + text +
+                        "subtext: "+ subText +
+                        "postTime: " + date.toString())
         }
 
     }
+
     //Icon을 Bitmap으로 전환
-    private fun convertIconToBitmap(icon:Icon): Bitmap {
-        val drawable=icon.loadDrawable(this)
-        val bitmap=drawable.toBitmap()
-        return bitmap
+    private fun convertIconToBitmap(icon: Icon): Bitmap {
+        val drawable = icon.loadDrawable(this)
+        return drawable.toBitmap()
     }
 
-    //Bitmap을 캐시 디렉토리에 저장, 파일 이름 저장
-    private fun saveCache(bitmap:Bitmap, name:String):String{
-        val storage=cacheDir//cacheDir 경로
-        val tempFile= File(storage, name)
-        try{
+    // Bitmap을 캐시 디렉토리에 저장, 파일 이름 저장
+    private fun saveCache(bitmap: Bitmap, name: String): String {
+        val storage = cacheDir // cacheDir 경로
+        val tempFile = File(storage, name)
+        try {
             tempFile.createNewFile()
-            val out= FileOutputStream(tempFile)
+            val out = FileOutputStream(tempFile)
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
             out.close()
 
-        }catch (e: FileNotFoundException){
+        } catch (e: FileNotFoundException) {
             Log.e("MyTag","FileNotFoundException : " + e.message);
-        }catch (e: IOException) {
+        } catch (e: IOException) {
             Log.e("MyTag", "IOException : " + e.message)
         }
         return name
     }
-
-//    private fun converDateToTimeStamp(date: String): Long {
-//        return 0
-//    }
-
-//    // 채팅 넣어주는 걸 성공한 경우
-//    override fun onChatSuccess() {
-//        Log.d(tag, "onAddChatSuccess()")
-//    }
-//
-//    // 실패한 경우
-//   override fun onChatFailure(code: Int, message: String) {
-//        when (code) {
-//            2100 -> Log.d(tag, message)
-//            2202 -> Log.d(tag, message)
-//            else -> Log.d(tag, message)
-//        }
-//    }
 }

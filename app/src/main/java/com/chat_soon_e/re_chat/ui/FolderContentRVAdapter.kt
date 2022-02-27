@@ -9,14 +9,9 @@ import android.view.*
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.chat_soon_e.re_chat.ApplicationClass.Companion.dateToString
 import com.chat_soon_e.re_chat.ApplicationClass.Companion.loadBitmap
 import com.chat_soon_e.re_chat.R
-import com.chat_soon_e.re_chat.data.entities.Chat
-import com.chat_soon_e.re_chat.data.entities.ChatList
-import com.chat_soon_e.re_chat.data.entities.Folder
-import com.chat_soon_e.re_chat.data.local.AppDatabase
-import com.chat_soon_e.re_chat.data.remote.chat.FolderContent
+import com.chat_soon_e.re_chat.data.remote.FolderContent
 import com.chat_soon_e.re_chat.databinding.ItemChatBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -27,8 +22,9 @@ import kotlin.collections.ArrayList
 
 class FolderContentRVAdapter(private val mContext: FolderContentActivity, private val size: Point, private val mItemClickListener: MyClickListener)
     : RecyclerView.Adapter<FolderContentRVAdapter.ViewHolder>() {
-    var chatList = ArrayList<FolderContent>()
     private lateinit var popupMenu: PopupMenu
+
+    var chatList = ArrayList<FolderContent>()
     private val tag = "RV/FOLDER_CONTENT"
 
     // 클릭 인터페이스
@@ -66,7 +62,7 @@ class FolderContentRVAdapter(private val mContext: FolderContentActivity, privat
 
     inner class ViewHolder(val binding: ItemChatBinding): RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.itemChatDefaultMessageTv.setOnLongClickListener {
+            binding.itemChatLayout.setOnLongClickListener {
                 popupMenu = PopupMenu(mContext, binding.itemChatDefaultMessageTv, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
                 popupMenu.menuInflater.inflate(R.menu.popup_chat_option_menu, popupMenu.menu)
                 popupMenu.setOnMenuItemClickListener { item ->
@@ -96,11 +92,14 @@ class FolderContentRVAdapter(private val mContext: FolderContentActivity, privat
 
             binding.itemChatDefaultNameTv.text = chat.nickname
             binding.itemChatDefaultMessageTv.text = chat.message
-            if(chat.profileImgUrl==null||chat.profileImgUrl=="null") binding.itemChatDefaultProfileIv.setImageResource(R.drawable.chat_defualt_profile)
+            if(chat.profileImgUrl == null || chat.profileImgUrl == "null") binding.itemChatDefaultProfileIv.setImageResource(R.drawable.chat_defualt_profile)
             else binding.itemChatDefaultProfileIv.setImageBitmap(loadBitmap(chat.profileImgUrl!!, mContext))
             binding.itemChatDefaultDateTimeTv.text = convertDate(binding, chat.postTime)
 
-            if(isNextDay(chat.postTime, bindingAdapterPosition)) {
+            if(bindingAdapterPosition == chatList.size - 1) {
+                binding.itemChatDefaultNewDateTimeLayout.visibility = View.VISIBLE
+                binding.itemChatDefaultNewDateTimeTv.text = setNewDate(chat.postTime)
+            } else if(bindingAdapterPosition != (chatList.size - 1) && isNextDay(chat.postTime, bindingAdapterPosition)) {
                 // 다음 날로 날짜가 바뀐 경우
                 // 혹은 날짜가 1일 이상 차이날 때
                 binding.itemChatDefaultNewDateTimeLayout.visibility = View.VISIBLE

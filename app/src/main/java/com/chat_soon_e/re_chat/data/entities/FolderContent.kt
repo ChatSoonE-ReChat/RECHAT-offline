@@ -2,6 +2,7 @@ package com.chat_soon_e.re_chat.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 //폴더 별 채팅들 데이터

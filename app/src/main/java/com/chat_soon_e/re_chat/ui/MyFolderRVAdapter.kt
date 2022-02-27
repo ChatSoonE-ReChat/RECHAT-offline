@@ -1,6 +1,7 @@
 package com.chat_soon_e.re_chat.ui
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
@@ -9,10 +10,11 @@ import com.chat_soon_e.re_chat.data.entities.Folder
 import com.chat_soon_e.re_chat.databinding.ItemMyFolderBinding
 
 class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Adapter<MyFolderRVAdapter.ViewHolder>() {
-    private val folderList = ArrayList<Folder>()
-    private lateinit var popup: PopupMenu
+    private lateinit var popupMenu: PopupMenu
     private lateinit var binding: ItemMyFolderBinding
-    private var currentPosition: Int = 0
+
+    private val folderList = ArrayList<Folder>()
+    private val tag = "RV/MY-FOLDER"
 
     // 클릭 인터페이스
     interface MyItemClickListener {
@@ -47,6 +49,7 @@ class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Ad
         // 폴더 이름 롱클릭 시 이름 변경할 수 있도록
         holder.binding.itemMyFolderTv.setOnLongClickListener {
             mItemClickListener.onFolderNameLongClick(holder.binding, position)
+//            mItemClickListener.onFolderNameLongClick(holder.binding, position, folderList[position].folderIdx)
             return@setOnLongClickListener false
         }
 
@@ -58,9 +61,9 @@ class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Ad
         // 폴더 아이템 롱클릭 시 팝업 메뉴 뜨도록
         holder.binding.itemMyFolderIv.setOnLongClickListener {
             // 팝업 메뉴: 이름 바꾸기, 아이콘 바꾸기, 삭제하기, 숨기기
-            popup = PopupMenu(mContext, holder.itemView, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
-            popup.menuInflater.inflate(R.menu.popup_folder_option_menu, popup.menu)
-            popup.setOnMenuItemClickListener { item ->
+            popupMenu = PopupMenu(mContext, holder.itemView, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
+            popupMenu.menuInflater.inflate(R.menu.popup_folder_option_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { item ->
                 when (item?.itemId) {
                     R.id.popup_folder_edit_menu_1 -> {
                         // 이름 바꾸기
@@ -86,7 +89,7 @@ class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Ad
                 }
                 false
             }
-            mItemClickListener.onFolderLongClick(popup)
+            mItemClickListener.onFolderLongClick(popupMenu)
             return@setOnLongClickListener false
         }
     }
@@ -99,6 +102,7 @@ class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Ad
     fun addFolderList(folderList: ArrayList<Folder>) {
         this.folderList.clear()
         this.folderList.addAll(folderList)
+        Log.d(tag, "addFolderList()/folderList: ${this.folderList}")
         notifyDataSetChanged()
     }
 
@@ -118,12 +122,8 @@ class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Ad
     inner class ViewHolder(val binding: ItemMyFolderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(folder: Folder) {
-//            if(folder.folderImg != null) binding.itemMyFolderIv.setImageBitmap(loadBitmap(folder.folderImg!!, mContext))
-//            else binding.itemMyFolderIv.setImageResource(R.drawable.ic_baseline_folder_24)
-//            binding.itemMyFolderIv.setImageResource(folder.folderImg!!)
             binding.itemMyFolderTv.text = folder.folderName
             binding.itemMyFolderIv.setImageResource(folder.folderImg!!)
-            currentPosition = bindingAdapterPosition
         }
     }
 }

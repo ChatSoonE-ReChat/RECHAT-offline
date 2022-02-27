@@ -11,6 +11,7 @@ import com.chat_soon_e.re_chat.databinding.ItemFolderListBinding
 
 class FolderListRVAdapter(private val mContext: Context): RecyclerView.Adapter<FolderListRVAdapter.ViewHolder>() {
     private val folderList = ArrayList<Folder>()
+    private val tag = "RV/FOLDER-LIST"
 
     // 클릭 인터페이스
     interface MyItemClickListener {
@@ -50,10 +51,8 @@ class FolderListRVAdapter(private val mContext: Context): RecyclerView.Adapter<F
 
     inner class ViewHolder(val binding: ItemFolderListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(folder: Folder) {
-//            if(folder.folderImg != null) binding.itemFolderListIv.setImageBitmap(loadBitmap(folder.folderImg!!, mContext))
-//            else binding.itemFolderListIv.setImageResource(R.drawable.ic_baseline_folder_24)
-            binding.itemFolderListIv.setImageResource(folder.folderImg!!)
             binding.itemFolderListTv.text = folder.folderName
+            binding.itemFolderListIv.setImageResource(folder.folderImg!!)
         }
     }
 }

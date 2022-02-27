@@ -26,8 +26,8 @@
         app:layout_constraintEnd_toEndOf="@id/item_block_profile_iv"
         app:layout_constraintTop_toTopOf="@id/item_block_profile_iv"
         app:layout_constraintBottom_toBottomOf="@id/item_block_profile_iv"
-        android:translationZ="-1dp"
-        />
+        android:translationZ="-1dp" />
+
     <TextView
         android:id="@+id/item_block_name_tv"
         android:layout_width="wrap_content"
@@ -42,8 +42,8 @@
         android:maxLines="1"
         app:layout_constraintStart_toEndOf="@id/item_block_profile_iv"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <ImageView
         android:id="@+id/item_block_cancel_iv"
         android:layout_width="20dp"
@@ -52,6 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="20dp"
-        />
+        android:layout_marginEnd="20dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

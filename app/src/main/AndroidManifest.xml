@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.chat_soon_e.re_chat.ui.ExplainActivity.ExplainActivity" android:exported="true"/>
+        <activity android:name="com.chat_soon_e.re_chat.ui.explain.ExplainActivity" android:exported="true"/>
         <activity android:name="com.chat_soon_e.re_chat.ui.PermissionActivity" />
         <activity android:name="com.chat_soon_e.re_chat.ui.MainActivity" android:exported="true" />
         <activity android:name="com.chat_soon_e.re_chat.ui.ChatActivity" android:exported="true" />
@@ -46,7 +46,7 @@
 
                 <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
                 <data android:host="oauth"
-                    android:scheme="" />
+                    android:scheme="kakao" />
             </intent-filter>
         </activity>
 

@@ -76,9 +76,8 @@
             app:layout_constraintStart_toStartOf="@id/my_folder_my_folder_line_view"
             app:layout_constraintEnd_toEndOf="@id/my_folder_my_folder_line_view" />
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:id="@+id/my_folder_background_view"
         android:layout_width="match_parent"
@@ -86,6 +85,7 @@
         android:background="@color/background_gray"
         android:visibility="invisible"
         android:translationZ="3dp"/>
+
     <ImageView
         android:id="@+id/my_folder_bottom_bar_view"
         android:layout_width="match_parent"
@@ -110,8 +110,7 @@
         android:layout_marginTop="-60dp"
         app:layout_constraintTop_toTopOf="@id/my_folder_bottom_bar_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/my_folder_create_new_folder_iv"
@@ -140,6 +139,7 @@
         app:layout_constraintBottom_toTopOf="@id/may_folder_all_chat_tv"
         app:layout_constraintStart_toStartOf="@id/select_bar"
         app:layout_constraintEnd_toEndOf="@id/may_folder_all_chat_tv" />
+
     <TextView
         android:id="@+id/may_folder_all_chat_tv"
         android:layout_width="wrap_content"
@@ -202,7 +202,6 @@
         app:layout_constraintStart_toEndOf="@id/my_folder_background_bottom_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/my_folder_bottom_bar_view"
-        app:layout_constraintHorizontal_bias="0.32"
-         />
+        app:layout_constraintHorizontal_bias="0.32" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

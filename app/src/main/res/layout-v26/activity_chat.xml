@@ -73,6 +73,7 @@
         app:maxImageSize="25dp"
         app:fabCustomSize="60dp"
         android:visibility="visible"
+        android:translationZ="10dp"
         app:layout_constraintTop_toTopOf="@+id/chat_main_fab"
         app:layout_constraintBottom_toBottomOf="@+id/chat_main_fab"
         app:layout_constraintStart_toStartOf="@+id/chat_main_fab"
