@@ -23,8 +23,10 @@ import com.chat_soon_e.re_chat.databinding.ActivityMyFolderBinding
 import com.chat_soon_e.re_chat.databinding.ItemMyFolderBinding
 import com.google.android.material.navigation.NavigationView
 import androidx.recyclerview.widget.RecyclerView
+import com.chat_soon_e.re_chat.ApplicationClass
 import com.chat_soon_e.re_chat.data.entities.Icon
 import com.chat_soon_e.re_chat.databinding.ItemIconBinding
+import com.chat_soon_e.re_chat.ui.explain.ExplainActivity
 import com.chat_soon_e.re_chat.utils.getID
 import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
@@ -214,32 +216,40 @@ class MyFolderActivity: BaseActivity<ActivityMyFolderBinding>(ActivityMyFolderBi
                 }
             }
 
-            // 공유하기
-            R.id.navi_setting_share_item -> {
-                Toast.makeText(this, "공유하기", Toast.LENGTH_SHORT).show()
-            }
-
-            // 앱 리뷰하기
-            R.id.navi_setting_review_item -> {
-                Toast.makeText(this, "앱 리뷰하기", Toast.LENGTH_SHORT).show()
-            }
-
-            // 이메일 문의
-            R.id.navi_setting_email_item -> {
-                Toast.makeText(this, "이메일 문의", Toast.LENGTH_SHORT).show()
-            }
+//            // 공유하기
+//            R.id.navi_setting_share_item -> {
+//                Toast.makeText(this, "공유하기", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            // 앱 리뷰하기
+//            R.id.navi_setting_review_item -> {
+//                Toast.makeText(this, "앱 리뷰하기", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            // 이메일 문의
+//            R.id.navi_setting_email_item -> {
+//                Toast.makeText(this, "이메일 문의", Toast.LENGTH_SHORT).show()
+//            }
 
             // 사용 방법 도움말
             R.id.navi_setting_helper_item -> {
-                Toast.makeText(this, "사용 방법 도움말", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "사용 방법 도움말", Toast.LENGTH_SHORT).show()
+                ApplicationClass.mSharedPreferences = getSharedPreferences("explain", MODE_PRIVATE)
+                val editor = ApplicationClass.mSharedPreferences.edit()
+                editor.putInt("explain_from_menu", 1)
+                editor.apply()
+
+                startNextActivity(ExplainActivity::class.java)
             }
 
             // 개인정보 처리방침
             R.id.navi_setting_privacy_item -> {
-                Toast.makeText(this, "개인정보 처리방침", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, PrivacyInformationActivity::class.java)
+                startActivity(intent)
+//                Toast.makeText(this, "개인정보 처리방침", Toast.LENGTH_SHORT).show()
             }
 
-            else -> Toast.makeText(this, "잘못된 항목입니다.", Toast.LENGTH_SHORT).show()
+//            else -> Toast.makeText(this, "잘못된 항목입니다.", Toast.LENGTH_SHORT).show()
         }
         return false
     }

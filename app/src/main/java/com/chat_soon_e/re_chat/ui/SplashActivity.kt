@@ -41,7 +41,7 @@ class SplashActivity: AppCompatActivity() {
         mSharedPreferences = getSharedPreferences("explain", MODE_PRIVATE)
         val isExplain = mSharedPreferences.getInt("explain", 0)
 
-        if(isExplain ==0 || isExplain == 1) {
+        if(isExplain == 0 || isExplain == 1) {
             val intent = Intent(this@SplashActivity, ExplainActivity::class.java)
             startActivity(intent)
         } else if(isExplain == 2) {
