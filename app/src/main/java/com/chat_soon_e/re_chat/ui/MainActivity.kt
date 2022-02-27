@@ -312,20 +312,20 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
                 }
             }
 
-            // 공유하기
-            R.id.navi_setting_share_item -> {
-                Toast.makeText(this, "공유하기", Toast.LENGTH_SHORT).show()
-            }
-
-            // 앱 리뷰하기
-            R.id.navi_setting_review_item -> {
-                Toast.makeText(this, "앱 리뷰하기", Toast.LENGTH_SHORT).show()
-            }
-
-            // 이메일 문의
-            R.id.navi_setting_email_item -> {
-                Toast.makeText(this, "이메일 문의", Toast.LENGTH_SHORT).show()
-            }
+//            // 공유하기
+//            R.id.navi_setting_share_item -> {
+//                Toast.makeText(this, "공유하기", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            // 앱 리뷰하기
+//            R.id.navi_setting_review_item -> {
+//                Toast.makeText(this, "앱 리뷰하기", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            // 이메일 문의
+//            R.id.navi_setting_email_item -> {
+//                Toast.makeText(this, "이메일 문의", Toast.LENGTH_SHORT).show()
+//            }
 
             // 사용 방법 도움말
             R.id.navi_setting_helper_item -> {
@@ -337,7 +337,7 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
                 Toast.makeText(this, "개인정보 처리방침", Toast.LENGTH_SHORT).show()
             }
 
-            else -> Toast.makeText(this, "잘못된 항목입니다.", Toast.LENGTH_SHORT).show()
+//            else -> Toast.makeText(this, "잘못된 항목입니다.", Toast.LENGTH_SHORT).show()
         }
         return false
     }

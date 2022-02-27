@@ -62,6 +62,7 @@
     <string name="setting_share">공유하기</string>
     <string name="pattern">패턴 변경하기</string>
     <string name="setting_privacy">개인정보 처리방침</string>
+    <string name="email">이메일 문의: atleastigotta@gmail.com</string>
 
     <!-- my folder activity -->
     <string name="my_folder">보관함</string>

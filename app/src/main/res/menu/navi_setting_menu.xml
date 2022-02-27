@@ -13,20 +13,20 @@
         android:icon="@drawable/ic_baseline_pattern_24"
         android:title="@string/pattern" />
 
-    <item
-        android:id="@+id/navi_setting_share_item"
-        android:icon="@drawable/ic_baseline_share_24"
-        android:title="@string/setting_share" />
+<!--    <item-->
+<!--        android:id="@+id/navi_setting_share_item"-->
+<!--        android:icon="@drawable/ic_baseline_share_24"-->
+<!--        android:title="@string/setting_share" />-->
 
-    <item
-        android:id="@+id/navi_setting_review_item"
-        android:icon="@drawable/ic_baseline_rate_review_24"
-        android:title="@string/setting_review" />
+<!--    <item-->
+<!--        android:id="@+id/navi_setting_review_item"-->
+<!--        android:icon="@drawable/ic_baseline_rate_review_24"-->
+<!--        android:title="@string/setting_review" />-->
 
-    <item
-        android:id="@+id/navi_setting_email_item"
-        android:icon="@drawable/ic_baseline_email_24"
-        android:title="@string/setting_email" />
+<!--    <item-->
+<!--        android:id="@+id/navi_setting_email_item"-->
+<!--        android:icon="@drawable/ic_baseline_email_24"-->
+<!--        android:title="@string/setting_email" />-->
 
     <item
         android:id="@+id/navi_setting_helper_item"
@@ -37,5 +37,10 @@
         android:id="@+id/navi_setting_privacy_item"
         android:icon="@drawable/ic_baseline_account_circle_24"
         android:title="@string/setting_privacy" />
+
+<!--    <item-->
+<!--        android:id="@+id/navi_setting_email_item"-->
+<!--        android:icon="@drawable/ic_baseline_email_24"-->
+<!--        android:title="@string/email" />-->
 
 </menu>
