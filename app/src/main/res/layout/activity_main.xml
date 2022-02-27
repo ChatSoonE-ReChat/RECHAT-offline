@@ -27,21 +27,6 @@
         android:background="@drawable/background_navi"
         app:headerLayout="@layout/activity_main_drawer_header"
         app:menu="@menu/navi_setting_menu" />
-    <LinearLayout
-        android:id="@+id/ads_ll"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:translationZ="10dp"
-        >
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            app:adSize="BANNER"
-            app:adUnitId="ca-app-pub-3940256099942544/6300978111"/>
-    </LinearLayout>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -51,6 +51,7 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
 
     // 광고
     lateinit var mAdview:AdView
+    lateinit var adRequest:AdRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,8 +66,9 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
     // 광고 초기화
     private fun initAds(){
         MobileAds.initialize(this)
-        mAdview=findViewById(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
+        val headerView = binding.mainNavigationView.getHeaderView(0)
+        mAdview= headerView.findViewById<AdView>(R.id.adViews)
+        adRequest = AdRequest.Builder().build()
         mAdview.loadAd(adRequest)
     }
 
@@ -90,6 +92,7 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
         }
         Log.d(tag, "onStart()/userID: $userID, USER_ID: $USER_ID")
 
+        initAds()
         initRecyclerView()
         initDrawerLayout()
         initClickListener()
@@ -371,7 +374,6 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
     // 드로어가 나와있을 때 뒤로 가기 버튼을 한 경우 뒤로 가기 버튼에 대한 이벤트를 처리
     override fun onBackPressed() {
         if (binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mAdview.destroy()
             binding.mainDrawerLayout.closeDrawers()
         } else if(chatViewModel.mode.value == 1) {
             chatViewModel.setMode(mode = 0)
@@ -459,7 +461,6 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
             // 설정 메뉴창에 있는 메뉴 아이콘 클릭시 설정 메뉴창 닫히도록
             val headerView = binding.mainNavigationView.getHeaderView(0)
             headerView.setOnClickListener {
-                mAdview.destroy()
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
         }
@@ -469,7 +470,6 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
             if(!binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                 // 설정 메뉴창이 닫혀있을 때
                 binding.mainDrawerLayout.openDrawer(GravityCompat.START)
-                initAds()
             }
         }
     }
