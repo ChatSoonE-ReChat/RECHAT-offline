@@ -61,6 +61,17 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
     private fun initFab() {
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)
+
+        binding.chatMainFab.setImageResource(R.drawable.navi_center_cloud)
+        ObjectAnimator.ofFloat(binding.chatCancelFab, "translationY", 0f).apply { start() }
+        ObjectAnimator.ofFloat(binding.chatDeleteFab, "translationY", 0f).apply { start() }
+        binding.chatCancelFab.visibility = View.INVISIBLE
+        binding.chatDeleteFab.visibility = View.INVISIBLE
+        binding.chatCancelFab.isClickable = false
+        binding.chatDeleteFab.isClickable = false
+        isFabOpen = false
+        binding.chatBackgroundView.visibility = View.INVISIBLE
+        chatViewModel.setMode(mode = 0)
     }
 
     // MainActivity로 부터 데이터를 가져온다.
@@ -141,7 +152,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
             database.chatDao().getOrgChatList(userID, chatListData.chatIdx).observe(this) {
                 if (it.isEmpty()) {
                     Log.d("chatDataCheckLiveData: ", "NULL, get$it,id: ${chatListData.chatIdx}")
-                    var data = database.chatDao().getOrgChatNoLiveList(userID, chatListData.chatIdx)
+                    val data = database.chatDao().getOrgChatNoLiveList(userID, chatListData.chatIdx)
                     Log.d("chatDataCheckLiveData: ", "with No LiveData, get$data")
                     chatRVAdapter.addItem(data)
                     chatList.clear()
@@ -160,7 +171,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
         // 폴더 선택 모드를 해제하기 위해
         binding.chatCancelFab.setOnClickListener {
             binding.chatMainFab.setImageResource(R.drawable.navi_center_cloud)
-            binding.chatCancelFab.startAnimation(fabClose)
+//            binding.chatCancelFab.startAnimation(fabClose)
             ObjectAnimator.ofFloat(binding.chatCancelFab, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(binding.chatDeleteFab, "translationY", 0f).apply { start() }
 //            binding.chatCancelFab.startAnimation(fabClose)
@@ -208,9 +219,9 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
             } else {
                 // fab 버튼이 닫혀있는 경우 (일반 모드에서 클릭했을 때)
                 binding.chatMainFab.setImageResource(R.drawable.navi_center_cloud_move)
-                binding.chatCancelFab.startAnimation(fabOpen)
-                ObjectAnimator.ofFloat(binding.chatCancelFab, "translationY", -500f).apply { start() }
-                ObjectAnimator.ofFloat(binding.chatDeleteFab, "translationY", -200f).apply { start() }
+//                binding.chatCancelFab.startAnimation(fabOpen)
+                ObjectAnimator.ofFloat(binding.chatCancelFab, "translationY", -450f).apply { start() }
+                ObjectAnimator.ofFloat(binding.chatDeleteFab, "translationY", -250f).apply { start() }
 //                binding.chatCancelFab.startAnimation(fabOpen)
 //                binding.chatDeleteFab.startAnimation(fabOpen)
                 binding.chatCancelFab.visibility = View.VISIBLE
@@ -336,7 +347,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
 
                 chatRVAdapter.clearSelectedItemList()
                 binding.chatMainFab.setImageResource(R.drawable.navi_center_cloud)
-                binding.chatCancelFab.startAnimation(fabClose)
+//                binding.chatCancelFab.startAnimation(fabClose)
                 ObjectAnimator.ofFloat(binding.chatCancelFab, "translationY", 0f).apply { start() }
                 ObjectAnimator.ofFloat(binding.chatDeleteFab, "translationY", 0f).apply { start() }
                 binding.chatCancelFab.visibility = View.INVISIBLE
