@@ -23,8 +23,10 @@ import com.chat_soon_e.re_chat.databinding.ActivityMyFolderBinding
 import com.chat_soon_e.re_chat.databinding.ItemMyFolderBinding
 import com.google.android.material.navigation.NavigationView
 import androidx.recyclerview.widget.RecyclerView
+import com.chat_soon_e.re_chat.ApplicationClass
 import com.chat_soon_e.re_chat.data.entities.Icon
 import com.chat_soon_e.re_chat.databinding.ItemIconBinding
+import com.chat_soon_e.re_chat.ui.explain.ExplainActivity
 import com.chat_soon_e.re_chat.utils.getID
 import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
@@ -231,7 +233,13 @@ class MyFolderActivity: BaseActivity<ActivityMyFolderBinding>(ActivityMyFolderBi
 
             // 사용 방법 도움말
             R.id.navi_setting_helper_item -> {
-                Toast.makeText(this, "사용 방법 도움말", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "사용 방법 도움말", Toast.LENGTH_SHORT).show()
+                ApplicationClass.mSharedPreferences = getSharedPreferences("explain", MODE_PRIVATE)
+                val editor = ApplicationClass.mSharedPreferences.edit()
+                editor.putInt("explain_from_menu", 1)
+                editor.apply()
+
+                startNextActivity(ExplainActivity::class.java)
             }
 
             // 개인정보 처리방침

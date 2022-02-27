@@ -69,20 +69,33 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_chat_list_recycler_view"
-        style="@style/scrollbar_shape_style"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
         android:overScrollMode="never"
-        android:scrollbarFadeDuration="0"
-        android:scrollbarSize="10dp"
-        android:scrollbars="vertical"
         android:layout_marginTop="40dp"
         app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/main_chat_list_recycler_view_background_view"
         tools:listitem="@layout/item_chat_list_default" />
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/main_chat_list_recycler_view"-->
+<!--        style="@style/scrollbar_shape_style"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:overScrollMode="never"-->
+<!--        android:scrollbarFadeDuration="0"-->
+<!--        android:scrollbarSize="10dp"-->
+<!--        android:scrollbars="vertical"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar_view"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@id/main_chat_list_recycler_view_background_view"-->
+<!--        tools:listitem="@layout/item_chat_list_default" />-->
 
     <!--navi bar-->
     <ImageView

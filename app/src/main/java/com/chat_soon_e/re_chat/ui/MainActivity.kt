@@ -20,11 +20,13 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlin.collections.ArrayList
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chat_soon_e.re_chat.ApplicationClass
 import com.chat_soon_e.re_chat.ApplicationClass.Companion.HIDDEN
 import com.chat_soon_e.re_chat.R
 import com.chat_soon_e.re_chat.data.entities.*
 import com.chat_soon_e.re_chat.data.remote.USER_ID
 import com.chat_soon_e.re_chat.databinding.ItemFolderListBinding
+import com.chat_soon_e.re_chat.ui.explain.ExplainActivity
 import com.chat_soon_e.re_chat.utils.getID
 import com.chat_soon_e.re_chat.utils.permissionGrantred
 import com.chat_soon_e.re_chat.utils.saveID
@@ -329,7 +331,14 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
 
             // 사용 방법 도움말
             R.id.navi_setting_helper_item -> {
-                Toast.makeText(this, "사용 방법 도움말", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "사용 방법 도움말", Toast.LENGTH_SHORT).show()
+                ApplicationClass.mSharedPreferences = getSharedPreferences("explain", MODE_PRIVATE)
+                val editor = ApplicationClass.mSharedPreferences.edit()
+                editor.putInt("explain_from_menu", 1)
+                editor.apply()
+
+                val intent = Intent(this, ExplainActivity::class.java)
+                startActivity(intent)
             }
 
             // 개인정보 처리방침
