@@ -244,7 +244,9 @@ class MyFolderActivity: BaseActivity<ActivityMyFolderBinding>(ActivityMyFolderBi
 
             // 개인정보 처리방침
             R.id.navi_setting_privacy_item -> {
-                Toast.makeText(this, "개인정보 처리방침", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, PrivacyInformationActivity::class.java)
+                startActivity(intent)
+//                Toast.makeText(this, "개인정보 처리방침", Toast.LENGTH_SHORT).show()
             }
 
 //            else -> Toast.makeText(this, "잘못된 항목입니다.", Toast.LENGTH_SHORT).show()
