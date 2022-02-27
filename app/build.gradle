@@ -118,4 +118,10 @@ dependencies {
 
     // Joda-Time
     implementation 'joda-time:joda-time:2.10.10'
+
+    // 광고
+    implementation 'com.google.android.gms:play-services-ads:20.1.0'
+
+    implementation 'androidx.work:work-runtime-ktx:2.7.0'
+
 }

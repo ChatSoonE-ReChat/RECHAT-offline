@@ -28,6 +28,9 @@ import com.chat_soon_e.re_chat.databinding.ItemFolderListBinding
 import com.chat_soon_e.re_chat.utils.getID
 import com.chat_soon_e.re_chat.utils.permissionGrantred
 import com.chat_soon_e.re_chat.utils.saveID
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.formats.UnifiedNativeAd
+import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
@@ -44,6 +47,9 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
     private var userID = getID()
     private val tag = "ACT/MAIN"
 
+    // 광고
+    lateinit var mAdview:AdView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(tag, "onCreate()/userID: $userID")
@@ -52,6 +58,14 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
 
         initIcon()
         initFolder()
+    }
+
+    // 광고 초기화
+    private fun initAds(){
+        MobileAds.initialize(this)
+        mAdview=findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdview.loadAd(adRequest)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -78,6 +92,7 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
         initDrawerLayout()
         initClickListener()
     }
+
 
     // 아이콘 초기화
     private fun initIcon() {
@@ -235,8 +250,8 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun initDrawerLayout() {
-        binding.mainNavigationView.setNavigationItemSelectedListener(this)
 
+        binding.mainNavigationView.setNavigationItemSelectedListener(this)
         val menuItem = binding.mainNavigationView.menu.findItem(R.id.navi_setting_alarm_item)
         val drawerSwitch =
             menuItem.actionView.findViewById(R.id.main_drawer_alarm_switch) as SwitchCompat
@@ -345,6 +360,7 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
     // 드로어가 나와있을 때 뒤로 가기 버튼을 한 경우 뒤로 가기 버튼에 대한 이벤트를 처리
     override fun onBackPressed() {
         if (binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mAdview.destroy()
             binding.mainDrawerLayout.closeDrawers()
         } else if(chatViewModel.mode.value == 1) {
             chatViewModel.setMode(mode = 0)
@@ -432,6 +448,7 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
             // 설정 메뉴창에 있는 메뉴 아이콘 클릭시 설정 메뉴창 닫히도록
             val headerView = binding.mainNavigationView.getHeaderView(0)
             headerView.setOnClickListener {
+                mAdview.destroy()
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
         }
@@ -441,6 +458,7 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
             if(!binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                 // 설정 메뉴창이 닫혀있을 때
                 binding.mainDrawerLayout.openDrawer(GravityCompat.START)
+                initAds()
             }
         }
     }

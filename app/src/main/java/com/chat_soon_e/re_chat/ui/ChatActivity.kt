@@ -232,7 +232,6 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
                 chatViewModel.setMode(mode = 1)
             }
         }
-
         // 삭제하는 경우
         binding.chatDeleteFab.setOnClickListener {
             val data = chatRVAdapter.removeSelectedItemList()
