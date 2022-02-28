@@ -292,9 +292,9 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
         // RecyclerView 구분선
         val recyclerView =
             popupView.findViewById<RecyclerView>(R.id.popup_window_to_folder_menu_recycler_view)
-        val dividerItemDecoration =
-            DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
-        recyclerView.addItemDecoration(dividerItemDecoration)
+//        val dividerItemDecoration =
+//            DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
+//        recyclerView.addItemDecoration(dividerItemDecoration)
 
         // RecyclerView 초기화
         // 더미 데이터와 어댑터 연결

@@ -1,84 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/splash_main_icon"
         android:layout_width="179dp"
         android:layout_height="124dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_chat_soon_e"
         app:layout_constraintBottom_toTopOf="@id/splash_main_icon_text"
-        android:src="@drawable/ic_chat_soon_e"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/splash_main_icon_text"
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_app_title"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/splash_progressBar"
         android:layout_width="230dp"
         android:layout_height="304dp"
-        android:max="100"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/splash_main_icon_text"
         android:layout_marginTop="20dp"
         android:indeterminate="true"
+        android:max="100"
         app:indicatorColor="#B9E1EF"
-        app:trackThickness="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splash_main_icon_text"
         app:trackColor="#E3E3E3"
-        app:trackCornerRadius="8dp"/>
+        app:trackCornerRadius="8dp"
+        app:trackThickness="14dp" />
 
     <TextView
         android:id="@+id/splash_start_btn"
         android:layout_width="185dp"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:paddingVertical="14dp"
         android:layout_marginTop="50dp"
+        android:background="@drawable/splash_btn"
+        android:paddingVertical="14dp"
         android:text="시작하기"
         android:textAlignment="center"
-        android:background="@drawable/splash_btn"
         android:textColor="#9DB2FA"
-        app:layout_constraintStart_toStartOf="@id/splash_progressBar"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/splash_progressBar"
+        app:layout_constraintStart_toStartOf="@id/splash_progressBar"
         app:layout_constraintTop_toBottomOf="@id/splash_progressBar" />
 
-<ImageView
-    android:id="@+id/splash_kakao_btn"
-    android:layout_width="227dp"
-    android:layout_height="46dp"
-    app:cardCornerRadius="5dp"
-    app:layout_constraintStart_toStartOf="@id/splash_start_btn"
-    app:layout_constraintEnd_toEndOf="@id/splash_start_btn"
-    app:layout_constraintTop_toBottomOf="@id/splash_start_btn"
-    android:src="@drawable/kakao_login_medium_narrow"
-    android:visibility="visible"
-    android:scaleType="fitCenter"
-    android:layout_marginTop="10dp"
-    />
+    <ImageView
+        android:id="@+id/splash_kakao_btn"
+        android:layout_width="227dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/kakao_login_medium_narrow"
+        android:visibility="gone"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="@id/splash_start_btn"
+        app:layout_constraintStart_toStartOf="@id/splash_start_btn"
+        app:layout_constraintTop_toBottomOf="@id/splash_start_btn" />
 
-<!--    <TextView
-        android:id="@+id/splash_withdraw"
+    <TextView
+        android:id="@+id/splash_login_caution_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="탈퇴"
-        app:layout_constraintStart_toStartOf="@id/splash_kakao_login_btn"
-        app:layout_constraintEnd_toEndOf="@id/splash_kakao_login_btn"
-        app:layout_constraintTop_toBottomOf="@id/splash_kakao_login_btn"
-        android:background="@color/black"
-        android:textColor="@color/white"
+        android:text="@string/login_caution"
+        android:textColor="@color/gray"
+        android:textSize="8sp"
+        android:textAlignment="center"
+        android:fontFamily="@font/noto_sans_korean"
+        android:includeFontPadding="false"
+        android:visibility="gone"
         android:layout_marginTop="20dp"
-        android:padding="20dp"
-    />-->
+        app:layout_constraintTop_toBottomOf="@+id/splash_kakao_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!--    <TextView
+            android:id="@+id/splash_withdraw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탈퇴"
+            app:layout_constraintStart_toStartOf="@id/splash_kakao_login_btn"
+            app:layout_constraintEnd_toEndOf="@id/splash_kakao_login_btn"
+            app:layout_constraintTop_toBottomOf="@id/splash_kakao_login_btn"
+            android:background="@color/black"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:padding="20dp"
+        />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

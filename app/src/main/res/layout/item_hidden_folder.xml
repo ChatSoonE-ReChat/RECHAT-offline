@@ -30,7 +30,7 @@
         android:fontFamily="@font/cafessurroundair"
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
-        android:textSize="16sp"
+        android:textSize="13sp"
         android:visibility="visible"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"

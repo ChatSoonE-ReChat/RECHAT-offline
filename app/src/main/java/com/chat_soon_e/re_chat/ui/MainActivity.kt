@@ -10,6 +10,7 @@ import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -77,20 +78,19 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
         super.onStart()
         database = AppDatabase.getInstance(this)!!
 
-        if (userID.toInt() == -1) {
-            if (AppDatabase.getInstance(this)!!.userDao().getUsers() == null)
-                Log.d(tag, "login error, 잘못된 접근")
-            else {
-                val data = AppDatabase.getInstance(this)!!.userDao().getUsers()
-                if (data == null)
-                    saveID(-1L)//오류 났을시 임시로 해주는 것
-                else
-                    data[0].let { saveID(it.kakaoUserIdx) }
-
-                userID = getID()
-            }
-        }
-        Log.d(tag, "onStart()/userID: $userID, USER_ID: $USER_ID")
+//        if (userID.toInt() == -1) {
+//            if (AppDatabase.getInstance(this)!!.userDao().getUsers() == null)
+//                Log.d(tag, "login error, 잘못된 접근")
+//            else {
+//                val data = AppDatabase.getInstance(this)!!.userDao().getUsers()
+//                if (data == null) saveID(-1L)//오류 났을시 임시로 해주는 것
+////                else
+////                    data[0].let { saveID(it.kakaoUserIdx) }
+//
+//                userID = getID()
+//            }
+//        }
+//        Log.d(tag, "onStart()/userID: $userID, USER_ID: $USER_ID")
 
         initAds()
         initRecyclerView()
@@ -460,7 +460,7 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
 
             // 설정 메뉴창에 있는 메뉴 아이콘 클릭시 설정 메뉴창 닫히도록
             val headerView = binding.mainNavigationView.getHeaderView(0)
-            headerView.setOnClickListener {
+            headerView.findViewById<ImageView>(R.id.main_drawer_setting_menu_iv).setOnClickListener {
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
         }

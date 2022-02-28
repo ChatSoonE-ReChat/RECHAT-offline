@@ -37,20 +37,20 @@ class MyNotificationListener: NotificationListenerService() {
 
     // 새로운 알림 올 때마다 발생한다.
     override fun onNotificationPosted(sbn: StatusBarNotification) {
-        if(userID.toInt( )== -1) {
-            if(AppDatabase.getInstance(this)!!.userDao().getUsers() == null)
-                Log.d(tag, "login error, 잘못된 접근")
-            else {
-                val data=AppDatabase.getInstance(this)!!.userDao().getUsers()
-                userID = if(data == null) {
-                    saveID(-1L)//오류 났을시 임시로 해주는 것
-                    getID()
-                }else{
-                    saveID(data[0].kakaoUserIdx)
-                    getID()
-                }
-            }
-        }
+//        if(userID.toInt( )== -1) {
+//            if(AppDatabase.getInstance(this)!!.userDao().getUsers() == null)
+//                Log.d(tag, "login error, 잘못된 접근")
+//            else {
+//                val data=AppDatabase.getInstance(this)!!.userDao().getUsers()
+//                userID = if(data == null) {
+//                    saveID(-1L)//오류 났을시 임시로 해주는 것
+//                    getID()
+//                }else{
+//                    saveID(data[0].kakaoUserIdx)
+//                    getID()
+//                }
+//            }
+//        }
 
         super.onNotificationPosted(sbn)
         val notification: Notification = sbn.notification

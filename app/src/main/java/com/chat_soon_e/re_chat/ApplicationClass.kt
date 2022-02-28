@@ -88,20 +88,21 @@ class ApplicationClass : Application() {
     override fun onCreate() {
         super.onCreate()
         //kakao sdk 연결
+        //KakaoSdk.init(this, "")
 
-        // client definition
-        // Http 통신할 때 클라이언트 옵션 설정해주는 부분
-        val client: OkHttpClient = OkHttpClient.Builder()
-            .readTimeout(30000, TimeUnit.MILLISECONDS)  // Timeout 3초 설정
-            .connectTimeout(30000, TimeUnit.MILLISECONDS)
-//            .addNetworkInterceptor(XAccessTokenInterceptor()) // JWT 자동 헤더 전송
-            .build()
+//        // client definition
+//        // Http 통신할 때 클라이언트 옵션 설정해주는 부분
+//        val client: OkHttpClient = OkHttpClient.Builder()
+//            .readTimeout(30000, TimeUnit.MILLISECONDS)  // Timeout 3초 설정
+//            .connectTimeout(30000, TimeUnit.MILLISECONDS)
+////            .addNetworkInterceptor(XAccessTokenInterceptor()) // JWT 자동 헤더 전송
+//            .build()
 
-        retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+//        retrofit = Retrofit.Builder()
+//            .baseUrl(BASE_URL)
+//            .client(client)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
 
         mSharedPreferences = applicationContext.getSharedPreferences(TAG, Context.MODE_PRIVATE)
     }

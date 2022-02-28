@@ -25,29 +25,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.chat_soon_e.re_chat.ui.explain.ExplainActivity" android:exported="true"/>
-        <activity android:name="com.chat_soon_e.re_chat.ui.PermissionActivity" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.MainActivity" android:exported="true" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.ChatActivity" android:exported="true" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.MyFolderActivity" android:exported="true" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.CreatePatternActivity" android:exported="true" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.HiddenFolderActivity" android:exported="true" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.InputPatternActivity" android:exported="true" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.FolderContentActivity" android:exported="true" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.BlockListActivity" android:exported="true" />
-        <activity android:name=".ui.PrivacyInformationActivity" android:exported="true"/>
-        <activity
-            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+        <activity android:name="com.chat_soon_e.re_chat.ui.explain.ExplainActivity" android:exported="false"/>
+        <activity android:name="com.chat_soon_e.re_chat.ui.PermissionActivity" android:exported="false" />
+        <activity android:name="com.chat_soon_e.re_chat.ui.MainActivity" android:exported="false" />
+        <activity android:name="com.chat_soon_e.re_chat.ui.ChatActivity" android:exported="false" />
+        <activity android:name="com.chat_soon_e.re_chat.ui.MyFolderActivity" android:exported="false" />
+        <activity android:name="com.chat_soon_e.re_chat.ui.CreatePatternActivity" android:exported="false" />
+        <activity android:name="com.chat_soon_e.re_chat.ui.HiddenFolderActivity" android:exported="false" />
+        <activity android:name="com.chat_soon_e.re_chat.ui.InputPatternActivity" android:exported="false" />
+        <activity android:name="com.chat_soon_e.re_chat.ui.FolderContentActivity" android:exported="false" />
+        <activity android:name="com.chat_soon_e.re_chat.ui.BlockListActivity" android:exported="false" />
+        <activity android:name=".ui.PrivacyInformationActivity" android:exported="false" />
 
-                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
-                <data android:host="oauth"
-            </intent-filter>
-        </activity>
+<!--        <activity-->
+<!--            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+
+<!--                &lt;!&ndash; Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" &ndash;&gt;-->
+<!--                <data android:host="oauth"-->
+<!--                    android:scheme="" />-->
+
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
         <!-- NotificationListener 권한 얻기 -->
         <service android:name="com.chat_soon_e.re_chat.ui.MyNotificationListener"
