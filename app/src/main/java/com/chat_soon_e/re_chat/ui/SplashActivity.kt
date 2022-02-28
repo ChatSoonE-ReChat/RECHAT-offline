@@ -53,13 +53,17 @@ class SplashActivity: AppCompatActivity() {
 
         loginPermission()
 
-        binding.splashKakaoBtn.setOnClickListener {
-            if(binding.splashKakaoBtn.isVisible) {
-                login()
-            }
-        }
+//        binding.splashKakaoBtn.setOnClickListener {
+//            if(binding.splashKakaoBtn.isVisible) {
+//                login()
+//            }
+//        }
 
         binding.splashStartBtn.setOnClickListener {
+            USER_ID = -1
+            saveID(USER_ID)
+            AppDatabase.getInstance(this)!!.userDao().insert(User(-1, null, null, ACTIVE))
+
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -78,7 +82,7 @@ class SplashActivity: AppCompatActivity() {
                     // 로그인 필요
                     if (error is KakaoSdkError && error.isInvalidTokenError()) {
 //                        binding.splashKakaoIv.visibility = View.VISIBLE
-                        binding.splashKakaoBtn.visibility = View.VISIBLE
+//                        binding.splashKakaoBtn.visibility = View.VISIBLE
                     }
                     // 기타 에러
                     else {
@@ -97,50 +101,50 @@ class SplashActivity: AppCompatActivity() {
         // 토큰 없음 (로그아웃 혹은 연결 끊김)
         else {
 //            binding.splashKakaoIv.visibility=View.VISIBLE
-            binding.splashKakaoBtn.visibility=View.VISIBLE
+//            binding.splashKakaoBtn.visibility=View.VISIBLE
         }
     }
 
-    // 카카오계정 로그인
-    private fun login(){
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-            if (error != null) {
-                Log.e(tag, "카카오계정으로 로그인 실패", error)
-            } else if (token != null) {
-                Log.i(tag, "카카오계정으로 로그인 성공 ${token.accessToken}")
-//                binding.splashKakaoIv.visibility = View.INVISIBLE
-                runOnUiThread {
-                    binding.splashKakaoBtn.visibility = View.INVISIBLE
-                }
-                saveUserInfo("login")
-            }
-        }
-
-        // 카카오톡 로그인 가능하다면 카카오톡으로 로그인
-        if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-            UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-                if (error != null) {
-                    Log.e(tag, "카카오톡으로 로그인 실패", error)
-                    // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
-                    // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
-                    if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                        return@loginWithKakaoTalk
-                    }
-                    // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
-                    UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-                } else if (token != null) {
-                    Log.i(tag, "카카오톡으로 로그인 성공 ${token.accessToken}")
-//                    binding.splashKakaoIv.visibility=View.INVISIBLE
-                    runOnUiThread {
-                        binding.splashKakaoBtn.visibility = View.INVISIBLE
-                    }
-                    saveUserInfo("login")
-                }
-            }
-        } else {
-            UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-        }
-    }
+//    // 카카오계정 로그인
+//    private fun login(){
+//        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+//            if (error != null) {
+//                Log.e(tag, "카카오계정으로 로그인 실패", error)
+//            } else if (token != null) {
+//                Log.i(tag, "카카오계정으로 로그인 성공 ${token.accessToken}")
+////                binding.splashKakaoIv.visibility = View.INVISIBLE
+//                runOnUiThread {
+//                    binding.splashKakaoBtn.visibility = View.INVISIBLE
+//                }
+//                saveUserInfo("login")
+//            }
+//        }
+//
+//        // 카카오톡 로그인 가능하다면 카카오톡으로 로그인
+//        if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
+//            UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+//                if (error != null) {
+//                    Log.e(tag, "카카오톡으로 로그인 실패", error)
+//                    // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
+//                    // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
+//                    if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+//                        return@loginWithKakaoTalk
+//                    }
+//                    // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
+//                    UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+//                } else if (token != null) {
+//                    Log.i(tag, "카카오톡으로 로그인 성공 ${token.accessToken}")
+////                    binding.splashKakaoIv.visibility=View.INVISIBLE
+//                    runOnUiThread {
+//                        binding.splashKakaoBtn.visibility = View.INVISIBLE
+//                    }
+//                    saveUserInfo("login")
+//                }
+//            }
+//        } else {
+//            UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+//        }
+//    }
 
     // 로그아웃
     private fun logout(){
@@ -166,7 +170,7 @@ class SplashActivity: AppCompatActivity() {
     }
 
     // User 정보 업데이트 및 생성
-    private fun saveUserInfo(state: String){
+    private fun saveUserInfo(state: String) {
         UserApiClient.instance.me { user, error ->
             if (error != null){
                 Log.d(tag, "사용자 정보 가져오기 실패")
@@ -174,8 +178,7 @@ class SplashActivity: AppCompatActivity() {
                 if (user != null) {
                     val database = AppDatabase.getInstance(this)!!
                     val dao = database.userDao()
-                    if(state == "login"){
-
+                    if(state == "login") {
                         // id 암호화(encrypted 사용) 후 spf 저장, 일단은 그냥 local 사용해 저장
                         // ----------------------------------
                         USER_ID = user.id
