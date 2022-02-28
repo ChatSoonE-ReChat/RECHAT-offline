@@ -93,4 +93,8 @@
     <!--테스트id-->
     <string name="banner_ad_unit_id_for_test"></string>
 
+    <!-- 광고 -->
+    <string name="admob_app_id">ca-app-pub-5804383374628789~3106880618</string>
+    <string name="banner_ad_unit_id">ca-app-pub-5804383374628789/3474229043</string>
+
 </resources>
