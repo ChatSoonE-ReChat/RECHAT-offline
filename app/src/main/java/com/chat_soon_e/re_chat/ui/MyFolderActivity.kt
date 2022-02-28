@@ -28,6 +28,9 @@ import com.chat_soon_e.re_chat.data.entities.Icon
 import com.chat_soon_e.re_chat.databinding.ItemIconBinding
 import com.chat_soon_e.re_chat.ui.explain.ExplainActivity
 import com.chat_soon_e.re_chat.utils.getID
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
 
@@ -46,6 +49,10 @@ class MyFolderActivity: BaseActivity<ActivityMyFolderBinding>(ActivityMyFolderBi
 
     // Popupwindow와 RecyclerView 연결을 위해 선언
     private lateinit var itemBinding: ItemMyFolderBinding
+    //광고
+    lateinit var mAdview:AdView
+    lateinit var adRequest:AdRequest
+
 
     override fun initAfterBinding() {
         Log.d(tag, "initAfaterBinding()/userID: $userID")
@@ -55,6 +62,15 @@ class MyFolderActivity: BaseActivity<ActivityMyFolderBinding>(ActivityMyFolderBi
         initRecyclerView()          // 폴더 초기화
         initDrawerLayout()          // 설정 메뉴창 설정
         initClickListener()         // 여러 click listener 초기화
+        initAds()
+    }
+    // 광고 초기화
+    private fun initAds(){
+        MobileAds.initialize(this)
+        val headerView = binding.myFolderNavigationView.getHeaderView(0)
+        mAdview= headerView.findViewById<AdView>(R.id.adViews)
+        adRequest = AdRequest.Builder().build()
+        mAdview.loadAd(adRequest)
     }
 
     // RecyclerView
@@ -271,6 +287,7 @@ class MyFolderActivity: BaseActivity<ActivityMyFolderBinding>(ActivityMyFolderBi
         binding.myFolderContent.myFolderMenuIv.setOnClickListener {
             if(!binding.myFolderDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                 // 설정 메뉴창이 닫혀있을 때
+                mAdview.loadAd(adRequest)
                 binding.myFolderDrawerLayout.openDrawer(GravityCompat.START)
             }
         }

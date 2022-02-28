@@ -22,20 +22,21 @@ interface ChatDao {
     fun updateIsNew(chatIdx: Int, status: Int)
 
     //MainActivity 최근 대화 목록 다 가져오기 -- local db 내용에 맞춰서 설정하기
-    @Query("SELECT CM.chatIdx, CL.chatName AS nickName, CL.profileImg AS profileImg, CL.latestTime AS postTime, CM.message, CM.groupName, CM.isNew\n" +
+    @Query("SELECT CL.chatIdx, CL.chatName AS nickName, CL.profileImg AS profileImg, CL.latestTime AS postTime, CM.message, CM.groupName, CM.isNew\n" +
             "FROM\n" +
-            "    (SELECT (CASE WHEN C.groupName == 'null' THEN OU.nickname ELSE C.groupName END) AS chatName,\n" +
-            "            (CASE WHEN C.groupName == 'null' THEN OU.image ELSE NULL END) AS profileImg,\n" +
-            "            MAX(C.postTime) as latestTime\n" +
-            "    FROM ChatTable C INNER JOIN OtherUserTable OU on C.otherUserIdx = OU.otherUserIdx\n" +
+            "    (SELECT MAX(C.chatIdx) AS chatIdx,\n" +
+            "            (CASE WHEN C.groupName =='null' THEN OU.nickname ELSE C.groupName END) AS chatName,\n" +
+            "            (CASE WHEN C.groupName=='null' THEN OU.image ELSE NULL END) AS profileImg,\n" +
+            "            MAX(C.postTime) AS latestTime\n" +
+            "    FROM ChatTable C INNER JOIN OtherUserTable OU ON C.otherUserIdx = OU.otherUserIdx\n" +
             "    WHERE OU.kakaoUserIdx = :userIdx AND C.status != 'DELETED'\n" +
             "    GROUP BY chatName, profileImg) CL\n" +
             "    INNER JOIN\n" +
-            "    (SELECT DISTINCT (CASE WHEN C.groupName == 'null' THEN OU.nickname ELSE C.groupName END) AS chatName, C.chatIdx, C.message, C.postTime, C.groupName, C.isNew\n" +
-            "    FROM ChatTable C INNER JOIN OtherUserTable OU on C.otherUserIdx = OU.otherUserIdx\n" +
+            "    (SELECT DISTINCT (CASE WHEN C.groupName =='null' THEN OU.nickname ELSE C.groupName END) AS chatName, C.chatIdx, C.message, C.postTime, C.groupName, C.isNew\n" +
+            "    FROM ChatTable C INNER JOIN OtherUserTable OU ON C.otherUserIdx = OU.otherUserIdx\n" +
             "    WHERE OU.kakaoUserIdx = :userIdx AND C.status != 'DELETED') CM\n" +
-            "    ON CL.chatName = CM.chatName AND CL.latestTime = CM.postTime\n" +
-            " ORDER BY postTime DESC;")
+            "    ON CL.chatName = CM.chatName AND CL.chatIdx = CM.chatIdx\n" +
+            "ORDER BY postTime DESC")
     fun getRecentChat(userIdx:Long):LiveData<List<ChatList>>
 
     //갠톡 채팅 가져오기, 검증된

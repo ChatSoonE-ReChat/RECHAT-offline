@@ -89,16 +89,18 @@ class MyNotificationListener: NotificationListenerService() {
                 if(otherUser != null) {
                     val chat = Chat(otherUser.otherUserIdx, subText.toString(),text.toString(), dateAsString, -1, ACTIVE)
 
-                    // 이미 있던 유저라면
+                    // 이미 있던 유저라면, 여기서 중복?
                     var blocked: String?
                     if(subText == null) {
-                        // 갠톡이라면
+                        // 갠톡이라
                         if(database.otherUserDao().checkOneBlock(userID, otherUser.otherUserIdx) == null) {
+                            Log.d("doubleadd", "doubles1")
                             database.chatDao().insert(chat)
                         }
                     } else{
                         // 단톡이라면
                         if(database.otherUserDao().checkOrgBlock(userID, subText.toString()) == null) {
+                            Log.d("doubleadd", "doubles2")
                             database.chatDao().insert(chat)
                         }
                     }

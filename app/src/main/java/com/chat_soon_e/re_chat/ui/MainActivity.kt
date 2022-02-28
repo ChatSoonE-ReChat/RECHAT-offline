@@ -469,6 +469,7 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
         binding.mainContent.mainSettingMenuIv.setOnClickListener {
             if(!binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                 // 설정 메뉴창이 닫혀있을 때
+                mAdview.loadAd(adRequest)
                 binding.mainDrawerLayout.openDrawer(GravityCompat.START)
             }
         }
