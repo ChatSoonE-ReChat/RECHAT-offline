@@ -1,9 +1,14 @@
 package com.chat_soon_e.re_chat.ui
 
 import android.content.Intent
+import android.graphics.Insets
+import android.graphics.Point
 import android.os.Build
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.annotation.RequiresApi
+import androidx.core.view.marginBottom
 import com.chat_soon_e.re_chat.databinding.ActivityPermissionBinding
 import com.chat_soon_e.re_chat.utils.permissionGrantred
 
@@ -26,6 +31,37 @@ class PermissionActivity:BaseActivity<ActivityPermissionBinding>(ActivityPermiss
                 startForegroundService(Intent(this, MyNotificationListener::class.java))
             finish()
         // startActivityWithClear(SplashActivity::class.java)
+        }
+
+        initImageSize()
+    }
+
+    private fun initImageSize() {
+        val size = windowManager.currentWindowMetricsPointCompat()
+        val width = (size.x * 0.6f).toInt()
+        val height = (size.y * 0.3f).toInt()
+
+        binding.permissionBackgroundImgIv.maxWidth = width
+        binding.permissionBackgroundImgIv.maxHeight = height
+    }
+
+    // 디바이스 크기에 사이즈를 맞추기 위한 함수
+    private fun WindowManager.currentWindowMetricsPointCompat(): Point {
+        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            val windowInsets = currentWindowMetrics.windowInsets
+            var insets: Insets = windowInsets.getInsets(WindowInsets.Type.navigationBars())
+
+            windowInsets.displayCutout?.run {
+                insets = Insets.max(insets, Insets.of(safeInsetLeft, safeInsetTop, safeInsetRight, safeInsetBottom))
+            }
+
+            val insetsWidth = insets.right + insets.left
+            val insetsHeight = insets.top + insets.bottom
+            Point(currentWindowMetrics.bounds.width() - insetsWidth, currentWindowMetrics.bounds.height() - insetsHeight)
+        } else {
+            Point().apply {
+                defaultDisplay.getSize(this)
+            }
         }
     }
 }

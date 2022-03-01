@@ -38,8 +38,6 @@ class MyNotificationListener: NotificationListenerService() {
 
     // 새로운 알림 올 때마다 발생한다.
     override fun onNotificationPosted(sbn: StatusBarNotification) {
-        num+=1;
-        Log.d("notiChecks", num.toString()+": "+sbn.packageName)
 
 //        if(userID.toInt( )== -1) {
 //            if(AppDatabase.getInstance(this)!!.userDao().getUsers() == null)
