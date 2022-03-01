@@ -24,6 +24,7 @@ import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.M)
 class MyNotificationListener: NotificationListenerService() {
+    var num=0
     private lateinit var database: AppDatabase
 
     private var userID = getID()
@@ -37,6 +38,9 @@ class MyNotificationListener: NotificationListenerService() {
 
     // 새로운 알림 올 때마다 발생한다.
     override fun onNotificationPosted(sbn: StatusBarNotification) {
+        num+=1;
+        Log.d("notiChecks", num.toString()+": "+sbn.packageName)
+
 //        if(userID.toInt( )== -1) {
 //            if(AppDatabase.getInstance(this)!!.userDao().getUsers() == null)
 //                Log.d(tag, "login error, 잘못된 접근")
@@ -51,8 +55,6 @@ class MyNotificationListener: NotificationListenerService() {
 //                }
 //            }
 //        }
-
-        super.onNotificationPosted(sbn)
         val notification: Notification = sbn.notification
         val packageName: String = sbn.packageName
 
@@ -114,10 +116,12 @@ class MyNotificationListener: NotificationListenerService() {
                         fileName = saveCache(convertIconToBitmap(largeIcon), name + "_" + millisecond.toString())
                         database.otherUserDao().insert(OtherUser(name.toString(), fileName, ACTIVE, userID))
                         other = database.otherUserDao().getOtherUserByNameId(name.toString(), userID)!!
+                        Log.d("doubleadd", "doubles3")
                         database.chatDao().insert(Chat(other.otherUserIdx, subText.toString(),text.toString(), dateAsString, -1, ACTIVE))
                     } else {
                         database.otherUserDao().insert(OtherUser(name.toString(), null, ACTIVE, userID))
                         other = database.otherUserDao().getOtherUserByNameId(name.toString(), userID)!!
+                        Log.d("doubleadd", "doubles4")
                         database.chatDao().insert(Chat(other.otherUserIdx, subText.toString(),text.toString(), dateAsString, -1, ACTIVE))
                     }
                 }

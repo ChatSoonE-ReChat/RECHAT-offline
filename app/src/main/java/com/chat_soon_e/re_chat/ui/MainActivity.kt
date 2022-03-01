@@ -281,6 +281,7 @@ class MainActivity: NavigationView.OnNavigationItemSelectedListener, AppCompatAc
                 startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
                 if (permissionGrantred(this)) {
                     Toast.makeText(this, "알림 권한을 허용합니다.", Toast.LENGTH_SHORT).show()
+                    Log.d("serviceStart", "inPermission")
                     startForegroundService(Intent(this, MyNotificationListener::class.java))
                 }
 

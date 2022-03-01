@@ -2,6 +2,7 @@ package com.chat_soon_e.re_chat.ui
 
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.chat_soon_e.re_chat.databinding.ActivityPermissionBinding
 import com.chat_soon_e.re_chat.utils.permissionGrantred
@@ -21,7 +22,7 @@ class PermissionActivity:BaseActivity<ActivityPermissionBinding>(ActivityPermiss
             startActivity(Intent( "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
             // 권한을 얻었다면 서비스 시작
             if(permissionGrantred(this))
-
+                Log.d("serviceStart", "inPermission")
                 startForegroundService(Intent(this, MyNotificationListener::class.java))
             finish()
         // startActivityWithClear(SplashActivity::class.java)
