@@ -11,11 +11,12 @@ import androidx.viewbinding.ViewBinding
 
 // AppCompatActivity를 상속받아 Activity 역할을 하는 가장 기본적인 Activity
 // 자동적으로 뷰 바인딩을 해주기 때문에 BaseActivity를 상속받아 필요한 것들만 넘겨주면 자동적으로 onCreate() 수행되면서 뷰 바인딩이 된다.
-abstract class BaseActivity<T: ViewBinding>(private val inflate: (LayoutInflater) -> T): AppCompatActivity(){
+abstract class BaseActivity<T : ViewBinding>(private val inflate: (LayoutInflater) -> T) :
+    AppCompatActivity() {
     protected lateinit var binding: T
         private set
 
-    private var imm : InputMethodManager? = null
+    private var imm: InputMethodManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +50,7 @@ abstract class BaseActivity<T: ViewBinding>(private val inflate: (LayoutInflater
 
     // 키보드 숨기기
     // 디바이스에서 키보드가 뜨는 것을 자동적으로 숨겨주는 역할
-    fun hideKeyboard(v: View){
+    fun hideKeyboard(v: View) {
         imm?.hideSoftInputFromWindow(v.windowToken, 0)
     }
 }
