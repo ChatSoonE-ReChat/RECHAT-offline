@@ -30,11 +30,7 @@ class ApplicationClass : Application() {
 
         // DB: 데이터베이스명
         const val APP_DATABASE = "$TAG-DB"
-
-
-        const val BASE_URL: String = DEV_URL    // apk 추출할 때 알맞게 바꾸면[넣어주면] 된다.
-
-
+        
         // DB: status
         const val ACTIVE: String = "ACTIVE"
         const val INACTIVE: String = "INACTIVE"
