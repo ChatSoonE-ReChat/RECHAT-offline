@@ -60,10 +60,10 @@ public class CreatePatternActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     finish();
-                } else if(mode == 2) {    // 폴더 화면으로 가면 된다.
-                    Intent intent = new Intent(getApplicationContext(), MyFolderActivity.class);
-                    startActivity(intent);
-                    finish();
+//                } else if(mode == 2) {    // 폴더 화면으로 가면 된다.
+//                    Intent intent = new Intent(getApplicationContext(), MyFolderActivity.class);
+//                    startActivity(intent);
+//                    finish();
                 } else {    //입력 모드로 가면 된다.
                     Intent intent = new Intent(getApplicationContext(), InputPatternActivity.class);
                     startActivity(intent);

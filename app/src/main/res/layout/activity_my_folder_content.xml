@@ -165,42 +165,6 @@
         app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- 숨긴 폴더 목록으로 -->
-    <ImageView
-        android:id="@+id/my_folder_to_hidden_folder_iv"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/selector_lock_folder"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/my_folder_to_hidden_folder_tv"
-        app:layout_constraintStart_toStartOf="@+id/my_folder_to_hidden_folder_tv"
-        app:layout_constraintEnd_toEndOf="@id/my_folder_to_hidden_folder_tv" />
 
-    <TextView
-        android:id="@+id/my_folder_to_hidden_folder_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="숨긴보관함"
-        android:textColor="@color/selector_font_color"
-        android:fontFamily="@font/cafessurroundair"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/select_right_bar"
-        android:textSize="7dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="@id/select_right_bar"
-        app:layout_constraintEnd_toEndOf="@id/select_right_bar" />
-
-    <ImageView
-        android:id="@+id/select_right_bar"
-        android:layout_width="29dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="-20dp"
-        android:visibility="invisible"
-        android:src="@drawable/navi_touch_bar"
-        app:layout_constraintStart_toEndOf="@id/my_folder_background_bottom_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/my_folder_bottom_bar_view"
-        app:layout_constraintHorizontal_bias="0.32" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@ import com.chat_soon_e.re_chat.R
 import com.chat_soon_e.re_chat.data.entities.Folder
 import com.chat_soon_e.re_chat.databinding.ItemHiddenFolderBinding
 
-class HiddenFolderRVAdapter(private val mContext: HiddenFolderActivity): RecyclerView.Adapter<HiddenFolderRVAdapter.ViewHolder>() {
+class HiddenFolderRVAdapter(private val fragment: MyHiddenFolderFragment): RecyclerView.Adapter<HiddenFolderRVAdapter.ViewHolder>() {
     private val hiddenFolderList = ArrayList<Folder>()
     private val tag = "RV/HIDDEN-FOLDER"
 
@@ -60,18 +60,18 @@ class HiddenFolderRVAdapter(private val mContext: HiddenFolderActivity): Recycle
         // 폴더 아이템 롱클릭 시 팝업 메뉴 뜨도록
         itemHiddenFolderBinding.itemHiddenFolderIv.setOnLongClickListener {
             // 팝업 메뉴: 이름 바꾸기, 아이콘 바꾸기, 삭제하기, 숨기기
-            popupMenu = PopupMenu(mContext, holder.itemView, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
+            popupMenu = PopupMenu(fragment.requireContext(), holder.itemView, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
             popupMenu.menuInflater.inflate(R.menu.popup_hidden_folder_option_menu, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item?.itemId) {
                     R.id.popup_folder_edit_menu_1 -> {
                         // 이름 바꾸기
-                        mContext.changeFolderName(itemHiddenFolderBinding, hiddenFolderList[position].idx)
+                        fragment.changeFolderName(itemHiddenFolderBinding, hiddenFolderList[position].idx)
                     }
 
                     R.id.popup_folder_edit_menu_2 -> {
                         // 아이콘 바꾸기
-                        mContext.changeIcon(itemHiddenFolderBinding, position, hiddenFolderList)
+                        fragment.changeIcon(itemHiddenFolderBinding, position, hiddenFolderList)
                     }
 
                     R.id.popup_folder_edit_menu_3 -> {

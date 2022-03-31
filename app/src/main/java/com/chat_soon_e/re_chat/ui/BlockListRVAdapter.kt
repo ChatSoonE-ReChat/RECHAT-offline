@@ -11,7 +11,7 @@ import com.chat_soon_e.re_chat.data.entities.BlockedChatList
 import com.chat_soon_e.re_chat.databinding.ItemBlockBinding
 
 class BlockListRVAdapter(
-    private val mContext: BlockListActivity,
+    private val mContext: MainActivity,
     private val blockList: ArrayList<BlockedChatList>,
     private val param: BlockListRVAdapter.MyClickListener
 ): RecyclerView.Adapter<BlockListRVAdapter.ViewHolder>() {

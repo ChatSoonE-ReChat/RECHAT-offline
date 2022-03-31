@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/folder_content_constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70sp"
         android:background="@drawable/background_white_corner_bottom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,10 +32,10 @@
         <TextView
             android:id="@+id/folder_content_name_tv"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="20dp"
             android:text="@string/name"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="17sp"
             android:gravity="center_vertical"
             android:ellipsize="end"
             android:maxLines="1"

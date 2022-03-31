@@ -17,86 +17,15 @@
         android:src="@drawable/menu_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!--Title-->
-    <TextView
-        android:id="@+id/main_title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="40dp"
-        android:fontFamily="@font/cafessurround"
-        android:text="@string/chat_list"
-        android:textColor="@color/black"
-        android:textSize="45dp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@id/main_chat_list_recycler_view_background_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/main_cancel_iv"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="9dp"
-        android:src="@drawable/ic_baseline_cancel_24"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/main_title_tv"
-        app:layout_constraintStart_toEndOf="@id/main_title_tv"
-        app:layout_constraintTop_toTopOf="@id/main_title_tv" />
-
-    <ImageView
-        android:layout_width="192dp"
-        android:layout_height="132dp"
-        android:layout_marginStart="170dp"
-        android:layout_marginTop="65dp"
-        android:src="@drawable/main_cloud"
-        android:translationZ="-1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/main_chat_list_recycler_view_background_view"
+    <FrameLayout
+        android:id="@+id/main_fr"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/background_white_corner"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_title_tv" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_chat_list_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@android:color/transparent"
-        android:overScrollMode="never"
-        android:layout_marginTop="40dp"
-        app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/main_chat_list_recycler_view_background_view"
-        tools:listitem="@layout/item_chat_list_default" />
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/main_chat_list_recycler_view"-->
-<!--        style="@style/scrollbar_shape_style"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        android:overScrollMode="never"-->
-<!--        android:scrollbarFadeDuration="0"-->
-<!--        android:scrollbarSize="10dp"-->
-<!--        android:scrollbars="vertical"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar_view"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@id/main_chat_list_recycler_view_background_view"-->
-<!--        tools:listitem="@layout/item_chat_list_default" />-->
-
+        app:layout_constraintTop_toBottomOf="@id/main_setting_menu_iv"
+        app:layout_constraintBottom_toTopOf="@id/main_bottom_bar_view"/>
     <!--navi bar-->
     <ImageView
         android:id="@+id/main_bottom_bar_view"
@@ -218,37 +147,22 @@
         android:scaleType="fitCenter"
         android:src="@drawable/selector_delete"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/main_my_folder_select_bar_iv"
-        app:layout_constraintEnd_toEndOf="@id/main_my_folder_select_bar_iv"
+        app:layout_constraintStart_toStartOf="@id/main_my_folder_iv"
+        app:layout_constraintEnd_toEndOf="@id/main_my_folder_iv"
         app:layout_constraintBottom_toTopOf="@id/main_my_folder_tv"/>
 
     <!-- 내 폴더로 -->
     <ImageView
         android:id="@+id/main_my_folder_iv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
         android:layout_marginBottom="6dp"
         android:visibility="visible"
         android:scaleType="fitCenter"
         android:src="@drawable/selector_my_folder"
-        app:layout_constraintBottom_toTopOf="@id/main_my_folder_tv"
-        app:layout_constraintEnd_toEndOf="@id/main_my_folder_tv"
-        app:layout_constraintStart_toStartOf="@id/main_my_folder_tv" />
-
-    <ImageView
-        android:id="@+id/main_my_folder_select_bar_iv"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="-20dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/navi_touch_bar"
-        android:translationZ="10dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
-        app:layout_constraintStart_toEndOf="@id/main_folder_background_view" />
+        app:layout_constraintStart_toEndOf="@id/main_folder_background_view"
+        app:layout_constraintTop_toTopOf="@id/main_bottom_bar_view"
+        app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar_view"/>
 
     <TextView
         android:id="@+id/main_my_folder_tv"
@@ -260,21 +174,49 @@
         android:textColor="@color/selector_font_color"
         android:textSize="7dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/main_my_folder_select_bar_iv"
-        app:layout_constraintEnd_toEndOf="@id/main_my_folder_select_bar_iv"
-        app:layout_constraintStart_toStartOf="@id/main_my_folder_select_bar_iv" />
+        app:layout_constraintTop_toBottomOf="@id/main_my_folder_iv"
+        app:layout_constraintStart_toStartOf="@id/main_my_folder_iv"
+        app:layout_constraintEnd_toEndOf="@id/main_my_folder_iv"
+        android:layout_marginTop="4dp"/>
 
-    <View
-        android:id="@+id/main_background_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background_gray"
-        android:visibility="invisible"
-        android:translationZ="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- 숨긴 폴더 목록으로 -->
+    <ImageView
+        android:id="@+id/my_folder_to_hidden_folder_iv"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/selector_lock_folder"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintStart_toEndOf="@id/main_my_folder_iv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@id/main_bottom_bar_view"
+        app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar_view"/>
+
+    <TextView
+        android:id="@+id/my_folder_to_hidden_folder_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="숨긴보관함"
+        android:textColor="@color/selector_font_color"
+        android:fontFamily="@font/cafessurroundair"
+        android:textStyle="bold"
+        android:textSize="7dp"
+        app:layout_constraintTop_toBottomOf="@id/my_folder_to_hidden_folder_iv"
+        app:layout_constraintStart_toStartOf="@id/my_folder_to_hidden_folder_iv"
+        app:layout_constraintEnd_toEndOf="@id/my_folder_to_hidden_folder_iv"
+        android:layout_marginTop="4dp"/>
+
+<!--    <View-->
+<!--        android:id="@+id/main_background_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@color/background_gray"-->
+<!--        android:visibility="invisible"-->
+<!--        android:translationZ="1dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,7 @@ import com.chat_soon_e.re_chat.R
 import com.chat_soon_e.re_chat.data.entities.Folder
 import com.chat_soon_e.re_chat.databinding.ItemMyFolderBinding
 
-class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Adapter<MyFolderRVAdapter.ViewHolder>() {
+class MyFolderRVAdapter(private val fragment:MyFolderFragment): RecyclerView.Adapter<MyFolderRVAdapter.ViewHolder>() {
     private lateinit var popupMenu: PopupMenu
     private lateinit var binding: ItemMyFolderBinding
 
@@ -61,18 +61,18 @@ class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Ad
         // 폴더 아이템 롱클릭 시 팝업 메뉴 뜨도록
         holder.binding.itemMyFolderIv.setOnLongClickListener {
             // 팝업 메뉴: 이름 바꾸기, 아이콘 바꾸기, 삭제하기, 숨기기
-            popupMenu = PopupMenu(mContext, holder.itemView, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
+            popupMenu = PopupMenu(fragment.context, holder.itemView, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
             popupMenu.menuInflater.inflate(R.menu.popup_folder_option_menu, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item?.itemId) {
                     R.id.popup_folder_edit_menu_1 -> {
                         // 이름 바꾸기
-                        mContext.changeFolderName(holder.binding, folderList[position].idx)
+                        fragment.changeFolderName(holder.binding, folderList[position].idx)
                     }
 
                     R.id.popup_folder_edit_menu_2 -> {
                         // 아이콘 바꾸기
-                        mContext.changeIcon(holder.binding, position, folderList[position].idx)
+                        fragment.changeIcon(holder.binding, position, folderList[position].idx)
                     }
 
                     R.id.popup_folder_edit_menu_3 -> {
@@ -105,7 +105,6 @@ class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Ad
         Log.d(tag, "addFolderList()/folderList: ${this.folderList}")
         notifyDataSetChanged()
     }
-
     // index를 바꿔줘야 한다.
     // 선택된 index를 지우고, 끝에 추가해준다.
     private fun removeFolder(position: Int) {

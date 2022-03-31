@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
@@ -25,6 +26,10 @@ public class InputPatternActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_pattern);
 
+        // 패턴 맞는지 확인
+        // 1: 맞, -1: 틀림
+        SharedPreferences correctSPF=getSharedPreferences("lock_correct", MODE_PRIVATE);
+        SharedPreferences.Editor editor=correctSPF.edit();
         // 패턴 모드 확인
         // 0: 숨긴 폴더 목록을 확인하기 위한 입력 모드
         // 1: 메인 화면의 설정창 -> 변경 모드
@@ -37,6 +42,7 @@ public class InputPatternActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("lock", 0);
         patternValue = preferences.getString("pattern", "0");
         Log.d("INPUT-PATTERN", patternValue);
+
 
         mPatternLockView = (PatternLockView) findViewById(R.id.input_pattern_lock_view);
         mPatternLockView.addPatternLockListener(new PatternLockViewListener() {
@@ -52,10 +58,10 @@ public class InputPatternActivity extends AppCompatActivity {
 
             @Override
             public void onComplete(List<PatternLockView.Dot> pattern) {
-                if(patternValue.equals(PatternLockUtils.patternToString(mPatternLockView, pattern))) {
+                if(patternValue.equals(PatternLockUtils.patternToString(mPatternLockView, pattern))) { // 올바르게 입력 시
+                    editor.putInt("correct", 1);
+                    editor.apply();
                     if(mode == 0) { // 숨긴 폴더 목록을 보여주면 된다.
-                        Intent intent = new Intent(getApplicationContext(), HiddenFolderActivity.class);
-                        startActivity(intent);
                         finish();
                     } else if(mode == 1 || mode == 2) {  // 패턴 변경 모드이므로, 패턴을 생성하는 CreatePatternActivity로 가면 된다.
                         Intent intent = new Intent(getApplicationContext(), CreatePatternActivity.class);
@@ -65,6 +71,8 @@ public class InputPatternActivity extends AppCompatActivity {
                         finish();
                     }
                 } else {
+                    editor.putInt("correct", -1);
+                    editor.apply();
                     Toast.makeText(InputPatternActivity.this, "잘못된 패턴입니다.", Toast.LENGTH_SHORT).show();
                     mPatternLockView.clearPattern();
                 }

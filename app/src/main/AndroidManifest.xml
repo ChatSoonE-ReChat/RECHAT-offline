@@ -29,9 +29,7 @@
         <activity android:name="com.chat_soon_e.re_chat.ui.PermissionActivity" android:exported="false" />
         <activity android:name="com.chat_soon_e.re_chat.ui.MainActivity" android:exported="false" />
         <activity android:name="com.chat_soon_e.re_chat.ui.ChatActivity" android:exported="false" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.MyFolderActivity" android:exported="false" />
         <activity android:name="com.chat_soon_e.re_chat.ui.CreatePatternActivity" android:exported="false" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.HiddenFolderActivity" android:exported="false" />
         <activity android:name="com.chat_soon_e.re_chat.ui.InputPatternActivity" android:exported="false" />
         <activity android:name="com.chat_soon_e.re_chat.ui.FolderContentActivity" android:exported="false" />
         <activity android:name="com.chat_soon_e.re_chat.ui.BlockListActivity" android:exported="false" />

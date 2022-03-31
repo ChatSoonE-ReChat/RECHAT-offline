@@ -91,6 +91,7 @@
 
 
     <!--테스트id-->
-    <string name="banner_ad_unit_id_for_test"></string>
+    <string name="admob_app_id"></string>
+    <string name="banner_ad_unit_id"></string>
 
 </resources>
