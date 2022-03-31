@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navi_setting_alarm_item"
+        android:icon="@drawable/ic_setting_ring"
+        android:title="@string/setting_alarm"
+        app:actionLayout="@layout/activity_main_drawer_switch" />
+
+    <item
+        android:id="@+id/navi_setting_pattern_item"
+        android:icon="@drawable/ic_setting_pattern"
+        android:title="@string/pattern" />
+
+    <item
+        android:id="@+id/navi_setting_helper_item"
+        android:icon="@drawable/ic_setting_helper"
+        android:title="@string/setting_helper" />
+
+    <item
+        android:id="@+id/navi_setting_privacy_item"
+        android:icon="@drawable/ic_setting_account"
+        android:title="@string/setting_privacy" />
+
+</menu>

@@ -11,7 +11,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.chat_soon_e.re_chat"
+        applicationId "com.chatsoone.rechat"
         minSdk 26
         targetSdk 31
         versionCode 1

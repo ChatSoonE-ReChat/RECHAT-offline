@@ -5,16 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity"
+    tools:context=".ui.main.MainActivity"
     tools:openDrawer="start"
     android:id="@+id/main_drawer_layout">
 
     <!-- 메인 레이아웃 -->
     <include
-        android:id="@+id/main_content"
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/activity_main_content" />
+        layout="@layout/activity_main_bnv" />
 
     <!-- 자식 레이아웃 -->
     <!-- Navigation Drawer -->
@@ -24,9 +24,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:itemBackground="@null"
-        android:background="@drawable/background_navi"
+        android:background="@drawable/bg_drawer_layout"
         app:headerLayout="@layout/activity_main_drawer_header"
-        app:menu="@menu/navi_setting_menu" />
-
+        app:menu="@menu/menu_setting" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -19,7 +19,7 @@
             android:layout_height="50dp"
             android:paddingTop="-10dp"
             android:paddingBottom="-10dp"
-            android:src="@drawable/folder_default"
+            android:src="@drawable/ic_folder_cloud"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/item_folder_list_tv"
             app:layout_constraintTop_toTopOf="parent"

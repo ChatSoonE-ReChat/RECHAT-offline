@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     app:switchMinWidth="48dp"
     android:text=""
-    android:thumb="@drawable/shape_thumb"
+    android:thumb="@drawable/shape_toggle_thumb"
     app:track="@drawable/selector_switch"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 

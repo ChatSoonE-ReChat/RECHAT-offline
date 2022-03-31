@@ -16,7 +16,7 @@
         android:layout_marginStart="20dp"
         android:background="@color/white"
         android:scaleType="fitXY"
-        android:src="@drawable/chat_defualt_profile"
+        android:src="@drawable/ic_profile_default"
         app:layout_constraintEnd_toStartOf="@+id/item_chat_list_name_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/background_circle"
+        android:src="@drawable/bg_circle"
         android:translationZ="-1dp"
         app:layout_constraintBottom_toBottomOf="@id/item_chat_list_profile_iv"
         app:layout_constraintEnd_toEndOf="@id/item_chat_list_profile_iv"

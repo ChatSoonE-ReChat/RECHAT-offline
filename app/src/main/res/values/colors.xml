@@ -22,7 +22,7 @@
     <color name="orange">#F3C19D</color>
     <color name="dark_gray">#707070</color>
     <color name="light_pink">#46F9BDBB</color>
-    <color name="background_gray">#46030101</color>
     <color name="rechat_main_color_blue">#b0def0</color>
     <color name="rechat_main_color_gray">#f2f2f2</color>
+    <color name="bg_gray">#46030101</color>
 </resources>

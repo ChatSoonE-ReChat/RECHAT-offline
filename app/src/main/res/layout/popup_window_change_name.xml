@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="310dp"
     android:layout_height="236dp"
-    android:background="@drawable/background_white_corner_button"
+    android:background="@drawable/bg_corners_white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -52,7 +52,7 @@
         android:textSize="14sp"
         android:letterSpacing="-0.09"
         android:textStyle="bold"
-        android:background="@drawable/button_change_name"
+        android:background="@drawable/bg_change_name"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
         app:layout_constraintVertical_chainStyle="packed"

@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="20dp"
-        android:src="@drawable/ic_cancel" />
+        android:src="@drawable/ic_cancel_black" />
 
     <FrameLayout
         android:id="@+id/explain_fl"

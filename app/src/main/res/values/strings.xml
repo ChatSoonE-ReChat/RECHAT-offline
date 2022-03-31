@@ -1,15 +1,18 @@
 <resources>
-    <string name="app_name">RE: CHAT</string>
+    <string name="app_name">RE:CHAT</string>
 
     <!-- 공통 -->
     <string name="img_app_logo">logo image</string>
     <string name="ic_back">back icon</string>
 
-    <!-- 메뉴 -->
-    <string name="menu_home">홈</string>
-    <string name="menu_search">찾기</string>
-    <string name="menu_matching">매칭</string>
-    <string name="menu_mypage">마이페이지</string>
+    <!-- bottom navigation view -->
+    <string name="main_bnv_home">전체채팅</string>
+    <string name="main_bnv_block_list">차단목록</string>
+    <string name="main_bnv_folder">보관함</string>
+    <string name="main_bnv_hidden_folder">숨긴보관함</string>
+
+    <string name="home_delete">삭제하기</string>
+    <string name="home_block">차단하기</string>
 
     <!-- 에러처리 -->
     <string name="default_fail">네트워크연결이 원활하지 않습니다</string>
@@ -32,7 +35,7 @@
     <string name="signup_password_confirm_hint">비밀번호 확인</string>
 
     <!-- 전체 채팅 -->
-    <string name="chat_list">All Chat</string>
+    <string name="chat_list">전체 채팅</string>
     <string name="chat_list_name">이름</string>
     <string name="chat_list_content">내용</string>
     <string name="chat_list_date_time">날짜와 시간</string>
@@ -88,7 +91,6 @@
     <string name="second_description">RE: CHAT(이하 리챗)은 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다. 관계 법령 및 개인정보 취급방침에 따라 사용자 개인정보 보호에 최선을 다합니다.</string>
     <string name="item_title">타이틀</string>
     <string name="item_content">내용</string>
-
 
     <!--테스트id-->
     <string name="banner_ad_unit_id_for_test"></string>
