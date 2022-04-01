@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/popup_folder_edit_menu_1"
-        android:title="@string/change_folder_name" />
+        android:title="@string/my_folder_change_name" />
 
     <item
         android:id="@+id/popup_folder_edit_menu_2"
-        android:title="@string/change_folder_icon" />
+        android:title="@string/my_folder_change_icon" />
 
     <item
         android:id="@+id/popup_folder_edit_menu_3"
-        android:title="@string/delete_folder" />
+        android:title="@string/delete" />
 
     <item
         android:id="@+id/popup_folder_edit_menu_4"
-        android:title="@string/hide_folder" />
+        android:title="@string/my_folder_invisible" />
 </menu>

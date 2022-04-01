@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chatsoone.rechat.R
 import com.chatsoone.rechat.data.entity.Folder
 import com.chatsoone.rechat.databinding.ItemMyFolderBinding
-import com.chatsoone.rechat.ui.MyFolderActivity
 
-class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Adapter<MyFolderRVAdapter.ViewHolder>() {
+class MyFolderRVAdapter(private val fragment:MyFolderFragment): RecyclerView.Adapter<MyFolderRVAdapter.ViewHolder>() {
     private lateinit var popupMenu: PopupMenu
     private lateinit var binding: ItemMyFolderBinding
 
@@ -19,11 +18,11 @@ class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Ad
 
     // 클릭 인터페이스
     interface MyItemClickListener {
-        fun onRemoveFolder(idx: Int)
-        fun onHideFolder(idx: Int)
+        fun onRemoveFolder(folderIdx: Int)
+        fun onHideFolder(folderIdx: Int)
         fun onFolderNameLongClick(binding: ItemMyFolderBinding, folderIdx: Int)
         fun onFolderClick(view: View, position: Int)
-        fun onFolderLongClick(popup: PopupMenu)
+        fun onFolderLongClick(popupMenu: PopupMenu)
     }
 
     // 리스너 객체를 저장하는 변수
@@ -62,18 +61,19 @@ class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Ad
         // 폴더 아이템 롱클릭 시 팝업 메뉴 뜨도록
         holder.binding.itemMyFolderIv.setOnLongClickListener {
             // 팝업 메뉴: 이름 바꾸기, 아이콘 바꾸기, 삭제하기, 숨기기
-            popupMenu = PopupMenu(mContext, holder.itemView, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
+            popupMenu = PopupMenu(fragment.context, holder.itemView, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
             popupMenu.menuInflater.inflate(R.menu.menu_folder_option, popupMenu.menu)
+
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item?.itemId) {
                     R.id.popup_folder_edit_menu_1 -> {
                         // 이름 바꾸기
-                        mContext.changeFolderName(holder.binding, folderList[position].idx)
+                        fragment.changeFolderName(holder.binding, folderList[position].idx)
                     }
 
                     R.id.popup_folder_edit_menu_2 -> {
                         // 아이콘 바꾸기
-                        mContext.changeIcon(holder.binding, position, folderList[position].idx)
+                        fragment.changeIcon(holder.binding, position, folderList[position].idx)
                     }
 
                     R.id.popup_folder_edit_menu_3 -> {
@@ -106,7 +106,6 @@ class MyFolderRVAdapter(private val mContext: MyFolderActivity): RecyclerView.Ad
         Log.d(tag, "addFolderList()/folderList: ${this.folderList}")
         notifyDataSetChanged()
     }
-
     // index를 바꿔줘야 한다.
     // 선택된 index를 지우고, 끝에 추가해준다.
     private fun removeFolder(position: Int) {

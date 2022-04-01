@@ -3,24 +3,25 @@ package com.chatsoone.rechat.base
 import android.graphics.Insets
 import android.graphics.Point
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.viewbinding.ViewBinding
-import com.chatsoone.rechat.ui.ChatViewModel
+import com.chatsoone.rechat.ApplicationClass.Companion.FRAG
 
 abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflater) -> VB) :
     Fragment() {
     private var _binding: VB? = null
     val binding get() = _binding!!
-    var userId = com.chatsoone.rechat.utils.getId()
+    var userID = com.chatsoone.rechat.utils.getID()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d(FRAG, "BASE/onCreateView")
         _binding = inflate.invoke(inflater)
         afterOnCreateView()
         return binding.root

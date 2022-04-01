@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.graphics.Color
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -21,8 +22,7 @@ import com.chatsoone.rechat.data.entity.ChatList
 import com.chatsoone.rechat.data.entity.Folder
 import com.chatsoone.rechat.data.entity.Icon
 import com.chatsoone.rechat.data.local.AppDatabase
-import com.chatsoone.rechat.databinding.FragmentHomeBinding
-import com.chatsoone.rechat.databinding.ItemFolderListBinding
+import com.chatsoone.rechat.databinding.*
 import com.chatsoone.rechat.ui.ChatViewModel
 import com.chatsoone.rechat.ui.FolderListRVAdapter
 import com.chatsoone.rechat.ui.chat.ChatActivity
@@ -42,7 +42,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     // onCreate() 이후
     override fun afterOnCreateView() {
+        Log.d(FRAG, "HOME/afterOnCreateView")
         database = AppDatabase.getInstance(requireContext())!!
+
         observeMode()
         observeChat()
         initRecyclerView()
@@ -52,9 +54,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     // view mode
     private fun observeMode() {
         // 액티비티로부터 받은 값으로 초기화
-        val viewModeSPF = requireActivity().getSharedPreferences("viewModeSPF", 0)
-        chatViewModel.setMode(viewModeSPF.getInt("viewMode", 0))
+//        val viewModeSPF = requireActivity().getSharedPreferences("viewModeSPF", 0)
+//        chatViewModel.setMode(viewModeSPF.getInt("viewMode", 0))
 
+        Log.d(FRAG, "HOME/observeMode")
         chatViewModel.mode.observe(this) {
             if(it == 0) setDefaultMode()
             else setChooseMode()
@@ -66,7 +69,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     // chat data
     private fun observeChat() {
-        database.chatDao().getRecentChat(userId).observe(this) {
+        Log.d(FRAG, "HOME/observeChat")
+        database.chatDao().getRecentChat(userID).observe(this) {
             Log.d(FRAG, "HOME/getRecentChat: $it")
             homeRVAdapter.addItem(it)
             chatList.clear()
@@ -77,6 +81,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     // recycler view 초기화화
    private fun initRecyclerView() {
+        Log.d(FRAG, "HOME/initRecyclerView")
+
         // 레이아웃 설정
         val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
         linearLayoutManager.stackFromEnd = true
@@ -103,9 +109,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
 
             // 선택 모드
-            override fun onChooseChatClick(view: View, position: Int) {
+            override fun onChooseChatClick(position: Int) {
                 // 해당 아이템이 선택되면 뷰를 바꿔줍니다.
                 homeRVAdapter.setChecked(position)
+            }
+
+            // 선택 모드로 전환되게끔
+            override fun onProfileClick(position: Int) {
+                chatViewModel.setMode(1)
             }
         })
         binding.homeRecyclerView.adapter = homeRVAdapter
@@ -113,21 +124,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     // click listener 초기화
     private fun initClickListener() {
+        Log.d(FRAG, "HOME/initClickListener")
+
         // 선택 모드 취소 버튼 클릭했을 때 기본 모드로 세팅
         binding.homeCancelIv.setOnClickListener {
             chatViewModel.setMode(0)
-            setDefaultMode()
-
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
         }
 
         // 차단하기 클릭했을 때
-        binding.homeBottomBlockIv.setOnClickListener {
+        binding.homeBlockIv.setOnClickListener {
             val selectedChatList = homeRVAdapter.getSelectedItem()
             for(i in selectedChatList) {
-                if(i.groupName != "null") i.groupName?.let { it1 -> database.chatDao().blockOrgChat(userId, it1) }
-                else database.chatDao().blockOneChat(userId, i.groupName!!)
+                if(i.groupName != "null") i.groupName?.let { it1 -> database.chatDao().blockOrgChat(userID, it1) }
+                else database.chatDao().blockOneChat(userID, i.groupName!!)
             }
 
             homeRVAdapter.blockSelectedItemList()
@@ -136,14 +145,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
 
         // 삭제하기 클릭했을 때
-        binding.homeBottomDeleteIv.setOnClickListener {
+        binding.homeDeleteIv.setOnClickListener {
             homeRVAdapter.removeSelectedItemList()
             setDefaultMode()
             Toast.makeText(requireContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
-        // 선택 모드에서 하단 중앙 아이콘 클릭했을 때
-        binding.homeBottomCenterChooseIv.setOnClickListener {
+        // 하단 중앙 버튼 클릭 시
+        val activityMainBnvBinding = ActivityMainBnvBinding.inflate(layoutInflater)
+        activityMainBnvBinding.mainBnvCenterDefaultIv.setOnClickListener {
             openPopupWindow()
         }
     }
@@ -159,13 +169,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         homeRVAdapter.clearSelectedItemList()
         chatViewModel.setMode(0)
 
-        // 선택 모드 취소 버튼
+        binding.homeTitleTv.text = "전체 채팅"
         binding.homeCancelIv.visibility = View.GONE
-
-        // 하단 레이아웃
-        binding.homeBottomBgCenterIv.visibility = View.GONE
-        binding.homeBottomCenterChooseIv.visibility = View.GONE
-        binding.homeBottomLayout.visibility = View.GONE
+        binding.homeDeleteIv.visibility = View.GONE
+        binding.homeBlockIv.visibility = View.GONE
+        binding.homeCloudIv.visibility = View.VISIBLE
+        binding.homeLayout.setBackgroundColor(Color.parseColor("#FFFFFF"))
     }
 
     // 선택 모드 세팅
@@ -173,13 +182,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         homeRVAdapter.clearSelectedItemList()
         chatViewModel.setMode(1)
 
-        // 선택 모드 취소 버튼
+        binding.homeTitleTv.text = null
         binding.homeCancelIv.visibility = View.VISIBLE
-
-        // 하단 레이아웃
-        binding.homeBottomBgCenterIv.visibility = View.VISIBLE
-        binding.homeBottomCenterChooseIv.visibility = View.VISIBLE
-        binding.homeBottomLayout.visibility = View.VISIBLE
+        binding.homeDeleteIv.visibility = View.VISIBLE
+        binding.homeBlockIv.visibility = View.VISIBLE
+        binding.homeCloudIv.visibility = View.GONE
+        binding.homeLayout.setBackgroundColor(Color.parseColor("#F2F2F2"))
     }
 
     // 폴더로 보내기 팝업 윈도우
@@ -190,7 +198,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val height = (size.y * 0.4f).toInt()
 
         val inflater = requireActivity().getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val popupView = inflater.inflate(R.layout.popup_window_to_folder_menu, null)
+        val popupView = inflater.inflate(R.layout.popup_window_to_folder, null)
 
         mPopupWindow = PopupWindow(popupView, width, height)
         mPopupWindow.animationStyle = R.style.Animation
@@ -210,7 +218,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val folderListRVAdapter = FolderListRVAdapter(requireContext())
 
         // live data 반영 (폴더/보관함 목록)
-        database.folderDao().getFolderList(userId).observe(this) {
+        database.folderDao().getFolderList(userID).observe(this) {
             folderList.addAll(it)
             folderListRVAdapter.addFolderList(folderList)
         }
@@ -251,14 +259,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
 
                 val selectedChatList = homeRVAdapter.getSelectedItem()
-                Log.d(FRAG, "HOME/selectedChatList: $chatList")
+                Log.d(FRAG, "HOME/selectedChatList: $selectedChatList")
 
                 val folderIdx = folderList[itemPosition].idx
 
                 // 갠톡 이동: folderIdx, otherUserIdx
                 // 단톡 이동: folderIdx, userIdx, groupName
-                for (i in chatList) {
-                    if (i.groupName != "null") database.folderContentDao().insertOrgChat(i.chatIdx, folderIdx, userId)
+                for (i in selectedChatList) {
+                    if (i.groupName != "null") database.folderContentDao().insertOrgChat(i.chatIdx, folderIdx, userID)
                     else database.folderContentDao().insertOtOChat(folderIdx, i.chatIdx)
                 }
 

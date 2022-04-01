@@ -1,9 +1,22 @@
 <resources>
     <string name="app_name">RE:CHAT</string>
-
-    <!-- 공통 -->
     <string name="img_app_logo">logo image</string>
     <string name="ic_back">back icon</string>
+
+    <!-- 공통 -->
+    <string name="block">차단하기</string>
+    <string name="check">확인</string>
+    <string name="cancel">취소하기</string>
+    <string name="change_name">이름 바꾸기</string>
+    <string name="change_icon">아이콘 바꾸기</string>
+    <string name="delete">삭제하기</string>
+    <string name="separator">  |  </string>
+
+    <!-- chat -->
+    <string name="chat_name">이름</string>
+    <string name="chat_message">내용</string>
+    <string name="chat_date_time">날짜와 시간</string>
+    <string name="chat_new">N</string>
 
     <!-- bottom navigation view -->
     <string name="main_bnv_home">전체채팅</string>
@@ -11,86 +24,55 @@
     <string name="main_bnv_folder">보관함</string>
     <string name="main_bnv_hidden_folder">숨긴보관함</string>
 
+    <!-- home (all chat) -->
+    <string name="home_all_chat">전체 채팅</string>
     <string name="home_delete">삭제하기</string>
     <string name="home_block">차단하기</string>
 
-    <!-- 에러처리 -->
-    <string name="default_fail">네트워크연결이 원활하지 않습니다</string>
+    <!-- block (list) -->
+    <string name="block_list_title">차단 목록</string>
 
-    <!-- 로그인 -->
-    <string name="login">로그인</string>
-    <string name="login_id_hint">아이디(이메일)</string>
-    <string name="login_email_hint">직접입력</string>
-    <string name="login_email_delimiter">\@</string>
-    <string name="login_name_hint">이름</string>
-    <string name="login_signup">회원가입</string>
+    <!-- my folder -->
+    <string name="my_folder_title">보관함</string>
+    <string name="my_folder_name">보관함 이름</string>
+    <string name="my_folder_create">보관함 생성하기</string>
+    <string name="my_folder_set_name">보관함 이름을 적어주세요.</string>
+    <string name="my_folder_change_name">변경할 보관함 이름을 적어주세요.</string>
+    <string name="btn_my_folder_change_name">이름 변경</string>
+    <string name="my_folder_change_icon">아이콘을 선택해주세요.</string>
+    <string name="my_folder_invisible">숨기기</string>
 
-    <!-- 회원가입 -->
-    <string name="signup">회원가입</string>
-    <string name="signup_id_hint">아이디(이메일)</string>
-    <string name="signup_email_hint">직접입력</string>
-    <string name="signup_email_delimiter">\@</string>
-    <string name="signup_name_hint">이름</string>
-    <string name="signup_password_hint">비밀번호</string>
-    <string name="signup_password_confirm_hint">비밀번호 확인</string>
+    <!-- my hidden folder -->
+    <string name="my_hidden_folder_title">숨긴 보관함</string>
+    <string name="my_hidden_folder_visible">보관함으로 보내기</string>
 
-    <!-- 전체 채팅 -->
-    <string name="chat_list">전체 채팅</string>
-    <string name="chat_list_name">이름</string>
-    <string name="chat_list_content">내용</string>
-    <string name="chat_list_date_time">날짜와 시간</string>
-    <string name="chat_list_new">N</string>
+    <!-- explain -->
+    <string name="explain_never_show">다시 보지 않기</string>
 
-    <!-- 팝업 메뉴 -->
-    <string name="delete">삭제하기</string>
-    <string name="block">차단하기</string>
-    <string name="folder">보관함으로 보내기</string>
-    <string name="separator">  |  </string>
-    <string name="cancel">취소하기</string>
-    <string name="create_folder">보관함 생성하기</string>
-    <string name="to_folder">보관함으로 보내기</string>
-    <string name="hidden_folder">숨긴 보관함 목록</string>
-    <string name="change_folder_name">이름 바꾸기</string>
-    <string name="change_folder_icon">아이콘 바꾸기</string>
-    <string name="delete_folder">삭제하기</string>
-    <string name="hide_folder">숨기기</string>
+    <!-- pattern -->
+    <string name="pattern_create">새로운 패턴을 입력하세요.</string>
 
-    <!-- navigation drawer -->
+    <!-- setting -->
     <string name="setting">설정</string>
     <string name="setting_alarm">알림 설정</string>
-    <string name="setting_block">차단 관리</string>
-    <string name="setting_email">이메일 문의</string>
     <string name="setting_helper">사용 방법 도움말</string>
-    <string name="setting_review">앱 리뷰하기</string>
-    <string name="setting_share">공유하기</string>
     <string name="pattern">패턴 변경하기</string>
     <string name="setting_privacy">개인정보 처리방침</string>
     <string name="email">이메일 문의: atleastigotta@gmail.com</string>
 
-    <!-- my folder activity -->
-    <string name="my_folder">보관함</string>
-    <string name="folder_name">보관함 이름</string>
-    <string name="change_name">변경할 보관함 이름을 적어주세요.</string>
-    <string name="change_name_button">이름 변경</string>
-    <string name="set_name_button">확인</string>
-    <string name="change_icon">아이콘을 선택해주세요.</string>
-    <string name="set_folder_name">보관함 이름을 적어주세요.</string>
-
-    <!-- chat activity -->
-    <string name="name">이름</string>
-    <string name="message">메시지</string>
-    <string name="date_time">날짜와 시간</string>
-
-    <!-- hidden folder -->
-    <string name="hidden_folder_title">숨긴 보관함</string>
-    <string name="show_folder">보관함으로 보내기</string>
-
     <!-- 개인정보 처리방침 -->
-    <string name="login_caution">추후 업데이트를 위한 로그인 기능입니다.\n로그인 여부는 선택입니다.</string>
-    <string name="first_description">RE: CHAT앱(이하 리챗)은 고객님의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다.</string>
-    <string name="second_description">RE: CHAT(이하 리챗)은 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다. 관계 법령 및 개인정보 취급방침에 따라 사용자 개인정보 보호에 최선을 다합니다.</string>
-    <string name="item_title">타이틀</string>
-    <string name="item_content">내용</string>
+    <string name="title">제목</string>
+    <string name="content">내용</string>
+    <string name="privacy_info_login_caution">추후 업데이트를 위한 로그인 기능입니다.\n로그인 여부는 선택입니다.</string>
+    <string name="privacy_info_first_description">RE:CHAT앱(이하 리챗)은 고객님의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다.</string>
+    <string name="privacy_info_second_description">RE:CHAT(이하 리챗)은 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다. 관계 법령 및 개인정보 취급방침에 따라 사용자 개인정보 보호에 최선을 다합니다.</string>
+
+    <!-- 에러 처리 -->
+    <string name="default_fail">네트워크 연결이 원활하지 않습니다.</string>
+
+    <!-- 구글 애드몹 -->
+    <!-- 광고 -->
+
 
     <!--테스트id-->
     <string name="banner_ad_unit_id_for_test"></string>

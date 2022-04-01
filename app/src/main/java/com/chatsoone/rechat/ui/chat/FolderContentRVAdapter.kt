@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chatsoone.rechat.ApplicationClass.Companion.loadBitmap
 import com.chatsoone.rechat.R
 import com.chatsoone.rechat.data.remote.FolderContent
-import com.chatsoone.rechat.databinding.ItemChatBinding
+import com.chatsoone.rechat.databinding.ItemFolderContentBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
@@ -20,8 +20,11 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FolderContentRVAdapter(private val mContext: FolderContentActivity, private val size: Point, private val mItemClickListener: MyClickListener)
-    : RecyclerView.Adapter<FolderContentRVAdapter.ViewHolder>() {
+class FolderContentRVAdapter(
+    private val mContext: FolderContentActivity,
+    private val size: Point,
+    private val mItemClickListener: MyClickListener
+) : RecyclerView.Adapter<FolderContentRVAdapter.ViewHolder>() {
     private lateinit var popupMenu: PopupMenu
 
     var chatList = ArrayList<FolderContent>()
@@ -29,13 +32,14 @@ class FolderContentRVAdapter(private val mContext: FolderContentActivity, privat
 
     // 클릭 인터페이스
     interface MyClickListener {
-        fun onRemoveChat(chatIdx:Int)
+        fun onRemoveChat(chatIdx: Int)
         fun onChatLongClick(popupMenu: PopupMenu)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemChatBinding = ItemChatBinding.inflate(
-            LayoutInflater.from(viewGroup.context), viewGroup, false)
+        val binding: ItemFolderContentBinding = ItemFolderContentBinding.inflate(
+            LayoutInflater.from(viewGroup.context), viewGroup, false
+        )
         return ViewHolder(binding)
     }
 
@@ -54,19 +58,25 @@ class FolderContentRVAdapter(private val mContext: FolderContentActivity, privat
 
     //AddData
     @SuppressLint("NotifyDataSetChanged")
-    fun addItem(chat: List<FolderContent>){
+    fun addItem(chat: List<FolderContent>) {
         chatList.clear()
         chatList.addAll(chat as ArrayList)
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(val binding: ItemChatBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemFolderContentBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.itemChatLayout.setOnLongClickListener {
-                popupMenu = PopupMenu(mContext, binding.itemChatDefaultMessageTv, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
+            binding.itemFolderContentLayout.setOnLongClickListener {
+                popupMenu = PopupMenu(
+                    mContext,
+                    binding.itemFolderContentMessageTv,
+                    Gravity.START,
+                    0,
+                    R.style.MyFolderOptionPopupMenuTheme
+                )
                 popupMenu.menuInflater.inflate(R.menu.menu_chat_option, popupMenu.menu)
                 popupMenu.setOnMenuItemClickListener { item ->
-                    when(item?.itemId) {
+                    when (item?.itemId) {
                         R.id.popup_chat_option_menu_delete -> {
                             mItemClickListener.onRemoveChat(chatList[bindingAdapterPosition].chatIdx)
                             removeChat(bindingAdapterPosition)
@@ -87,33 +97,44 @@ class FolderContentRVAdapter(private val mContext: FolderContentActivity, privat
 
 //            val chatList = AppDatabase.getInstance(mContext)!!.chatListDao().getOneChatList(chat.chatIdx)
 
-            binding.itemChatDefaultMessageTv.maxWidth = (size.x * 0.6f).toInt()
-            binding.itemChatDefaultMessageTv.minHeight = (size.y * 0.05f).toInt()
+            binding.itemFolderContentMessageTv.maxWidth = (size.x * 0.6f).toInt()
+            binding.itemFolderContentMessageTv.minHeight = (size.y * 0.05f).toInt()
 
-            binding.itemChatDefaultNameTv.text = chat.nickname
-            binding.itemChatDefaultMessageTv.text = chat.message
-            if(chat.profileImgUrl == null || chat.profileImgUrl == "null") binding.itemChatDefaultProfileIv.setImageResource(R.drawable.ic_profile_default)
-            else binding.itemChatDefaultProfileIv.setImageBitmap(loadBitmap(chat.profileImgUrl!!, mContext))
-            binding.itemChatDefaultDateTimeTv.text = convertDate(binding, chat.postTime)
+            binding.itemFolderContentNameTv.text = chat.nickname
+            binding.itemFolderContentMessageTv.text = chat.message
+            if (chat.profileImgUrl == null || chat.profileImgUrl == "null") binding.itemFolderContentProfileIv.setImageResource(
+                R.drawable.ic_profile_default
+            )
+            else binding.itemFolderContentProfileIv.setImageBitmap(
+                loadBitmap(
+                    chat.profileImgUrl!!,
+                    mContext
+                )
+            )
+            binding.itemFolderContentDateTimeTv.text = convertDate(binding, chat.postTime)
 
-            if(bindingAdapterPosition == chatList.size - 1) {
-                binding.itemChatDefaultNewDateTimeLayout.visibility = View.VISIBLE
-                binding.itemChatDefaultNewDateTimeTv.text = setNewDate(chat.postTime)
-            } else if(bindingAdapterPosition != (chatList.size - 1) && isNextDay(chat.postTime, bindingAdapterPosition)) {
+            if (bindingAdapterPosition == chatList.size - 1) {
+                binding.itemFolderContentNewDateTimeLayout.visibility = View.VISIBLE
+                binding.itemFolderContentNewDateTimeTv.text = setNewDate(chat.postTime)
+            } else if (bindingAdapterPosition != (chatList.size - 1) && isNextDay(
+                    chat.postTime,
+                    bindingAdapterPosition
+                )
+            ) {
                 // 다음 날로 날짜가 바뀐 경우
                 // 혹은 날짜가 1일 이상 차이날 때
-                binding.itemChatDefaultNewDateTimeLayout.visibility = View.VISIBLE
-                binding.itemChatDefaultNewDateTimeTv.text = setNewDate(chat.postTime)
+                binding.itemFolderContentNewDateTimeLayout.visibility = View.VISIBLE
+                binding.itemFolderContentNewDateTimeTv.text = setNewDate(chat.postTime)
             } else {
                 // 날짜가 바뀐 게 아닌 경우
-                binding.itemChatDefaultNewDateTimeLayout.visibility = View.GONE
+                binding.itemFolderContentNewDateTimeLayout.visibility = View.GONE
             }
         }
     }
 
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun convertDate(binding: ItemChatBinding, date :String): String {
+    private fun convertDate(binding: ItemFolderContentBinding, date: String): String {
         val str: String
         val today = Date()
 
@@ -123,10 +144,10 @@ class FolderContentRVAdapter(private val mContext: FolderContentActivity, privat
 //        val dateAsString = simpleDateFormat2.format(dateAsDate!!)
 
         // 오늘이 아니라면 날짜만
-        if(dateAsDate.year == today.year && dateAsDate.month == today.month && dateAsDate.date==today.date){
+        if (dateAsDate.year == today.year && dateAsDate.month == today.month && dateAsDate.date == today.date) {
             val time = SimpleDateFormat("a h:mm")
             str = time.format(dateAsDate).toString()
-        } else{
+        } else {
             // simpleDateFormat은 thread에 안전하지 않습니다.
             // DateTimeFormatter을 사용합시다. 아! Date를 LocalDate로도 바꿔야합니다!
             // val time_formatter=DateTimeFormatter.ofPattern("MM월 dd일")
@@ -154,8 +175,10 @@ class FolderContentRVAdapter(private val mContext: FolderContentActivity, privat
 
         val previousDateAsDate = simpleDateFormat1.parse(chatList[position + 1].postTime)
 
-        val previousLocalDate = previousDateAsDate!!.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        val currentLocalDate = currentDateAsDate!!.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+        val previousLocalDate =
+            previousDateAsDate!!.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+        val currentLocalDate =
+            currentDateAsDate!!.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
         val testLocalDate = LocalDate.of(2022, 2, 13)
 
         Log.d(tag, "isNextDay()/previousDate: $previousLocalDate")
@@ -180,23 +203,5 @@ class FolderContentRVAdapter(private val mContext: FolderContentActivity, privat
 
         Log.d(tag, "isNextDay()/period: $period")
         return period >= 1
-    }
-
-    // 디바이스 크기에 사이즈를 맞추기 위한 함수
-    private fun WindowManager.currentWindowMetricsPointCompat(): Point {
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            val windowInsets = currentWindowMetrics.windowInsets
-            var insets: Insets = windowInsets.getInsets(WindowInsets.Type.navigationBars())
-            windowInsets.displayCutout?.run {
-                insets = Insets.max(insets, Insets.of(safeInsetLeft, safeInsetTop, safeInsetRight, safeInsetBottom))
-            }
-            val insetsWidth = insets.right + insets.left
-            val insetsHeight = insets.top + insets.bottom
-            Point(currentWindowMetrics.bounds.width() - insetsWidth, currentWindowMetrics.bounds.height() - insetsHeight)
-        } else{
-            Point().apply {
-                defaultDisplay.getSize(this)
-            }
-        }
     }
 }

@@ -15,7 +15,7 @@ import com.chatsoone.rechat.ui.permission.PermissionActivity
 import com.chatsoone.rechat.ui.explain.ExplainActivity
 import com.chatsoone.rechat.ui.main.MainActivity
 import com.chatsoone.rechat.utils.permissionGrantred
-import com.chatsoone.rechat.utils.saveId
+import com.chatsoone.rechat.utils.saveID
 import com.kakao.sdk.user.UserApiClient
 
 @SuppressLint("CustomSplashScreen")
@@ -56,7 +56,7 @@ class SplashActivity: AppCompatActivity() {
 
         binding.splashStartBtn.setOnClickListener {
             USER_ID = -1
-            saveId(USER_ID)
+            saveID(USER_ID)
             AppDatabase.getInstance(this)!!.userDao().insert(User(-1, null, null, ACTIVE))
 
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
@@ -177,7 +177,7 @@ class SplashActivity: AppCompatActivity() {
                         // id 암호화(encrypted 사용) 후 spf 저장, 일단은 그냥 local 사용해 저장
                         // ----------------------------------
                         USER_ID = user.id
-                        saveId(user.id)
+                        saveID(user.id)
 
                         Log.d(tag, "user id: ${user.id}")
                         // ----------------------------------
@@ -195,12 +195,12 @@ class SplashActivity: AppCompatActivity() {
                     }
                     // 로그아웃 시
                     else if(state == "logout") {
-                        saveId(-1)
+                        saveID(-1)
                         // dao.updateStatus(user.id, "inactivate")
                     }
                     // 탈퇴 시
                     else if(state == "withdraw")
-                        saveId(-1)
+                        saveID(-1)
                     // dao.updateStatus(user.id, "delete")
                 }
             }

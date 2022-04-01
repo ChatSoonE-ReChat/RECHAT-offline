@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.chatsoone.rechat.databinding.FragmentExplain1Binding
 
-class Explain1Fragment(val imgRes: Int): Fragment() {
+class Explain1Fragment(val imgRes: Int) : Fragment() {
     lateinit var binding: FragmentExplain1Binding
 
     override fun onCreateView(

@@ -9,7 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.chatsoone.rechat.R
 import com.chatsoone.rechat.databinding.FragmentExplainBinding
 
-class ExplainFragment: Fragment(){
+class ExplainFragment : Fragment() {
     lateinit var binding: FragmentExplainBinding
 
     override fun onCreateView(
@@ -17,13 +17,13 @@ class ExplainFragment: Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding= FragmentExplainBinding.inflate(inflater, container, false)
+        binding = FragmentExplainBinding.inflate(inflater, container, false)
         initViewPager()
         return binding.root
     }
 
     private fun initViewPager() {
-        val explainAdapter=ExplainViewpagerAdapter(this)
+        val explainAdapter = ExplainViewpagerAdapter(this)
 
         // addFragment. 설명 이미지 추가하기
         explainAdapter.addFragment(Explain1Fragment(R.drawable.expain_01))

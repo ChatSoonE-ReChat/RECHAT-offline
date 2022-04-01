@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.chatsoone.rechat">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Template_Basic">
+        android:theme="@style/Theme.Template_Basic"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        tools:targetApi="s"
+        tools:ignore="DataExtractionRules">
 
         <activity
             android:name="com.chatsoone.rechat.ui.splash.SplashActivity"
@@ -27,27 +31,39 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.chatsoone.rechat.ui.explain.ExplainActivity" android:exported="false"/>
-        <activity android:name="com.chatsoone.rechat.ui.permission.PermissionActivity" android:exported="false" />
+        <!-- chat -->
+        <activity android:name=".ui.chat.ChatActivity" android:exported="false" />
+        <activity android:name=".ui.chat.FolderContentActivity" android:exported="false" />
+
+        <!-- explain -->
+        <activity android:name=".ui.explain.ExplainActivity" android:exported="false" />
+
+        <!-- main -->
         <activity android:name=".ui.main.MainActivity" android:exported="false" />
-        <activity android:name=".ui.main.MainEmptyActivity" android:exported="false" />
-        <activity android:name="com.chatsoone.rechat.ui.chat.ChatActivity" android:exported="false" />
-        <activity android:name="com.chatsoone.rechat.ui.MyFolderActivity" android:exported="false" />
-        <activity android:name="com.chatsoone.rechat.ui.pattern.CreatePatternActivity" android:exported="false" />
-        <activity android:name="com.chatsoone.rechat.ui.HiddenFolderActivity" android:exported="false" />
-        <activity android:name="com.chatsoone.rechat.ui.pattern.InputPatternActivity" android:exported="false" />
-        <activity android:name="com.chatsoone.rechat.ui.chat.FolderContentActivity" android:exported="false" />
-        <activity android:name="com.chatsoone.rechat.ui.BlockListActivity" android:exported="false" />
-        <activity android:name="com.chatsoone.rechat.ui.setting.PrivacyInformationActivity" android:exported="false" />
+
+        <!-- pattern -->
+        <activity android:name=".ui.pattern.CreatePatternActivity" android:exported="false" />
+        <activity android:name=".ui.pattern.InputPatternActivity" android:exported="false" />
+
+        <!-- pattern -->
+        <activity android:name=".ui.permission.PermissionActivity" android:exported="false" />
+
+        <!-- setting -->
+        <activity android:name=".ui.setting.PrivacyInformationActivity" android:exported="false" />
 
         <!-- NotificationListener 권한 얻기 -->
-        <service android:name="com.chatsoone.rechat.ui.MyNotificationListener"
+        <service android:name="com.chatsoone.rechat.MyNotificationListener"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
+        <!-- sample id: ca-app-pub-3940256099942544~3347511713 -->
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+<!--            android:value="@string/admob_app_id"/>-->
 
     </application>
 </manifest>

@@ -11,15 +11,14 @@ import com.chatsoone.rechat.base.BaseActivity
 import com.chatsoone.rechat.data.entity.Folder
 import com.chatsoone.rechat.data.local.AppDatabase
 import com.chatsoone.rechat.databinding.ActivityFolderContentBinding
-import com.chatsoone.rechat.utils.getId
 import com.google.gson.Gson
 
-class FolderContentActivity: BaseActivity<ActivityFolderContentBinding>(ActivityFolderContentBinding::inflate) {
+class FolderContentActivity :
+    BaseActivity<ActivityFolderContentBinding>(ActivityFolderContentBinding::inflate) {
     private lateinit var database: AppDatabase
     private lateinit var folderContentRVAdapter: FolderContentRVAdapter
 
     lateinit var folderInfo: Folder
-    private val userID = getId()
     private val tag = "ACT/FOLDER-CONTENT"
 
     override fun afterOnCreate() {
@@ -31,11 +30,11 @@ class FolderContentActivity: BaseActivity<ActivityFolderContentBinding>(Activity
     }
 
     // FolderContent 데이터 초기화
-    private fun initData(){
+    private fun initData() {
         database = AppDatabase.getInstance(this)!!
 
         // 전 페이지에서 데이터 가져오는 부분
-        if(intent.hasExtra("folderData")) {
+        if (intent.hasExtra("folderData")) {
             val folderJson = intent.getStringExtra("folderData")
             folderInfo = Gson().fromJson(folderJson, Folder::class.java)
             binding.folderContentNameTv.text = folderInfo.folderName
@@ -61,17 +60,18 @@ class FolderContentActivity: BaseActivity<ActivityFolderContentBinding>(Activity
         }
 
         // RecyclerView click listener 초기화
-        folderContentRVAdapter = FolderContentRVAdapter(this, size, object: FolderContentRVAdapter.MyClickListener {
-            // 채팅 삭제
-            override fun onRemoveChat(chatIdx: Int) {
-                database.folderContentDao().deleteChat(folderInfo.idx, chatIdx)
-            }
+        folderContentRVAdapter =
+            FolderContentRVAdapter(this, size, object : FolderContentRVAdapter.MyClickListener {
+                // 채팅 삭제
+                override fun onRemoveChat(chatIdx: Int) {
+                    database.folderContentDao().deleteChat(folderInfo.idx, chatIdx)
+                }
 
-            // 채팅 롱클릭 시 팝업 메뉴
-            override fun onChatLongClick(popupMenu: PopupMenu) {
-                popupMenu.show()
-            }
-        })
+                // 채팅 롱클릭 시 팝업 메뉴
+                override fun onChatLongClick(popupMenu: PopupMenu) {
+                    popupMenu.show()
+                }
+            })
         binding.folderContentRecyclerView.adapter = folderContentRVAdapter
     }
 
@@ -81,12 +81,18 @@ class FolderContentActivity: BaseActivity<ActivityFolderContentBinding>(Activity
             val windowInsets = currentWindowMetrics.windowInsets
             var insets: Insets = windowInsets.getInsets(WindowInsets.Type.navigationBars())
             windowInsets.displayCutout?.run {
-                insets = Insets.max(insets, Insets.of(safeInsetLeft, safeInsetTop, safeInsetRight, safeInsetBottom))
+                insets = Insets.max(
+                    insets,
+                    Insets.of(safeInsetLeft, safeInsetTop, safeInsetRight, safeInsetBottom)
+                )
             }
             val insetsWidth = insets.right + insets.left
             val insetsHeight = insets.top + insets.bottom
-            Point(currentWindowMetrics.bounds.width() - insetsWidth, currentWindowMetrics.bounds.height() - insetsHeight)
-        } else{
+            Point(
+                currentWindowMetrics.bounds.width() - insetsWidth,
+                currentWindowMetrics.bounds.height() - insetsHeight
+            )
+        } else {
             Point().apply {
                 defaultDisplay.getSize(this)
             }

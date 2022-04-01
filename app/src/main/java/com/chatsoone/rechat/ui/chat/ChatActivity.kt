@@ -24,11 +24,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.chatsoone.rechat.ApplicationClass.Companion.ACT
 import com.chatsoone.rechat.base.BaseActivity
 import com.chatsoone.rechat.ui.ChatViewModel
-import com.chatsoone.rechat.ui.DiffUtilCallback
+import com.chatsoone.rechat.utils.DiffUtilCallback
 import com.chatsoone.rechat.ui.FolderListRVAdapter
 import com.chatsoone.rechat.ui.pattern.CreatePatternActivity
 import com.chatsoone.rechat.ui.pattern.InputPatternActivity
-import com.chatsoone.rechat.utils.getId
+import com.chatsoone.rechat.utils.getID
 import kotlin.collections.ArrayList
 
 class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::inflate) {
@@ -45,7 +45,6 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
     private var chatList = ArrayList<ChatList>()
     private var isGroup: Boolean = false
     private var isAll: Int = 0 //모든 채팅을 불러오는지(1), 각 채팅방을 불러오는 것인지(-1)
-    private val userID = getId()
     private var isDeletedStatus: Boolean = false
     private val tag = "ACT/CHAT"
 
@@ -81,7 +80,8 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
         isAll = getSharedPreferences("chatAll", MODE_PRIVATE).getInt("chatAll", 0)
         if (intent.hasExtra("chatListJson")) {
             chatListData = intent.getSerializableExtra("chatListJson") as ChatList
-            if (chatListData.groupName == null || chatListData.groupName == "null") binding.chatNameTv.text = chatListData.nickName
+            if (chatListData.groupName == null || chatListData.groupName == "null") binding.chatNameTv.text =
+                chatListData.nickName
             else binding.chatNameTv.text = chatListData.groupName
             Log.d(tag, "initData()/chatListData: $chatListData")
         }
@@ -221,8 +221,10 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
                 // fab 버튼이 닫혀있는 경우 (일반 모드에서 클릭했을 때)
                 binding.chatMainFab.setImageResource(R.drawable.ic_cloud_move)
 //                binding.chatCancelFab.startAnimation(fabOpen)
-                ObjectAnimator.ofFloat(binding.chatCancelFab, "translationY", -450f).apply { start() }
-                ObjectAnimator.ofFloat(binding.chatDeleteFab, "translationY", -250f).apply { start() }
+                ObjectAnimator.ofFloat(binding.chatCancelFab, "translationY", -450f)
+                    .apply { start() }
+                ObjectAnimator.ofFloat(binding.chatDeleteFab, "translationY", -250f)
+                    .apply { start() }
 //                binding.chatCancelFab.startAnimation(fabOpen)
 //                binding.chatDeleteFab.startAnimation(fabOpen)
                 binding.chatCancelFab.visibility = View.VISIBLE
@@ -279,7 +281,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>(ActivityChatBinding::infl
         val height = (size.y * 0.4f).toInt()
 
         val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val popupView = inflater.inflate(R.layout.popup_window_to_folder_menu, null)
+        val popupView = inflater.inflate(R.layout.popup_window_to_folder, null)
         mPopupWindow = PopupWindow(popupView, width, height)
 
         mPopupWindow.animationStyle = 0        // 애니메이션 설정 (-1: 설정 안 함, 0: 설정)

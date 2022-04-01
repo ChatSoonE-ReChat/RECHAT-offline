@@ -1,4 +1,4 @@
-package com.chatsoone.rechat.ui
+package com.chatsoone.rechat.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.chatsoone.rechat.data.entity.ChatList

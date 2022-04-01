@@ -17,7 +17,8 @@ import com.chatsoone.rechat.databinding.ItemChatListDefaultBinding
 import com.chatsoone.rechat.data.entity.ChatList
 import com.chatsoone.rechat.data.entity.ChatListViewType
 import com.chatsoone.rechat.data.local.AppDatabase
-import com.chatsoone.rechat.utils.getId
+import com.chatsoone.rechat.databinding.ItemChatDefaultBinding
+import com.chatsoone.rechat.utils.getID
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -27,7 +28,7 @@ class HomeRVAdapter(
     private val mItemClickListener: MyItemClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val tag = "RV/HOME"
-    private val userID = getId()
+    private val userID = getID()
 
     var database = AppDatabase.getInstance(context)!!
     var chatList = ArrayList<ChatList>()
@@ -39,7 +40,10 @@ class HomeRVAdapter(
         fun onDefaultChatClick(view: View, position: Int, chat: ChatList)
 
         // 선택 모드에서 채팅을 클릭했을 때
-        fun onChooseChatClick(view: View, position: Int)
+        fun onChooseChatClick(position: Int)
+
+        // 프로필 사진 눌렀을 때 선택 모드로 전환되게끔
+        fun onProfileClick(position: Int)
     }
 
     // 뷰홀더를 생성해줘야 할 때 호출
@@ -149,10 +153,7 @@ class HomeRVAdapter(
     }
 
     // 데이터셋의 크기를 알려주는 함수
-    override fun getItemCount(): Int {
-        Log.d(tag, "chatList.size: ${chatList.size}")
-        return this.chatList.size
-    }
+    override fun getItemCount(): Int = this.chatList.size
 
     // 직접 설정한 뷰타입으로 설정되게 만든다.
     override fun getItemViewType(position: Int): Int = chatList[position].viewType!!
@@ -178,7 +179,6 @@ class HomeRVAdapter(
     fun addItem(chats: List<ChatList>) {
         chatList.clear()
         chatList.addAll(chats as ArrayList)
-        Log.d(tag, "chatList in MainRVAdapter: $chatList")
         notifyDataSetChanged()
     }
 
@@ -201,6 +201,13 @@ class HomeRVAdapter(
                     chatList[bindingAdapterPosition]
                 )
             }
+
+            binding.itemChatListProfileIv.setOnClickListener {
+                toggleItemSelected(null, position = bindingAdapterPosition)
+                mItemClickListener.onProfileClick(
+                    position = bindingAdapterPosition
+                )
+            }
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
@@ -216,8 +223,6 @@ class HomeRVAdapter(
             binding.itemChatListContentTv.text = chat.message
             binding.itemChatListDateTimeTv.text = convertDate(chat.postTime)
 //            binding.itemChatListDateTimeTv.text = chat.latestTime?.let { convertDate(it) }
-
-            Log.d(tag, "bind()/isNew: ${chat.isNew}")
 
             if (chat.isNew == 1) { // 새로 온 경우 NEW 표시
                 binding.itemChatListNewCv.visibility = View.VISIBLE
@@ -235,18 +240,20 @@ class HomeRVAdapter(
         init {
             binding.itemChatListChooseLayout.setOnClickListener {
                 toggleItemSelected(itemView, position = bindingAdapterPosition)
-                mItemClickListener.onChooseChatClick(itemView, position = bindingAdapterPosition)
+                mItemClickListener.onChooseChatClick(position = bindingAdapterPosition)
             }
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(chat: ChatList) {
-            if (chat.profileImg != null && chat.profileImg!!.isNotEmpty() && chat.groupName != null) binding.itemChatListProfileIv.setImageBitmap(
-                loadBitmap(chat.profileImg!!, context)
-            )
-            else if (chat.groupName != null || chat.groupName != "null") binding.itemChatListProfileIv.setImageResource(
-                R.drawable.ic_profile_default
-            )
+//            if (chat.profileImg != null && chat.profileImg!!.isNotEmpty() && chat.groupName != null) binding.itemChatListProfileIv.setImageBitmap(
+//                loadBitmap(chat.profileImg!!, context)
+//            )
+//            else if (chat.groupName != null || chat.groupName != "null") binding.itemChatListProfileIv.setImageResource(
+//                R.drawable.ic_profile_default
+//            )
+            binding.itemChatListProfileIv.setImageResource(R.drawable.ic_check_circle)
+
             binding.itemChatListNameTv.text = chat.nickName
             binding.itemChatListContentTv.text = chat.message
             binding.itemChatListDateTimeTv.text = convertDate(chat.postTime)

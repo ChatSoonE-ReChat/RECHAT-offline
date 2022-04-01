@@ -10,7 +10,7 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import com.chatsoone.rechat.base.BaseActivity
 import com.chatsoone.rechat.databinding.ActivityPermissionBinding
-import com.chatsoone.rechat.ui.MyNotificationListener
+import com.chatsoone.rechat.MyNotificationListener
 import com.chatsoone.rechat.utils.permissionGrantred
 
 class PermissionActivity: BaseActivity<ActivityPermissionBinding>(ActivityPermissionBinding::inflate) {

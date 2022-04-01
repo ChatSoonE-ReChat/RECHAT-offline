@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chatsoone.rechat.data.entity.Icon
 import com.chatsoone.rechat.databinding.ItemIconBinding
 
-class ChangeIconRVAdapter(private val iconList: ArrayList<Icon>): RecyclerView.Adapter<ChangeIconRVAdapter.ViewHolder>() {
+class IconRVAdapter(private val iconList: ArrayList<Icon>): RecyclerView.Adapter<IconRVAdapter.ViewHolder>() {
     // 클릭 인터페이스
     interface MyItemClickListener {
         fun onIconClick(itemIconBinding: ItemIconBinding, iconPosition: Int)

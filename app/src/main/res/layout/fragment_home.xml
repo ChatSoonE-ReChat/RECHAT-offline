@@ -16,26 +16,14 @@
         android:layout_marginTop="60dp"
         android:layout_marginBottom="30dp"
         android:fontFamily="@font/cafessurround"
-        android:text="@string/chat_list"
+        android:text="@string/home_all_chat"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="32sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@id/home_bg_recycler_view_v"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- 선택 모드 취소 버튼 -->
-    <ImageView
-        android:id="@+id/home_cancel_iv"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="9dp"
-        android:src="@drawable/ic_cancel_bg_white"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/home_title_tv"
-        app:layout_constraintStart_toEndOf="@id/home_title_tv"
-        app:layout_constraintTop_toTopOf="@id/home_title_tv" />
 
     <!-- 구름 아이콘 -->
     <ImageView
@@ -64,148 +52,52 @@
     <!-- 전체 채팅 recycler view -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_recycler_view"
-        tools:listitem="@layout/item_chat_list_default"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:background="@android:color/transparent"
         android:overScrollMode="never"
-        app:layout_constraintBottom_toTopOf="@id/home_bottom_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/home_bg_recycler_view_v" />
-
-    <!-- 하단 중앙 버튼 배경 -->
-    <ImageView
-        android:id="@+id/home_bottom_bg_center_iv"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginBottom="-10dp"
-        android:outlineProvider="none"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_bg_center_btn"
-        android:translationZ="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/home_bg_recycler_view_v"
+        tools:listitem="@layout/item_chat_list_default" />
 
-    <!-- 하단 중앙 보내기 버튼 -->
+    <!-- 선택 모드 취소 버튼 -->
     <ImageView
-        android:id="@+id/home_bottom_center_choose_iv"
-        android:layout_width="40dp"
+        android:id="@+id/home_cancel_iv"
+        android:layout_width="35dp"
         android:layout_height="35dp"
-        android:outlineProvider="none"
-        android:src="@drawable/ic_cloud_move"
-        android:translationZ="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/home_bottom_bg_center_iv"
-        app:layout_constraintEnd_toEndOf="@id/home_bottom_bg_center_iv"
-        app:layout_constraintStart_toStartOf="@id/home_bottom_bg_center_iv"
-        app:layout_constraintTop_toTopOf="@id/home_bottom_bg_center_iv"
-        app:layout_constraintVertical_bias="0.47" />
-
-    <!-- 하단 레이아웃 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/home_bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_cancel_gray"
         android:visibility="visible"
-        android:background="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/home_title_tv"
+        app:layout_constraintEnd_toStartOf="@id/home_delete_iv"
+        app:layout_constraintTop_toTopOf="@id/home_title_tv" />
+
+    <!-- 삭제하기 -->
+    <ImageView
+        android:id="@+id/home_delete_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/selector_home_delete"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/home_title_tv"
+        app:layout_constraintEnd_toStartOf="@id/home_block_iv"
+        app:layout_constraintTop_toTopOf="@id/home_title_tv" />
+
+    <!-- 차단하기 -->
+    <ImageView
+        android:id="@+id/home_block_iv"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/selector_home_block"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/home_title_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_recycler_view">
-
-        <!-- 제약을 위해 -->
-        <ImageView
-            android:id="@+id/home_bottom_center_position_iv"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginBottom="-10dp"
-            android:outlineProvider="none"
-            android:scaleType="centerCrop"
-            android:translationZ="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- 하단 레이아웃 배경 -->
-        <ImageView
-            android:id="@+id/home_bottom_v"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_bnv"
-            android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- 차단하기 -->
-        <ImageView
-            android:id="@+id/home_bottom_block_iv"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="1dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/selector_home_block"
-            android:translationZ="1dp"
-            app:layout_constraintHorizontal_bias="0.65"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/home_bottom_center_position_iv"
-            app:layout_constraintBottom_toTopOf="@id/home_bottom_block_tv" />
-
-        <!-- 차단하기 글씨 -->
-        <TextView
-            android:id="@+id/home_bottom_block_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/cafessurroundair"
-            android:text="@string/home_block"
-            android:textColor="@color/selector_font_color"
-            android:textSize="7sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/home_bottom_block_iv"
-            app:layout_constraintStart_toStartOf="@id/home_bottom_block_iv"
-            tools:ignore="SmallSp" />
-
-        <!-- 삭제하기 -->
-        <ImageView
-            android:id="@+id/home_bottom_delete_iv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="1dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/selector_home_delete"
-            android:translationZ="1dp"
-            app:layout_constraintHorizontal_bias="0.32"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/home_bottom_center_position_iv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/home_bottom_block_tv" />
-
-        <!-- 삭제하기 글씨 -->
-        <TextView
-            android:id="@+id/home_bottom_delete_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/cafessurroundair"
-            android:text="@string/home_delete"
-            android:textColor="@color/selector_font_color"
-            android:textSize="7sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/home_bottom_delete_iv"
-            app:layout_constraintStart_toStartOf="@id/home_bottom_delete_iv"
-            tools:ignore="SmallSp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="@id/home_title_tv" />
 
     <!-- 전체 화면 흐리게 -->
     <View

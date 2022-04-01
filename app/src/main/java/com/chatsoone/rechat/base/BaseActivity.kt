@@ -10,13 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.chatsoone.rechat.R
-import com.chatsoone.rechat.utils.getId
+import com.chatsoone.rechat.utils.getID
 
 abstract class BaseActivity<VB : ViewBinding>(private val inflate: (LayoutInflater) -> VB) :
     AppCompatActivity() {
     protected lateinit var binding: VB private set
     private var imm: InputMethodManager? = null
-    var userId = getId()
+    var userID = getID()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

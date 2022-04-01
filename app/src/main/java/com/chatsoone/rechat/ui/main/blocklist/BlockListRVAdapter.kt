@@ -8,24 +8,25 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.chatsoone.rechat.ApplicationClass.Companion.loadBitmap
 import com.chatsoone.rechat.data.entity.BlockedChatList
-import com.chatsoone.rechat.databinding.ItemBlockBinding
-import com.chatsoone.rechat.ui.BlockListActivity
+import com.chatsoone.rechat.databinding.ItemBlockListBinding
+import com.chatsoone.rechat.ui.main.MainActivity
 
 class BlockListRVAdapter(
-    private val mContext: BlockListActivity,
+    private val mContext: MainActivity,
     private val blockList: ArrayList<BlockedChatList>,
     private val param: MyClickListener
-): RecyclerView.Adapter<BlockListRVAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<BlockListRVAdapter.ViewHolder>() {
     var chatList = ArrayList<BlockedChatList>()
     private val tag = "RV/BLOCK-LIST"
 
     interface MyClickListener {
-        fun onRemoveChat(blockList:BlockedChatList)
+        fun onRemoveChat(blockList: BlockedChatList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemBlockBinding = ItemBlockBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemBlockListBinding = ItemBlockListBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return ViewHolder(binding)
     }
 
@@ -35,22 +36,24 @@ class BlockListRVAdapter(
 
     override fun getItemCount(): Int = blockList.size
 
-    // Add Data
+    // 차단 목록 업데이트
     @SuppressLint("NotifyDataSetChanged")
-    fun addItem(block: List<BlockedChatList>){//차단 목록 업데이트
+    fun addItem(block: List<BlockedChatList>) {
         blockList.clear()
         blockList.addAll(block as ArrayList)
         notifyDataSetChanged()
     }
 
-    private fun removeBlock(position: Int) {//roomdb지우고 ui의 리스트틀 삭제한다.
+    // 차단 해제하기 (차단 목록에서 제거)
+    private fun removeBlock(position: Int) {
+        // roomDB에서 해당 데이터 지우고 UI의 리스트 삭제
         blockList.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount);
     }
 
-    // 디폴트 뷰홀더
-    inner class ViewHolder(val binding: ItemBlockBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemBlockListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         @RequiresApi(Build.VERSION_CODES.O)
         fun bind(block: BlockedChatList) {
             binding.itemBlockCancelIv.setOnClickListener {
@@ -58,10 +61,13 @@ class BlockListRVAdapter(
                 removeBlock(position)
             }
 
-            if(block.groupName != null && block.groupName != "null") binding.itemBlockNameTv.text=block.groupName
-            else binding.itemBlockNameTv.text=block.blockedName
+            if (block.groupName != null && block.groupName != "null") binding.itemBlockNameTv.text =
+                block.groupName
+            else binding.itemBlockNameTv.text = block.blockedName
 
-            if(block.blockedProfileImg != null && block.blockedProfileImg != "null") binding.itemBlockProfileIv.setImageBitmap(loadBitmap(block.blockedProfileImg, mContext))
+            if (block.blockedProfileImg != null && block.blockedProfileImg != "null") binding.itemBlockProfileIv.setImageBitmap(
+                loadBitmap(block.blockedProfileImg, mContext)
+            )
         }
     }
 }

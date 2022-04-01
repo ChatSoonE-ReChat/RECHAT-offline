@@ -18,16 +18,15 @@ import com.chatsoone.rechat.data.entity.Icon
 import com.chatsoone.rechat.data.local.AppDatabase
 import com.chatsoone.rechat.databinding.ActivityMainBinding
 import com.chatsoone.rechat.ui.ChatViewModel
-import com.chatsoone.rechat.ui.MyNotificationListener
+import com.chatsoone.rechat.MyNotificationListener
 import com.chatsoone.rechat.ui.explain.ExplainActivity
 import com.chatsoone.rechat.ui.main.blocklist.BlockListFragment
-import com.chatsoone.rechat.ui.main.folder.FolderFragment
-import com.chatsoone.rechat.ui.main.hiddenfolder.HiddenFolderFragment
+import com.chatsoone.rechat.ui.main.folder.MyFolderFragment
+import com.chatsoone.rechat.ui.main.hiddenfolder.MyHiddenFolderFragment
 import com.chatsoone.rechat.ui.main.home.HomeFragment
 import com.chatsoone.rechat.ui.pattern.CreatePatternActivity
 import com.chatsoone.rechat.ui.pattern.InputPatternActivity
 import com.chatsoone.rechat.ui.setting.PrivacyInformationActivity
-import com.chatsoone.rechat.utils.getId
 import com.chatsoone.rechat.utils.permissionGrantred
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -53,7 +52,7 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
 
         initDrawerLayout()
         initBottomNavigationView()
-//        initAds()
+        initAds()
         initIcon()
         initFolder()
         initClickListener()
@@ -63,7 +62,8 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
     private fun initDrawerLayout() {
         binding.mainNavigationView.setNavigationItemSelectedListener(this)
         val menuItem = binding.mainNavigationView.menu.findItem(R.id.navi_setting_alarm_item)
-        val drawerSwitch = menuItem.actionView.findViewById(R.id.main_drawer_alarm_switch) as SwitchCompat
+        val drawerSwitch =
+            menuItem.actionView.findViewById(R.id.main_drawer_alarm_switch) as SwitchCompat
 
         // 알림 권한 허용 여부에 따라 스위치 초기 상태 지정
         if (permissionGrantred(this)) {
@@ -112,7 +112,7 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
             .commitAllowingStateLoss()
 
         binding.mainLayout.mainBnv.setOnItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.main_bnv_home -> {
                     // 전체 채팅
                     changeFragmentOnMain(HomeFragment())
@@ -127,13 +127,13 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
 
                 R.id.main_bnv_folder -> {
                     // 보관함
-                    changeFragmentOnMain(FolderFragment())
+                    changeFragmentOnMain(MyFolderFragment())
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.main_bnv_hidden_folder -> {
                     // 숨긴 보관함
-                    changeFragmentOnMain(HiddenFolderFragment())
+                    changeFragmentOnMain(MyHiddenFolderFragment())
                     return@setOnItemSelectedListener true
                 }
             }
@@ -141,21 +141,21 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
         }
     }
 
-//    // 광고 초기화
-//    private fun initAds() {
-//        MobileAds.initialize(this)
-//        val activityMainBinding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-//        val headerView = activityMainBinding.mainNavigationView.getHeaderView(0)
-//        mAdView = headerView.findViewById<AdView>(R.id.adViews)
-//        adRequest = AdRequest.Builder().build()
-//        mAdView.loadAd(adRequest)
-//    }
+    // 광고 초기화
+    private fun initAds() {
+        MobileAds.initialize(this)
+        val activityMainBinding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        val headerView = activityMainBinding.mainNavigationView.getHeaderView(0)
+        mAdView = headerView.findViewById<AdView>(R.id.adViews)
+        adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+    }
 
     // 아이콘 초기화
     private fun initIcon() {
         iconList = database.iconDao().getIconList() as ArrayList
 
-        if(iconList.isEmpty()) {
+        if (iconList.isEmpty()) {
             // 아이콘 목록 추가
             // database.iconDao().insert(Icon())
             // iconList = database.iconDao().getIconList() as ArrayList
@@ -164,7 +164,7 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
 
     // 폴더 초기화
     private fun initFolder() {
-        database.folderDao().getFolderList(userId).observe(this) {
+        database.folderDao().getFolderList(userID).observe(this) {
             Log.d(ACT, "MAIN/folderList: $folderList")
             folderList = it as ArrayList<Folder>
         }
@@ -176,7 +176,8 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
 
         // 설정 메뉴 아이콘 클릭했을 때 설정 메뉴 뜨도록
         binding.mainLayout.mainSettingMenuIv.setOnClickListener {
-            if(!binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            Log.d(ACT, "MAIN/open setting menu")
+            if (!binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                 mAdView.loadAd(adRequest)
                 binding.mainDrawerLayout.openDrawer(GravityCompat.START)
             }
@@ -185,17 +186,8 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
         // 설정 메뉴창에 있는 메뉴 아이콘 클릭했을 때 설정 메뉴 닫히도록
         val headerView = binding.mainNavigationView.getHeaderView(0)
         headerView.findViewById<ImageView>(R.id.main_drawer_setting_menu_iv).setOnClickListener {
+            Log.d(ACT, "MAIN/close setting menu")
             binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-        }
-
-        // 하단 중앙 버튼 클릭했을 때 선택 모드로 넘어가기
-        binding.mainLayout.mainBnvCenterDefaultIv.setOnClickListener {
-            val viewModeSPF = getSharedPreferences("viewModeSPF", 0)
-            val editor = viewModeSPF.edit()
-            editor.putInt("viewMode", 1)
-            editor.apply()
-
-            startNextActivity(MainEmptyActivity::class.java)
         }
     }
 
@@ -256,12 +248,12 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
     override fun onBackPressed() {
         super.onBackPressed()
 
-        if(binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if (binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.mainDrawerLayout.closeDrawers()
             return
         }
 
-        if(chatViewModel.mode.value == 1) {
+        if (chatViewModel.mode.value == 1) {
             chatViewModel.setMode(0)
             return
         }

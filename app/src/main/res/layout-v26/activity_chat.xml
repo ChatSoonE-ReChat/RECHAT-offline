@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#c4e5f2"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="#C4E5F2">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/chat_top_constraint_layout"
+        android:id="@+id/chat_title_constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="@drawable/bg_corners_bottom_white"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/chat_chat_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/chat_chat_recycler_view">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/chat_back_iv"
             android:layout_width="30dp"
             android:layout_height="25dp"
-            android:src="@drawable/ic_arrow_left_back"
-            android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_arrow_left_back"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/chat_name_tv"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/chat_name_tv" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/chat_name_tv"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:text="@string/name"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:gravity="center_vertical"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:layout_height="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="20dp"
-            app:layout_constraintTop_toTopOf="@+id/chat_back_iv"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@string/chat_name"
+            android:textColor="@color/black"
+            android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="@id/chat_back_iv"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/chat_back_iv"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/chat_back_iv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -52,16 +52,16 @@
         android:id="@+id/chat_chat_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/item_chat"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
         android:orientation="vertical"
         android:overScrollMode="never"
-        app:layout_constraintTop_toBottomOf="@+id/chat_top_constraint_layout"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/chat_title_constraint_layout"
+        tools:listitem="@layout/item_chat_default" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/chat_cancel_fab"
@@ -69,15 +69,15 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
         android:src="@drawable/ic_cancel_black"
-        app:borderWidth="0dp"
-        app:maxImageSize="20dp"
-        app:fabCustomSize="50dp"
-        android:visibility="visible"
         android:tint="@null"
-        app:layout_constraintTop_toTopOf="@+id/chat_main_fab"
+        android:visibility="visible"
+        app:borderWidth="0dp"
+        app:fabCustomSize="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/chat_main_fab"
+        app:layout_constraintEnd_toEndOf="@+id/chat_main_fab"
         app:layout_constraintStart_toStartOf="@+id/chat_main_fab"
-        app:layout_constraintEnd_toEndOf="@+id/chat_main_fab" />
+        app:layout_constraintTop_toTopOf="@+id/chat_main_fab"
+        app:maxImageSize="20dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/chat_delete_fab"
@@ -85,30 +85,30 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
         android:src="@drawable/ic_delete"
-        app:borderWidth="0dp"
-        app:maxImageSize="25dp"
-        app:fabCustomSize="60dp"
         android:visibility="visible"
-        app:tint="@null"
-        app:layout_constraintTop_toTopOf="@+id/chat_main_fab"
+        app:borderWidth="0dp"
+        app:fabCustomSize="60dp"
         app:layout_constraintBottom_toBottomOf="@+id/chat_main_fab"
+        app:layout_constraintEnd_toEndOf="@+id/chat_main_fab"
         app:layout_constraintStart_toStartOf="@+id/chat_main_fab"
-        app:layout_constraintEnd_toEndOf="@+id/chat_main_fab" />
+        app:layout_constraintTop_toTopOf="@+id/chat_main_fab"
+        app:maxImageSize="25dp"
+        app:tint="@null" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/chat_main_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="#FFFFFF"
         android:src="@drawable/ic_cloud"
-        app:maxImageSize="40dp"
-        app:fabCustomSize="80dp"
-        app:tint="@null"
         app:borderWidth="0dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginEnd="30dp"
+        app:fabCustomSize="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="40dp"
+        app:tint="@null" />
 
     <View
         android:id="@+id/chat_background_view"
@@ -116,9 +116,9 @@
         android:layout_height="match_parent"
         android:background="@color/bg_gray"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginBottom="20dp">
 
     <ImageView
         android:id="@+id/main_drawer_setting_menu_iv"
@@ -12,34 +13,35 @@
         android:layout_height="17.3dp"
         android:layout_marginStart="20dp"
         android:src="@drawable/ic_menu"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/main_drawer_setting_menu_email_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/noto_sans_korean"
+        android:includeFontPadding="false"
         android:text="@string/email"
         android:textColor="@color/gray"
         android:textSize="9sp"
-        android:fontFamily="@font/noto_sans_korean"
-        android:includeFontPadding="false"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_drawer_setting_menu_iv"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:ignore="SmallSp" />
 
-<!--    <com.google.android.gms.ads.AdView-->
-<!--        android:id="@+id/adViews"-->
-<!--        android:layout_width="280dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        app:adSize="BANNER"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/main_drawer_setting_menu_email_tv"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        app:adUnitId="@string/banner_ad_unit_id"/>-->
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        app:adSize="BANNER"
+        app:adUnitId="@string/banner_ad_unit_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_drawer_setting_menu_email_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

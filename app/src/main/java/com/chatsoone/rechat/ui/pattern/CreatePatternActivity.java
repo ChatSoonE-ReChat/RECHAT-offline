@@ -11,7 +11,6 @@ import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.chatsoone.rechat.R;
-import com.chatsoone.rechat.ui.MyFolderActivity;
 import com.chatsoone.rechat.ui.main.MainActivity;
 
 import java.util.List;
@@ -62,10 +61,10 @@ public class CreatePatternActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     finish();
-                } else if(mode == 2) {    // 폴더 화면으로 가면 된다.
-                    Intent intent = new Intent(getApplicationContext(), MyFolderActivity.class);
-                    startActivity(intent);
-                    finish();
+//                } else if(mode == 2) {    // 폴더 화면으로 가면 된다.
+//                    Intent intent = new Intent(getApplicationContext(), com.chatsoone.rechat.ui.main.folder.MyFolderActivity.class);
+//                    startActivity(intent);
+//                    finish();
                 } else {    //입력 모드로 가면 된다.
                     Intent intent = new Intent(getApplicationContext(), InputPatternActivity.class);
                     startActivity(intent);
