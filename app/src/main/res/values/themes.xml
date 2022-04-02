@@ -44,22 +44,6 @@
 
     <!-- MyFolder option PopupMenu -->
     <style name="MyFolderOptionPopupMenuTheme" parent="Theme.Template_Basic">
-        <item name="android:popupBackground">@drawable/background_folder_option_popup_menu</item>
-    </style>
-
-    <!-- MyFolder bottom PopupMenu -->
-    <style name="MyFolderBottomPopupMenuTheme" parent="android:style/Widget.PopupMenu">
-        <item name="android:popupBackground">@drawable/background_folder_bottom_popup_menu</item>
-    </style>
-
-    <!-- Main RecyclerView ScrollBar -->
-    <style name="scrollbar_shape_style">
-        <item name="android:scrollbarFadeDuration">0</item>
-        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
-        <item name="android:scrollbarStyle">outsideInset</item>
-        <item name="android:scrollbars">vertical</item>
-        <item name="android:fadeScrollbars">false</item>
-        <item name="android:scrollbarThumbVertical">@drawable/thumb</item>
-        <item name="android:scrollbarTrackVertical">@drawable/track</item>
+        <item name="android:popupBackground">@drawable/bg_popup_menu_folder_option</item>
     </style>
 </resources>

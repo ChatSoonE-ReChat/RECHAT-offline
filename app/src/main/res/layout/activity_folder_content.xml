@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d7d6ff"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="#D7D6FF">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/folder_content_constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="70sp"
-        android:background="@drawable/background_white_corner_bottom"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="70dp"
+        android:background="@drawable/bg_corners_bottom_white"
+        app:layout_constraintBottom_toTopOf="@+id/folder_content_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/folder_content_recycler_view">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/folder_content_back_iv"
             android:layout_width="30dp"
             android:layout_height="25dp"
-            android:src="@drawable/ic_arrow_left_back"
-            android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/ic_arrow_left_back"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/folder_content_name_tv" />
+            app:layout_constraintEnd_toStartOf="@+id/folder_content_name_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/folder_content_name_tv"
             android:layout_width="0dp"
             android:layout_height="20dp"
-            android:text="@string/name"
-            android:textColor="@color/black"
-            android:textSize="17sp"
-            android:gravity="center_vertical"
-            android:ellipsize="end"
-            android:maxLines="1"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="20dp"
-            app:layout_constraintTop_toTopOf="@+id/folder_content_back_iv"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@string/my_folder_name"
+            android:textColor="@color/black"
+            android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="@id/folder_content_back_iv"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/folder_content_back_iv"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/folder_content_back_iv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -52,55 +52,15 @@
         android:id="@+id/folder_content_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/item_folder"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         android:overScrollMode="never"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/folder_content_constraint_layout"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/folder_chat_cancel_fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="@color/white"-->
-<!--        android:src="@drawable/ic_cancel"-->
-<!--        app:borderWidth="0dp"-->
-<!--        app:maxImageSize="25dp"-->
-<!--        app:fabCustomSize="60dp"-->
-<!--        android:visibility="invisible"-->
-<!--        android:layout_marginBottom="15dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/folder_chat_main_fab"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/folder_chat_main_fab"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/folder_chat_main_fab" />-->
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/folder_chat_main_fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="#FFFFFF"-->
-<!--        android:src="@drawable/navi_center_cloud"-->
-<!--        app:maxImageSize="40dp"-->
-<!--        app:fabCustomSize="80dp"-->
-<!--        app:tint="@null"-->
-<!--        app:borderWidth="0dp"-->
-<!--        android:layout_marginBottom="30dp"-->
-<!--        android:layout_marginEnd="30dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
-<!--    <View-->
-<!--        android:id="@+id/folder_chat_background_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="@color/background_gray"-->
-<!--        android:visibility="invisible"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent" />-->
+        app:layout_constraintTop_toBottomOf="@+id/folder_content_constraint_layout"
+        tools:listitem="@layout/item_folder_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

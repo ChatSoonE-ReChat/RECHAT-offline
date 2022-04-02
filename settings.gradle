@@ -8,6 +8,6 @@ dependencyResolutionManagement {
 
     }
 }
-rootProject.name = "RE_CHAT"
+rootProject.name = "ReChat"
 include ':app'
-include ':nativetemplates'
+//include ':nativetemplates'

@@ -1,0 +1,129 @@
+package com.chatsoone.rechat.ui.main.folder
+
+import android.annotation.SuppressLint
+import android.util.Log
+import android.view.*
+import android.widget.PopupMenu
+import androidx.recyclerview.widget.RecyclerView
+import com.chatsoone.rechat.R
+import com.chatsoone.rechat.data.entity.Folder
+import com.chatsoone.rechat.databinding.ItemMyFolderBinding
+
+class MyFolderRVAdapter(private val fragment:MyFolderFragment): RecyclerView.Adapter<MyFolderRVAdapter.ViewHolder>() {
+    private lateinit var popupMenu: PopupMenu
+    private lateinit var binding: ItemMyFolderBinding
+
+    private val folderList = ArrayList<Folder>()
+    private val tag = "RV/MY-FOLDER"
+
+    // 클릭 인터페이스
+    interface MyItemClickListener {
+        fun onRemoveFolder(folderIdx: Int)
+        fun onHideFolder(folderIdx: Int)
+        fun onFolderNameLongClick(binding: ItemMyFolderBinding, folderIdx: Int)
+        fun onFolderClick(view: View, position: Int)
+        fun onFolderLongClick(popupMenu: PopupMenu)
+    }
+
+    // 리스너 객체를 저장하는 변수
+    private lateinit var mItemClickListener: MyItemClickListener
+
+    // 리스너 객체를 외부에서 전달받는 함수
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener) {
+        mItemClickListener = itemClickListener
+    }
+
+    // 뷰홀더를 생성해줘야 할 때 호출되는 함수
+    // 아이템 뷰 객체를 만들어서 뷰홀더에 던져준다.
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val binding: ItemMyFolderBinding =
+            ItemMyFolderBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+        return ViewHolder(binding)
+    }
+
+    // 뷰홀더에 데이터 바인딩을 해줘야 할 때마다 호출되는 함수
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(folderList[position])
+        binding = holder.binding
+
+        // 폴더 이름 롱클릭 시 이름 변경할 수 있도록
+        holder.binding.itemMyFolderTv.setOnLongClickListener {
+            mItemClickListener.onFolderNameLongClick(holder.binding, position)
+//            mItemClickListener.onFolderNameLongClick(holder.binding, position, folderList[position].folderIdx)
+            return@setOnLongClickListener false
+        }
+
+        // 폴더 클릭 시 해당 폴더로 이동할 수 있도록
+        holder.binding.itemMyFolderIv.setOnClickListener {
+            mItemClickListener.onFolderClick(holder.binding.itemMyFolderIv, position)
+        }
+
+        // 폴더 아이템 롱클릭 시 팝업 메뉴 뜨도록
+        holder.binding.itemMyFolderIv.setOnLongClickListener {
+            // 팝업 메뉴: 이름 바꾸기, 아이콘 바꾸기, 삭제하기, 숨기기
+            popupMenu = PopupMenu(fragment.context, holder.itemView, Gravity.START, 0, R.style.MyFolderOptionPopupMenuTheme)
+            popupMenu.menuInflater.inflate(R.menu.menu_folder_option, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item?.itemId) {
+                    R.id.popup_folder_edit_menu_1 -> {
+                        // 이름 바꾸기
+                        fragment.changeFolderName(holder.binding, folderList[position].idx)
+                    }
+
+                    R.id.popup_folder_edit_menu_2 -> {
+                        // 아이콘 바꾸기
+                        fragment.changeIcon(holder.binding, position, folderList[position].idx)
+                    }
+
+                    R.id.popup_folder_edit_menu_3 -> {
+                        // 삭제하기
+                        mItemClickListener.onRemoveFolder(folderList[position].idx)
+                        removeFolder(position)
+                    }
+
+                    R.id.popup_folder_edit_menu_4 -> {
+                        // 숨기기
+                        mItemClickListener.onHideFolder(folderList[position].idx)
+                        removeFolder(position)
+                    }
+                }
+                false
+            }
+            mItemClickListener.onFolderLongClick(popupMenu)
+            return@setOnLongClickListener false
+        }
+    }
+
+    // 데이터셋의 크기 반환
+    override fun getItemCount(): Int = folderList.size
+
+    // RecyclerView에 데이터 연결
+    @SuppressLint("NotifyDataSetChanged")
+    fun addFolderList(folderList: ArrayList<Folder>) {
+        this.folderList.clear()
+        this.folderList.addAll(folderList)
+        Log.d(tag, "addFolderList()/folderList: ${this.folderList}")
+        notifyDataSetChanged()
+    }
+    // index를 바꿔줘야 한다.
+    // 선택된 index를 지우고, 끝에 추가해준다.
+    private fun removeFolder(position: Int) {
+        folderList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, itemCount);
+    }
+
+    fun getSelectedFolder(position:Int):Folder{
+        return folderList[position]
+    }
+
+    // 뷰홀더
+    inner class ViewHolder(val binding: ItemMyFolderBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(folder: Folder) {
+            binding.itemMyFolderTv.text = folder.folderName
+            binding.itemMyFolderIv.setImageResource(folder.folderImg!!)
+        }
+    }
+}

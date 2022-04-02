@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chat_soon_e.re_chat">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.chatsoone.rechat">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
-        android:name="com.chat_soon_e.re_chat.ApplicationClass"
+        android:name="com.chatsoone.rechat.ApplicationClass"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,7 +19,7 @@
         android:theme="@style/Theme.Template_Basic">
 
         <activity
-            android:name="com.chat_soon_e.re_chat.ui.SplashActivity"
+            android:name="com.chatsoone.rechat.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,42 +27,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.chat_soon_e.re_chat.ui.explain.ExplainActivity" android:exported="false"/>
-        <activity android:name="com.chat_soon_e.re_chat.ui.PermissionActivity" android:exported="false" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.MainActivity" android:exported="false" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.ChatActivity" android:exported="false" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.CreatePatternActivity" android:exported="false" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.InputPatternActivity" android:exported="false" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.FolderContentActivity" android:exported="false" />
-        <activity android:name="com.chat_soon_e.re_chat.ui.BlockListActivity" android:exported="false" />
-        <activity android:name=".ui.PrivacyInformationActivity" android:exported="false" />
 
-<!--        <activity-->
-<!--            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+        <!-- chat -->
+        <activity android:name=".ui.chat.ChatActivity" android:exported="false" />
+        <activity android:name=".ui.chat.FolderContentActivity" android:exported="false" />
 
-<!--                &lt;!&ndash; Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" &ndash;&gt;-->
-<!--                <data android:host="oauth"-->
-<!--                    android:scheme="kakao63ebc69c67adf9e9e8f147df6508dc35" />-->
+        <!-- explain -->
+        <activity android:name=".ui.explain.ExplainActivity" android:exported="false" />
 
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <!-- main -->
+        <activity android:name=".ui.main.MainActivity" android:exported="false" />
+
+        <!-- pattern -->
+        <activity android:name=".ui.pattern.CreatePatternActivity" android:exported="false" />
+        <activity android:name=".ui.pattern.InputPatternActivity" android:exported="false" />
+
+        <!-- pattern -->
+        <activity android:name=".ui.permission.PermissionActivity" android:exported="false" />
+
+        <!-- setting -->
+        <activity android:name=".ui.setting.PrivacyInformationActivity" android:exported="false" />
 
         <!-- NotificationListener 권한 얻기 -->
-        <service android:name="com.chat_soon_e.re_chat.ui.MyNotificationListener"
+        <service android:name="com.chatsoone.rechat.MyNotificationListener"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
         <!--sample id: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id"/>
+
     </application>
 </manifest>
