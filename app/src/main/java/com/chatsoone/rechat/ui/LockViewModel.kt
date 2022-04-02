@@ -1,4 +1,4 @@
-package com.chat_soon_e.re_chat.ui
+package com.chatsoone.rechat.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

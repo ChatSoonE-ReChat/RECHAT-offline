@@ -1,17 +1,20 @@
 package com.chatsoone.rechat.ui.main
 
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
+import com.chatsoone.rechat.ui.LockViewModel
 import com.chatsoone.rechat.ApplicationClass
 import com.chatsoone.rechat.ApplicationClass.Companion.ACT
 import com.chatsoone.rechat.R
-import com.chatsoone.rechat.base.BaseActivity
 import com.chatsoone.rechat.data.entity.ChatList
 import com.chatsoone.rechat.data.entity.Folder
 import com.chatsoone.rechat.data.entity.Icon
@@ -27,35 +30,58 @@ import com.chatsoone.rechat.ui.main.home.HomeFragment
 import com.chatsoone.rechat.ui.pattern.CreatePatternActivity
 import com.chatsoone.rechat.ui.pattern.InputPatternActivity
 import com.chatsoone.rechat.ui.setting.PrivacyInformationActivity
+import com.chatsoone.rechat.utils.getID
 import com.chatsoone.rechat.utils.permissionGrantred
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : NavigationView.OnNavigationItemSelectedListener,
-    BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
+class MainActivity : NavigationView.OnNavigationItemSelectedListener, AppCompatActivity() {
+    private var userID = getID()
     private var permission: Boolean = true
     private val chatViewModel: ChatViewModel by viewModels()
-
-    // 광고
-    private lateinit var mAdView: AdView
-    private lateinit var adRequest: AdRequest
+    private val lockViewModel: LockViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
 
     lateinit var database: AppDatabase
     lateinit var iconList: ArrayList<Icon>
     lateinit var chatList: ArrayList<ChatList>
     lateinit var folderList: ArrayList<Folder>
 
-    override fun afterOnCreate() {
+    // 광고
+    private lateinit var mAdview: AdView
+    lateinit var adRequest: AdRequest
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         database = AppDatabase.getInstance(this)!!
 
-        initDrawerLayout()
-        initBottomNavigationView()
-        initAds()
         initIcon()
         initFolder()
+        lockViewModel.setMode(0)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initAds()
+        initHiddenFolder()
+
+        initBottomNavigationView()
+        initDrawerLayout()
         initClickListener()
+    }
+
+    // 광고 초기화
+    private fun initAds() {
+        MobileAds.initialize(this)
+        val headerView = binding.mainNavigationView.getHeaderView(0)
+        mAdview = headerView.findViewById<AdView>(R.id.adViews)
+        adRequest = AdRequest.Builder().build()
+        mAdview.loadAd(adRequest)
     }
 
     // 설정 메뉴
@@ -115,40 +141,58 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
             when (it.itemId) {
                 R.id.main_bnv_home -> {
                     // 전체 채팅
-                    changeFragmentOnMain(HomeFragment())
+                    replaceFragment(HomeFragment())
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.main_bnv_block_list -> {
                     // 차단 목록
-                    changeFragmentOnMain(BlockListFragment())
+                    replaceFragment(BlockListFragment())
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.main_bnv_folder -> {
                     // 보관함
-                    changeFragmentOnMain(MyFolderFragment())
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frame_layout, MyFolderFragment())
+                        .commitAllowingStateLoss()
+
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.main_bnv_hidden_folder -> {
                     // 숨긴 보관함
-                    changeFragmentOnMain(MyHiddenFolderFragment())
+                    val lockSPF = getSharedPreferences("lock", 0)
+                    val pattern = lockSPF.getString("pattern", "0")
+
+                    // 패턴 모드 설정
+                    // 0: 숨긴 폴더 목록을 확인하기 위한 입력 모드
+                    // 1: 메인 화면의 설정창 -> 변경 모드
+                    // 2: 폴더 화면의 설정창 -> 변경 모드
+                    // 3: 메인 화면 폴더 리스트에서 숨김 폴더 클릭 시
+                    val modeSPF = getSharedPreferences("mode", 0)
+                    val editor = modeSPF.edit()
+
+                    // 여기서는 0번 모드
+                    editor.putInt("mode", 0)
+                    editor.apply()
+
+                    if(pattern.equals("0")) {   // 패턴이 설정되어 있지 않은 경우 패턴 설정 페이지로
+                        Toast.makeText(this, "패턴이 설정되어 있지 않습니다.\n패턴을 설정해주세요.", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@MainActivity, CreatePatternActivity::class.java))
+                    } else {
+                        startActivity(Intent(this@MainActivity, InputPatternActivity::class.java))
+                    }
+
+                    // 올바른 패턴인지 확인
+                    // 1: 올바른 패턴
+                    // 2: 올바르지 않은 패턴
+                    initHiddenFolder()
                     return@setOnItemSelectedListener true
                 }
             }
             false
         }
-    }
-
-    // 광고 초기화
-    private fun initAds() {
-        MobileAds.initialize(this)
-        val activityMainBinding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-        val headerView = activityMainBinding.mainNavigationView.getHeaderView(0)
-        mAdView = headerView.findViewById<AdView>(R.id.adViews)
-        adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
     }
 
     // 아이콘 초기화
@@ -170,6 +214,16 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
         }
     }
 
+    private fun initHiddenFolder() {
+        val spf = getSharedPreferences("lock_correct", 0)
+        if (spf.getInt("correct", 0) == 1)
+            replaceFragment(MyHiddenFolderFragment())
+        else if (spf.getInt("correct", 0) == -1)
+            replaceFragment(MyFolderFragment())
+        else
+            replaceFragment(BlockListFragment())
+    }
+
     // click listener 초기화
     private fun initClickListener() {
         Log.d(ACT, "MAIN/initClickListener")
@@ -178,7 +232,7 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
         binding.mainLayout.mainSettingMenuIv.setOnClickListener {
             Log.d(ACT, "MAIN/open setting menu")
             if (!binding.mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                mAdView.loadAd(adRequest)
+//                mAdview.loadAd(adRequest)
                 binding.mainDrawerLayout.openDrawer(GravityCompat.START)
             }
         }
@@ -242,6 +296,12 @@ class MainActivity : NavigationView.OnNavigationItemSelectedListener,
             }
         }
         return false
+    }
+
+    // 프래그먼트 교체
+    private fun replaceFragment(fragment: Fragment){
+        this.supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frame_layout, fragment).commitAllowingStateLoss()
     }
 
     // 뒤로 가기 버튼 눌렀을 때

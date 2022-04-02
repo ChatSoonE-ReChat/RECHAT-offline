@@ -37,11 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         app:adSize="BANNER"
-        app:adUnitId="@string/banner_ad_unit_id"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_drawer_setting_menu_email_tv" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_drawer_setting_menu_email_tv"
+        android:layout_marginTop="20dp"
+        app:adUnitId="@string/banner_ad_unit_id"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,7 @@ import java.util.*
 class ApplicationClass : Application() {
     companion object {
         const val USER_INFO: String = "USER_LOGIN_INFO"
+        var count: Int = 0
 
         // log
         const val TAG: String = "RE:CHAT-APP"
@@ -57,7 +58,7 @@ class ApplicationClass : Application() {
             return bitmap
         }
 
-        //simpleDataFormat 사용할 것
+        // simpleDataFormat 사용할 것
         @RequiresApi(Build.VERSION_CODES.O)
         fun dateToString(date: Date): String {
             //오늘이 아니라면 날짜만

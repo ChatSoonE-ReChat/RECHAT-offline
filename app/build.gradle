@@ -104,24 +104,22 @@ dependencies {
     implementation 'com.github.markomilos:paginate:1.0.0'
 
     // spf 보안
-    implementation "androidx.security:security-crypto:1.1.0-alpha03"
+    implementation "androidx.security:security-crypto:1.0.0-rc03"
 
     // PatternLockView
     implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
 
     // by viewmodels()
-    implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation "androidx.activity:activity-ktx:1.3.1"
 
     // FloatingActionButton
     //noinspection GradleCompatible
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
     // Joda-Time
     implementation 'joda-time:joda-time:2.10.10'
 
     // 광고
-    implementation 'com.google.android.gms:play-services-ads:20.6.0'
-    constraints { implementation('androidx.work:work-runtime:2.7.0') {
-        because '''androidx.work:work-runtime:2.1.0 pulled from play-services-ads has a bug using PendingIntent without FLAG_IMMUTABLE or FLAG_MUTABLE and will fail in Apps targeting S+.''' } }
-//    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    implementation 'com.google.android.gms:play-services-ads:20.1.0'
+    implementation 'androidx.work:work-runtime-ktx:2.7.0'
 }

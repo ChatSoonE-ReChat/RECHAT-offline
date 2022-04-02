@@ -26,7 +26,6 @@ import com.chatsoone.rechat.databinding.*
 import com.chatsoone.rechat.ui.ChatViewModel
 import com.chatsoone.rechat.ui.FolderListRVAdapter
 import com.chatsoone.rechat.ui.chat.ChatActivity
-import com.chatsoone.rechat.ui.main.MainActivity
 import com.chatsoone.rechat.ui.pattern.CreatePatternActivity
 import com.chatsoone.rechat.ui.pattern.InputPatternActivity
 

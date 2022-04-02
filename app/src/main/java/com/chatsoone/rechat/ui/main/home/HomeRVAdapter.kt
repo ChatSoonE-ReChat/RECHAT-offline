@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.chatsoone.rechat.ApplicationClass.Companion.count
 import com.chatsoone.rechat.ApplicationClass.Companion.loadBitmap
 import com.chatsoone.rechat.R
 import com.chatsoone.rechat.databinding.ItemChatListChooseBinding
@@ -186,6 +187,7 @@ class HomeRVAdapter(
     fun getSelectedItem(): ArrayList<ChatList> {
         // chatlist에서 checked 된 list들의 chatIdx를 저장하고 가져온다
         val selectedList = chatList.filter { chatlist -> chatlist.isChecked }
+        count = selectedItemList.size()
         return selectedList as ArrayList<ChatList>
     }
 

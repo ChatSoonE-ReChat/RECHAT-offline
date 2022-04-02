@@ -1,2 +1,2 @@
-# UMC_RE_Chat
+# UMC_rechat
 UMC rechat project

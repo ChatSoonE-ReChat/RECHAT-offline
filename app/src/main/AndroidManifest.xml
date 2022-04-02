@@ -16,10 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Template_Basic"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        tools:targetApi="s"
-        tools:ignore="DataExtractionRules">
+        android:theme="@style/Theme.Template_Basic">
 
         <activity
             android:name="com.chatsoone.rechat.ui.splash.SplashActivity"
@@ -60,10 +57,10 @@
             </intent-filter>
         </service>
 
-        <!-- sample id: ca-app-pub-3940256099942544~3347511713 -->
-<!--        <meta-data-->
-<!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
-<!--            android:value="@string/admob_app_id"/>-->
+        <!--sample id: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id"/>
 
     </application>
 </manifest>
