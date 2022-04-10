@@ -16,4 +16,7 @@
 </div>
 
 ## About RE:CHAT
+<div align="center">
+<img src="https://user-images.githubusercontent.com/37200286/162614397-44ece47e-7f28-4985-bc5c-b714d2a4cb0c.jpg" width="300">
+사진 추후 추가--디자인 변경중</div>
 
