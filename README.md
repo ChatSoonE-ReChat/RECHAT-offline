@@ -53,7 +53,7 @@
 
 <img src="https://user-images.githubusercontent.com/37200286/170315282-d50f61b6-1be6-48b5-a683-5870d4b1a969.png" height="300">
 
-## Developer
+## Members
 Team Leader(PM), Agatha / 김민경
 Android Developer, 제니/이주연
 Android Developer, 서누/남선우
