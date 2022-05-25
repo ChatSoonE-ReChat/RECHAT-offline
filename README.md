@@ -16,7 +16,18 @@
 </div>
 
 ## About RE:CHAT
-<div align="center">
+>☁️☁️메인화면☁️☁️
+
+**RE:CHAT을 설치한 후부터 온 카카오톡 메세지들의 대화목록을 볼 수 있습니다.**
+
+하단의 네비게이션들은 채팅리스트, 차단리스트, 보관함, 비밀보관함으로 가는 메뉴입니다.
+
+프로필 사진을 누른뒤 오른쪽 상단의 설정 버튼을 누르면 삭제/차단을 할 수 있으며
+
+네비게이션의 가운데 구름버튼을 누르면 원하는 폴더로 대화들을 저장할 수 있습니다.
+
+<img src="https://user-images.githubusercontent.com/37200286/170303298-ecbb05d6-d2c7-46db-9ec7-0007de41a91d.jpg">
+
 <img src="https://user-images.githubusercontent.com/37200286/162614397-44ece47e-7f28-4985-bc5c-b714d2a4cb0c.jpg" width="300">
 사진 추후 추가--디자인 변경중</div>
 
