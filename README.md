@@ -21,13 +21,13 @@
 ## Details
 >☁️☁️**채팅리스트**☁️☁️ RE:CHAT을 설치한 후부터 온 카카오톡 메세지들의 대화목록을 볼 수 있습니다.
 
-*하단의 네비게이션들은 채팅리스트, 차단리스트, 보관함, 비밀보관함으로 가는 메뉴입니다.
+* 하단의 네비게이션들은 채팅리스트, 차단리스트, 보관함, 비밀보관함으로 가는 메뉴입니다.
 
-*프로필 사진을 누른뒤 오른쪽 상단의 설정 버튼을 누르면 삭제/차단을 할 수 있습니다.
+* 프로필 사진을 누른뒤 오른쪽 상단의 설정 버튼을 누르면 삭제/차단을 할 수 있습니다.
 
-*네비게이션의 가운데 구름버튼을 누르면 원하는 폴더로 대화들을 저장할 수 있습니다.
+* 네비게이션의 가운데 구름버튼을 누르면 원하는 폴더로 대화들을 저장할 수 있습니다.
 
-<img src="https://user-images.githubusercontent.com/37200286/170315285-023f7127-f779-47aa-8136-c2ced4c23e35.png" height="300">
+<img src="https://user-images.githubusercontent.com/37200286/170315285-023f7127-f779-47aa-8136-c2ced4c23e35.png" height="400">
 
 *채팅방을 클릭했을 때 나오는 대화방에서는 오른쪽 하단의 버튼을 누른뒤, 각 대화를 선택해서 삭제 및 폴더 보관이 가능합니다.
 
@@ -35,25 +35,33 @@
 
 >☁️☁️**차단목록**☁️☁️ 차단된 대화방을 볼 수 있습니다.
 
-*여기에 있는 대화방들은 더 이상 채팅리스트에 새로운 메세지가 저장되지 않습니다.
+* 여기에 있는 대화방들은 더 이상 채팅리스트에 새로운 메세지가 저장되지 않습니다.
 
-*각 목록의 엑스 버튼을 누르면 다시 차단 해제가 되어 메세지를 받을 수 있게 됩니다.
+* 각 목록의 엑스 버튼을 누르면 다시 차단 해제가 되어 메세지를 받을 수 있게 됩니다.
 
-<img src="https://user-images.githubusercontent.com/37200286/170315284-ae2a1d8c-a231-4890-a3b6-b9e1a457cebf.png" height="300">
+<img src="https://user-images.githubusercontent.com/37200286/170315284-ae2a1d8c-a231-4890-a3b6-b9e1a457cebf.png" height="400">
 
 ##
 
 >☁️☁️**보관함**☁️☁️ 카카오톡 메세지가 분류된 폴더들을 볼 수 있습니다.
 
-*가운데 + 버튼을 눌러 메세지를 보관할 폴더를 생성할 수 있습니다.
+* 가운데 + 버튼을 눌러 메세지를 보관할 폴더를 생성할 수 있습니다. 
+* 생성할 수 있는 폴더 아이콘들은 아래와 같습니다.
 
-*비밀 보관함은 맨 오른쪽과 같이 패턴을 입력하여 들어갈 수 있습니다.
+<img src="https://user-images.githubusercontent.com/37200286/170324964-c54157c0-c7cb-409e-875e-5b964d7fbe56.png" height="300"> <img src="https://user-images.githubusercontent.com/37200286/170315282-d50f61b6-1be6-48b5-a683-5870d4b1a969.png" height="300">
 
-<img src="https://user-images.githubusercontent.com/37200286/170315276-e9df4f37-fd50-42db-af87-afa8e99fe24b.png" height="300">
+##
 
-*생성할 수 있는 폴더 아이콘들은 아래와 같습니다.
+>☁️☁️**비밀 보관함**☁️☁️ 숨긴 폴더들을 볼 수 있습니다.
 
-<img src="https://user-images.githubusercontent.com/37200286/170315282-d50f61b6-1be6-48b5-a683-5870d4b1a969.png" height="300">
+* 보관함에서 숨김 처리한 폴더들을 볼 수 있습니다.
+
+* 패턴을 입력하고 들어갈 수 있습니다.
+
+* 패턴 변경은 왼쪽 상단의 버튼을 눌러 설정에 들어간 뒤 패턴 변경하기를 누르면 변경이 가능합니다! 
+
+<img src="https://user-images.githubusercontent.com/37200286/170324901-7e9a11ea-f602-4c58-a225-d00f7ac4b318.png" height="400">
+
 
 ## Members
 <img src="https://user-images.githubusercontent.com/37200286/170320702-994492dc-8132-46aa-bb89-48f1c837556c.png" width="150">|<img src="https://user-images.githubusercontent.com/37200286/170320714-20f3a432-3432-4adf-a799-da89e96aaa92.png" width="150">|<img src="https://user-images.githubusercontent.com/37200286/170320707-05654267-b53a-4126-b54c-b1b87c06d675.png" width="150">|<img src="https://user-images.githubusercontent.com/37200286/170320711-2ae1ec5b-c029-42ae-aa13-42fda72856f0.png" width="150">
