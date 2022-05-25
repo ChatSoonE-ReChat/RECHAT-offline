@@ -4,7 +4,7 @@
 
   <a href='https://play.google.com/store/apps/details?id=com.chat_soon_e.re_chat&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' ><img alt='다운로드하기 Google Play' Width="170" src='https://play.google.com/intl/ko/badges/static/images/badges/ko_badge_web_generic.png'/></a>
   
-![ic_launcher_foreground](https://user-images.githubusercontent.com/37200286/170323177-58da00c9-69ed-451e-af46-60e59d9d4f46.png)
+<img src="https://user-images.githubusercontent.com/37200286/170323177-58da00c9-69ed-451e-af46-60e59d9d4f46.png" height="200">
   
   방도 정리하는데, 톡 방은 정리 못하나요?!
 
