@@ -53,8 +53,9 @@
 
 <img src="https://user-images.githubusercontent.com/37200286/170315282-d50f61b6-1be6-48b5-a683-5870d4b1a969.png" height="300">
 
-## Membersㅇ
-Team Leader(PM), Agatha / 김민경
-Android Developer, 제니/이주연
-Android Developer, 서누/남선우
-Server Developer (Node.js), 제비/변재호
+## Members
+<img src="https://user-images.githubusercontent.com/37200286/170320702-994492dc-8132-46aa-bb89-48f1c837556c.png" width="150">|<img src="https://user-images.githubusercontent.com/37200286/170320714-20f3a432-3432-4adf-a799-da89e96aaa92.png" width="150">|<img src="https://user-images.githubusercontent.com/37200286/170320707-05654267-b53a-4126-b54c-b1b87c06d675.png" width="150">|<img src="https://user-images.githubusercontent.com/37200286/170320711-2ae1ec5b-c029-42ae-aa13-42fda72856f0.png" width="150">
+---|---|---|---|
+**Agatha/김민경**|**제니/이주연**|**서누/남선우**|**제비/변재호**
+Team Leader(PM)|Android Developer|Android Developer|Server Developer (Node.js)
+
